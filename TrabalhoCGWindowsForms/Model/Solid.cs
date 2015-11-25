@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using WpfApplication1.Utils;
+using TrabalhoCGWindowsForms.Utils;
 
-namespace WpfApplication1.Model {
+namespace TrabalhoCGWindowsForms.Model {
     class Solid {
 
         private double[,] _points;
         private int[,] _edges;
-        private Vector _faces;
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        public Vector Faces { get; private set; }
 
         public int[,] Edges {
             get { return _edges; }
@@ -27,6 +19,7 @@ namespace WpfApplication1.Model {
             set { _points = value; }
         }
         public Solid() {
+            Faces = new Vector(0,0,0);
             _points = new double[,] {
                 {0,0,50,1},
                 {50,0,50,1},
@@ -38,7 +31,7 @@ namespace WpfApplication1.Model {
                 {0,50,0,1},
                 {25,25,25,1}
             };
-            _edges=new int[,] {
+            _edges=new[,] {
                 {0,1},
                 {1,2},
                 {2,3},
@@ -61,7 +54,6 @@ namespace WpfApplication1.Model {
 
         public void XAxisRotation(float angle) {
             const double toRadian = Math.PI/180;
-            var x = Points[0, 8];
             var y = Points[1, 8];
             var z = Points[2, 8];
             var cosTheta = Math.Cos(angle*toRadian);
@@ -76,7 +68,6 @@ namespace WpfApplication1.Model {
         public void YAxisRotation(float angle) {
             const double toRadian = Math.PI/180;
             var x = Points[0, 8];
-            var y = Points[1, 8];
             var z = Points[2, 8];
             var cosTheta = Math.Cos(angle*toRadian);
             var sinTheta = Math.Sin(angle*toRadian);
@@ -91,7 +82,6 @@ namespace WpfApplication1.Model {
             const double toRadian = Math.PI/180;
             var x = Points[0, 8];
             var y = Points[1, 8];
-            var z = Points[2, 8];
             var cosTheta = Math.Cos(angle*toRadian);
             var sinTheta = Math.Sin(angle*toRadian);
             var matrix = new[,] {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApplication1.Utils;
+﻿using System.Collections.Generic;
+using TrabalhoCGWindowsForms.Utils;
 
-namespace WpfApplication1.Model {
+namespace TrabalhoCGWindowsForms.Model {
     internal class Polygon {
         private List<Edge> _edges;
         private short _faceNumber; // 1 - Front, 2 - Top, 3 - Right, 4 - Left, 5 - Botton, 6 - Back

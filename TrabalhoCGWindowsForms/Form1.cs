@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WpfApplication1.Model;
-using WpfApplication1.Utils;
+using TrabalhoCGWindowsForms.Model;
+using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms {
     public partial class Form1 : Form {
@@ -35,7 +27,7 @@ namespace TrabalhoCGWindowsForms {
             frontView.Image = new Bitmap(frontView.Width, frontView.Height);
             leftView.Image = new Bitmap(leftView.Width, leftView.Height);
             topView.Image = new Bitmap(topView.Width, topView.Height);
-            for (int i = 0; i < solidsList.Count; i++) {
+            for (var i = 0; i < solidsList.Count; i++) {
                 foreach (var solid in solidsList[i]) {
                     if (i == selectedGuy) {
                         DrawView(solid, topView, 0, true);
@@ -81,14 +73,14 @@ namespace TrabalhoCGWindowsForms {
             //var width = (pc.Width / 2.0) - solid.Points[x, 8];
            // Console.WriteLine("{0} {1}",pc.Width, pc.Height);
 
-            Graphics g = Graphics.FromImage(pc.Image);
+            var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
             var myPen = new Pen(Color.Black, 1);
             if (select) {
                 myPen = new Pen(Color.Yellow, 1);
             }
-            double[,] matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
-            for (int i = 0; i < 12; i++) {
+            var matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
+            for (var i = 0; i < 12; i++) {
                 g.DrawLine(myPen, (float)matrix[x, solid.Edges[i, 0]],
                                          (float)matrix[y, solid.Edges[i, 0]], 
                                          (float)matrix[x, solid.Edges[i, 1]], 
@@ -148,57 +140,55 @@ namespace TrabalhoCGWindowsForms {
 
         private void topView_Click(object sender, EventArgs e) {
             if (checkBox1.Checked) {
-                MouseEventArgs me = (MouseEventArgs) e;
-                Point coordinates = me.Location;
-                addCube(coordinates,0);
+                var me = (MouseEventArgs) e;
+                var coordinates = me.Location;
+                AddCube(coordinates,0);
                
             }
             else {
-                MouseEventArgs me = (MouseEventArgs)e;
-                Point coordinates = me.Location;
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
                if(solidsList.Count != 0){
-                    selectedGuy = selectCube(coordinates, 0);
+                    selectedGuy = SelectCube(coordinates, 0);
                     DrawSolids();
                 }
                 view = 0;
             }
         }
 
-        private int selectCube(Point coordinates,  int index) {
-            double maiorX = 0;
-            double maiorY = 0;
-            double menorX = double.MaxValue;
-            double menorY = double.MaxValue;
-            bool flag = false;
-            double distance = 0;
-            int solidInQuestion = 0;
-            double menor = double.MaxValue;
+        private int SelectCube(Point coordinates,  int index) {
+            var maiorX = 0.0;
+            var maiorY = 0.0;
+            var menorX = double.MaxValue;
+            var menorY = double.MaxValue;
+            var flag = false;
+            double distance;
+            var solidInQuestion = 0;
+            var menor = double.MaxValue;
             double x, y;
             //Choosing the nearest cube from the click
             switch (index) {
                 case 0:
-                    for (int i = 0; i < solidsList.Count; i++) {
+                    for (var i = 0; i < solidsList.Count; i++) {
                         foreach (var solid in solidsList[i]) {
                             x = solid.Points[0, 8];
                             y = solid.Points[2, 8];
                             distance = Math.Sqrt(Math.Pow((x - coordinates.X), 2) + Math.Pow((y - coordinates.Y), 2));
-                            if (menor > distance) {
-                                menor = distance;
-                                solidInQuestion = i;
-                            }   
+                            if (!(menor > distance)) continue;
+                            menor = distance;
+                            solidInQuestion = i;
                         }   
                     }
                     break;
                 case 1:
-                    for (int i = 0; i < solidsList.Count; i++) {
+                    for (var i = 0; i < solidsList.Count; i++) {
                         foreach (var solid in solidsList[i]) {
                             x = solid.Points[2, 8];
                             y = solid.Points[1, 8];
                             distance = Math.Sqrt(Math.Pow((x - coordinates.X), 2) + Math.Pow((y - coordinates.Y), 2));
-                            if (menor > distance) {
-                                menor = distance;
-                                solidInQuestion = i;
-                            }   
+                            if (!(menor > distance)) continue;
+                            menor = distance;
+                            solidInQuestion = i;
                         }   
                     }
                     break;
@@ -283,7 +273,7 @@ namespace TrabalhoCGWindowsForms {
 
         }
 
-        private void addCube(Point coordinates, int index) {
+        private void AddCube(Point coordinates, int index) {
             var l = new List<Solid>();
             var k = new Solid();
             //MatrixOperations.DebugMatrix(k.Points);
@@ -319,15 +309,15 @@ namespace TrabalhoCGWindowsForms {
 
         private void leftView_Click(object sender, EventArgs e) {
             if (checkBox1.Checked) {
-                MouseEventArgs me = (MouseEventArgs)e;
-                Point coordinates = me.Location;
-                addCube(coordinates, 1);
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
+                AddCube(coordinates, 1);
 
             } else {
-                MouseEventArgs me = (MouseEventArgs)e;
-                Point coordinates = me.Location;
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
                 if (solidsList.Count != 0) {
-                    selectedGuy = selectCube(coordinates, 1);
+                    selectedGuy = SelectCube(coordinates, 1);
                     DrawSolids();
                 }
                 view = 1;
@@ -342,15 +332,15 @@ namespace TrabalhoCGWindowsForms {
 
         private void frontView_Click(object sender, EventArgs e) {
             if (checkBox1.Checked) {
-                MouseEventArgs me = (MouseEventArgs)e;
-                Point coordinates = me.Location;
-                addCube(coordinates, 2);
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
+                AddCube(coordinates, 2);
 
             } else {
-                MouseEventArgs me = (MouseEventArgs)e;
-                Point coordinates = me.Location;
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
                 if (solidsList.Count != 0){
-                    selectedGuy = selectCube(coordinates, 2);
+                    selectedGuy = SelectCube(coordinates, 2);
                     DrawSolids();
                 }
                 view = 2;
@@ -380,72 +370,99 @@ namespace TrabalhoCGWindowsForms {
         private void Form1_KeyPress(object sender, KeyPressEventArgs e) {
             switch (view) {
                 case 0:
-                    if (e.KeyChar == 'w' || e.KeyChar == 'W') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 0, -1);
-                        }
-                        DrawSolids();
-                    }else if (e.KeyChar == 's' || e.KeyChar == 'S') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 0, 1);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'd' || e.KeyChar == 'D') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(1, 0, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'a' || e.KeyChar == 'A') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(-1, 0, 0);
-                        }
-                        DrawSolids();
+                    switch (e.KeyChar) {
+                        case 'w':
+                        case 'W':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 0, -1);
+                            }
+                            DrawSolids();
+                            break;
+                        case 's':
+                        case 'S':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 0, 1);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'd':
+                        case 'D':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(1, 0, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'a':
+                        case 'A':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(-1, 0, 0);
+                            }
+                            DrawSolids();
+                            break;
                     }
                     break;
                 case 1:
-                    if (e.KeyChar == 'w' || e.KeyChar == 'W') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, -1, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 's' || e.KeyChar == 'S') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 1, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'd' || e.KeyChar == 'D') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 0, 1);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'a' || e.KeyChar == 'A') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 0, -1);
-                        }
-                        DrawSolids();
+                    switch (e.KeyChar) {
+                        case 'w':
+                        case 'W':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, -1, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 's':
+                        case 'S':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 1, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'd':
+                        case 'D':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 0, 1);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'a':
+                        case 'A':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 0, -1);
+                            }
+                            DrawSolids();
+                            break;
                     }
                     break;
                 case 2:
-                    if (e.KeyChar == 'w' || e.KeyChar == 'W') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, -1, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 's' || e.KeyChar == 'S') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(0, 1, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'd' || e.KeyChar == 'D') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(1, 0, 0);
-                        }
-                        DrawSolids();
-                    } else if (e.KeyChar == 'a' || e.KeyChar == 'A') {
-                        foreach (var solid in solidsList[selectedGuy]) {
-                            solid.Translation(-1, 0, 0);
-                        }
-                        DrawSolids();
+                    switch (e.KeyChar) {
+                        case 'w':
+                        case 'W':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, -1, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 's':
+                        case 'S':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(0, 1, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'd':
+                        case 'D':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(1, 0, 0);
+                            }
+                            DrawSolids();
+                            break;
+                        case 'a':
+                        case 'A':
+                            foreach (var solid in solidsList[selectedGuy]) {
+                                solid.Translation(-1, 0, 0);
+                            }
+                            DrawSolids();
+                            break;
                     }
                     break;
             }

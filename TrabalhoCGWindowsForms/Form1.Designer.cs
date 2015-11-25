@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Configuration;
-using WpfApplication1.Model;
+using TrabalhoCGWindowsForms.Model;
 
 namespace TrabalhoCGWindowsForms {
     partial class Form1 {

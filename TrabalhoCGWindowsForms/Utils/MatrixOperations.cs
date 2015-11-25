@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApplication1.Model;
+using TrabalhoCGWindowsForms.Model;
 
-namespace WpfApplication1.Utils {
+namespace TrabalhoCGWindowsForms.Utils {
     public static class MatrixOperations {
         private const double Rad = Math.PI / 180;
 
@@ -17,7 +13,7 @@ namespace WpfApplication1.Utils {
             var lb = b.GetLength(0);
             var cb = b.GetLength(1);
             if (ca != lb) {
-                Console.WriteLine("As matrizes possuem dimensoes incompativeis");
+                Console.WriteLine(@"As matrizes possuem dimensoes incompativeis");
             }
             for (var i = 0; i < la; i++) {
                 for (var j = 0; j < cb; j++) {
@@ -31,7 +27,7 @@ namespace WpfApplication1.Utils {
         }
 
         public static double[,] Translation(double x, double y, double z) {
-            return new double[,] { { 1, 0, 0, x }, { 0, 1, 0, y }, { 0, 0, 1, z }, { 0, 0, 0, 1 } };
+            return new[,] { { 1, 0, 0, x }, { 0, 1, 0, y }, { 0, 0, 1, z }, { 0, 0, 0, 1 } };
         }
 
         public static double[,] XAxisRotation(double angle) {
@@ -71,11 +67,11 @@ namespace WpfApplication1.Utils {
             return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
         }
 
-        public static double[,] TransposeMatrix(double[,] A) {
-            var aux = new double[A.GetLength(1), A.GetLength(0)];
+        public static double[,] TransposeMatrix(double[,] a) {
+            var aux = new double[a.GetLength(1), a.GetLength(0)];
             for (var i = 0; i < aux.GetLength(0); i++) {
                 for (var j = 0; j < aux.GetLength(1); j++) {
-                    aux[i, j] = A[j, i];
+                    aux[i, j] = a[j, i];
                 }
             }
             return aux;
@@ -96,9 +92,9 @@ namespace WpfApplication1.Utils {
         }
 
         public static void DebugMatrix(double[,] x) {
-            for (int i = 0; i < x.GetLength(0); i++) {
-                for (int j = 0; j < x.GetLength(1); j++) {
-                    Console.Write("{0} ", x[i, j]);
+            for (var i = 0; i < x.GetLength(0); i++) {
+                for (var j = 0; j < x.GetLength(1); j++) {
+                    Console.Write(@"{0} ", x[i, j]);
                 }
                 Console.WriteLine();
             }
