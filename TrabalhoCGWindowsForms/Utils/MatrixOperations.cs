@@ -51,7 +51,7 @@ namespace WpfApplication1.Utils {
         }
 
         public static double[,] Scale(double k) {
-            return new double[,] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, k }, { 0, 0, 0, 1 } };
+            return new[,] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, k, 0 }, { 0, 0, 0, 1 } };
         }
 
         public static Vector NormalizeVector(Vector x) {
