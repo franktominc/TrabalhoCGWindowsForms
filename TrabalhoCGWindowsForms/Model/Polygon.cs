@@ -38,7 +38,7 @@ namespace TrabalhoCGWindowsForms.Model {
             var b = _edges[3].StartVector - _edges[3].FinishVector;
             
             
-            NormalVector = MatrixOperations.CrossProduct(a, b);
+            NormalVector = MathOperations.CrossProduct(a, b);
         }
     }
 }

@@ -6,17 +6,16 @@ namespace TrabalhoCGWindowsForms.Model {
     [Serializable]
     class Solid {
 
-        private double[,] _points;
-        private int[,] _edges;
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public int[,] Faces { get; private set; }
+        private double[,] _points;  //vertices do solido
+        private int[,] _edges;  //arestas do solido
+        public int[,] Faces { get; private set; }   //faces do solido
 
         public int[,] Edges {
             get { return _edges; }
             set { _edges = value; }
 
         }
-        private bool[] _visibleFaces = {
+        private bool[] _visibleFaces = {    //bitmap de faces visiveis
             false,
             false,
             false,
@@ -25,17 +24,17 @@ namespace TrabalhoCGWindowsForms.Model {
             false
         };
 
-        public bool[] VisibleFaces{
+        public bool[] VisibleFaces {
             get { return _visibleFaces; }
             set { _visibleFaces = value; }
         }
 
-        public double[,] Points{
+        public double[,] Points {
             get { return _points; }
             set { _points = value; }
         }
-        public Solid() {
-            
+        public Solid() {    //cria um solido padrao
+
             _points = new double[,] {
                 {0,0,50,1},
                 {50,0,50,1},
@@ -47,7 +46,7 @@ namespace TrabalhoCGWindowsForms.Model {
                 {0,50,0,1},
                 {25,25,25,1}
             };
-            _edges=new[,] {
+            _edges = new[,] {
                 {0,1},
                 {1,2},
                 {2,3},
@@ -69,95 +68,84 @@ namespace TrabalhoCGWindowsForms.Model {
                 {3,2,6,7},
                 {0,4,5,1}
             };
-            
-            _points = MatrixOperations.TransposeMatrix(_points);
+
+            _points = MathOperations.TransposeMatrix(_points);
         }
 
-        
-
-        public void XAxisRotation(float angle) {
-            const double toRadian = Math.PI/180;
+        public void XAxisRotation(float angle) {    //rotaciona o solido em torno do eixo x
+            const double toRadian = Math.PI / 180;
             var y = Points[1, 8];
             var z = Points[2, 8];
-            var cosTheta = Math.Cos(angle*toRadian);
-            var sinTheta = Math.Sin(angle*toRadian);
+            var cosTheta = Math.Cos(angle * toRadian);
+            var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,]{
                 {1, 0, 0, 0}, {0, cosTheta, -sinTheta, y - y*cosTheta + z*sinTheta},
                 {0, sinTheta, cosTheta, z - z*cosTheta - y*sinTheta}, {0, 0, 0, 1}
             };
-            Points = MatrixOperations.MatrixMultiplication(matrix, Points);
+            Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void YAxisRotation(float angle) {
-            const double toRadian = Math.PI/180;
+        public void YAxisRotation(float angle) {    //rotaciona o solido em torno do eixo y
+            const double toRadian = Math.PI / 180;
             var x = Points[0, 8];
             var z = Points[2, 8];
-            var cosTheta = Math.Cos(angle*toRadian);
-            var sinTheta = Math.Sin(angle*toRadian);
+            var cosTheta = Math.Cos(angle * toRadian);
+            var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,] {
                 {cosTheta, 0, sinTheta, x - x*cosTheta - z*sinTheta}, {0, 1, 0, 0},
                 {-sinTheta, 0, cosTheta, z - z*cosTheta + x*sinTheta}, {0, 0, 0, 1}
             };
-            Points = MatrixOperations.MatrixMultiplication(matrix, Points);
+            Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void ZAxisRotation(float angle) {
-            const double toRadian = Math.PI/180;
+        public void ZAxisRotation(float angle) {    //rotaciona o solido em torno do eixo z
+            const double toRadian = Math.PI / 180;
             var x = Points[0, 8];
             var y = Points[1, 8];
-            var cosTheta = Math.Cos(angle*toRadian);
-            var sinTheta = Math.Sin(angle*toRadian);
+            var cosTheta = Math.Cos(angle * toRadian);
+            var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,] {
                 {cosTheta, -sinTheta, 0, x - x*cosTheta + y*sinTheta}, {sinTheta, cosTheta, 0, y - y*cosTheta - x*sinTheta},
                 {0, 0, 1, 0}, {0, 0, 0, 1}
             };
-            Points = MatrixOperations.MatrixMultiplication(matrix, Points);
+            Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void ZScale(double k) {
+        public void ZScale(double k) {  //escala em z
             var z = Points[2, 8];
-            var matrix = new[,] {{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, k, z - k*z}, {0, 0, 0, 1}};
-            Points = MatrixOperations.MatrixMultiplication(matrix, Points);
+            var matrix = new[,] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, k, z - k * z }, { 0, 0, 0, 1 } };
+            Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void Translation(double x, double y, double z) {
-            Points = MatrixOperations.MatrixMultiplication(MatrixOperations.Translation(x, y, z), Points);
+        public void Translation(double x, double y, double z) {     //transalada o solido
+            Points = MathOperations.MatrixMultiplication(MathOperations.Translation(x, y, z), Points);
         }
 
-        public void ComputeVisibility(Vector vrp) {
-            var N = new Vector();
+        public void ComputeVisibility(Vector vrp) {     //processa cada face e determina sua visibilidade
+            var N = new Vector();   //vetor vrp - p
             N.X = vrp.X - Points[0, 8];
             N.Y = vrp.Y - Points[1, 8];
             N.Z = vrp.Z - Points[2, 8];
-            N = MatrixOperations.NormalizeVector(N);
-            //Console.WriteLine(@"VRP - P = {0},{1},{2}",N.X,N.Y,N.Z);
-            Vector vec1;
-            Vector vec2;
-            for (int i = 0; i < 6; i++) {
-                 vec1 = new Vector(_points[0, Faces[i, 1]] - _points[0, Faces[i, 0]],
-                                  _points[1, Faces[i, 1]] - _points[1, Faces[i, 0]],
-                                  _points[2, Faces[i, 1]] - _points[2, Faces[i, 0]]);
-                 vec2 = new Vector(_points[0, Faces[i, 2]] - _points[0, Faces[i, 1]],
-                                      _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
-                                      _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);
-                 var face = MatrixOperations.CrossProduct(vec1, vec2);
-                 face = MatrixOperations.NormalizeVector(face);
-                // Console.WriteLine("{0} {1} {2}", face.X, face.Y, face.Z);
-                    
-                 double flag = MatrixOperations.DotProduct(face, N);
-                if (flag>0) {
+            N = MathOperations.NormalizeVector(N);
+            Vector vec1;    //vetor 1 da face
+            Vector vec2;    //vetor 2 da face
+            for (int i = 0; i < 6; i++) {   //processa as faces uma a uma
+                vec1 = new Vector(_points[0, Faces[i, 1]] - _points[0, Faces[i, 0]],
+                                 _points[1, Faces[i, 1]] - _points[1, Faces[i, 0]],
+                                 _points[2, Faces[i, 1]] - _points[2, Faces[i, 0]]);
+                vec2 = new Vector(_points[0, Faces[i, 2]] - _points[0, Faces[i, 1]],
+                                     _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
+                                     _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);
+                var face = MathOperations.CrossProduct(vec1, vec2);    //vetor normal a face
+                face = MathOperations.NormalizeVector(face);
+
+                var visibilityK = MathOperations.DotProduct(face, N);   //coeficiente de visibilidade
+                if (visibilityK > 0) {
                     _visibleFaces[i] = true;
-                }
-                else {
+                } else {
                     _visibleFaces[i] = false;
                 }
-                 //Console.WriteLine("{0} ", _visibleFaces[i]);
             }
-
-            
-                        
-            
-
         }
     }
 }

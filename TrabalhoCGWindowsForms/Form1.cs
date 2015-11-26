@@ -9,8 +9,8 @@ using TrabalhoCGWindowsForms.Model;
 using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms {
-    public partial class Form1 : Form {
-        public Form1() {
+    public partial class MainView : Form {
+        public MainView() {
             InitializeComponent();
         }
 
@@ -20,31 +20,31 @@ namespace TrabalhoCGWindowsForms {
 
 
         private void Form1_Load(object sender, EventArgs e) {
-            solidsList = new List<List<Solid>>();
-            selectedGuy = -1;
+            solidsList = new List<List<Solid>>();   //Cria a lista de solido
+            selectedGuy = -1;   //configura o solido selecionado para: nenhum
         }
 
-        private void DrawSolids() {
+        private void DrawSolids() {     //Desenha um solido
             if (solidsList == null) return;
             
             frontView.Image = new Bitmap(frontView.Width, frontView.Height);
             leftView.Image = new Bitmap(leftView.Width, leftView.Height);
             topView.Image = new Bitmap(topView.Width, topView.Height);
-            if (!checkBox2.Checked) {
+            if (!hideFacesBox.Checked) {
                 for (var i = 0; i < solidsList.Count; i++) {
                     foreach (var solid in solidsList[i]) {
                         if (i == selectedGuy) {
                             DrawView(solid, topView, 0, true);
-                            //MatrixOperations.DebugMatrix(solid.Points);
+                            //MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, frontView, 1, true);
-                            // MatrixOperations.DebugMatrix(solid.Points);
+                            // MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, leftView, 2, true);
                         }
                         else {
                             DrawView(solid, topView, 0);
-                            //MatrixOperations.DebugMatrix(solid.Points);
+                            //MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, frontView, 1);
-                            // MatrixOperations.DebugMatrix(solid.Points);
+                            // MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, leftView, 2);
                         }
                     }
@@ -55,15 +55,15 @@ namespace TrabalhoCGWindowsForms {
                     foreach (var solid in solidsList[i]) {
                         if (i == selectedGuy) {
                             DrawVisibleFaces(solid, topView, 0, true);
-                            //MatrixOperations.DebugMatrix(solid.Points);
+                            //MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, frontView, 1, true);
-                            // MatrixOperations.DebugMatrix(solid.Points);
+                            // MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, leftView, 2, true);
                         } else {
                             DrawVisibleFaces(solid, topView, 0);
-                            //MatrixOperations.DebugMatrix(solid.Points);
+                            //MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, frontView, 1);
-                            // MatrixOperations.DebugMatrix(solid.Points);
+                            // MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, leftView, 2);
                         }
                     }
@@ -103,7 +103,7 @@ namespace TrabalhoCGWindowsForms {
             if (selected) {
                 myPen = new Pen(Color.Yellow, 1);
             }
-            var matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
+            var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
             for (var i = 0; i < 12; i++) {
                 g.DrawLine(myPen, (float)matrix[x, solid.Edges[i, 0]],
                                          (float)matrix[y, solid.Edges[i, 0]], 
@@ -142,7 +142,7 @@ namespace TrabalhoCGWindowsForms {
             if (selected) {
                 myPen = new Pen(Color.Yellow, 1);
             }
-            var matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
+            var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
             for (var i = 0; i < 6; i++) {
                 if (!solid.VisibleFaces[i]) continue;
                 for (int j = 0; j < 3; j++) {
@@ -163,8 +163,8 @@ namespace TrabalhoCGWindowsForms {
         }
         private void trackBar1_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
-                if (trackBar1.Value != 0) {
-                    solid.XAxisRotation(trackBar1.Value);
+                if (xRotationBar.Value != 0) {
+                    solid.XAxisRotation(xRotationBar.Value);
                 }
             }
             DrawSolids();
@@ -172,8 +172,8 @@ namespace TrabalhoCGWindowsForms {
 
         private void trackBar2_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
-                if (trackBar2.Value != 0)
-                    solid.YAxisRotation(trackBar1.Value);
+                if (yRotationBar.Value != 0)
+                    solid.YAxisRotation(xRotationBar.Value);
             }
             DrawSolids();
 
@@ -181,14 +181,14 @@ namespace TrabalhoCGWindowsForms {
 
         private void trackBar3_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
-                if (trackBar3.Value != 0)
-                    solid.ZAxisRotation(trackBar1.Value);
+                if (zRotationBar.Value != 0)
+                    solid.ZAxisRotation(xRotationBar.Value);
             }
             DrawSolids();
         }
 
         private void topView_Click(object sender, EventArgs e) {
-            if (checkBox1.Checked) {
+            if (addCubeBox.Checked) {
                 var me = (MouseEventArgs) e;
                 var coordinates = me.Location;
                 AddCube(coordinates,0);
@@ -325,26 +325,26 @@ namespace TrabalhoCGWindowsForms {
         private void AddCube(Point coordinates, int index) {
             var l = new List<Solid>();
             var k = new Solid();
-            //MatrixOperations.DebugMatrix(k.Points);
+            //MathOperations.DebugMatrix(k.Points);
             switch (index) {
                 case 0:
-                    k.Points = MatrixOperations.MatrixMultiplication(
-                        MatrixOperations.Translation(coordinates.X, 0, coordinates.Y), k.Points);
+                    k.Points = MathOperations.MatrixMultiplication(
+                        MathOperations.Translation(coordinates.X, 0, coordinates.Y), k.Points);
                     k.ComputeVisibility(new Vector(0,1,0));
                     break;
                 case 1:
-                    k.Points = MatrixOperations.MatrixMultiplication(
-                        MatrixOperations.Translation(0, coordinates.Y, coordinates.X), k.Points);
+                    k.Points = MathOperations.MatrixMultiplication(
+                        MathOperations.Translation(0, coordinates.Y, coordinates.X), k.Points);
                     k.ComputeVisibility(new Vector(1,0,0));
                     break;
                 case 2:
-                    k.Points = MatrixOperations.MatrixMultiplication(
-                        MatrixOperations.Translation(coordinates.X, coordinates.Y, 0), k.Points);
+                    k.Points = MathOperations.MatrixMultiplication(
+                        MathOperations.Translation(coordinates.X, coordinates.Y, 0), k.Points);
                     k.ComputeVisibility(new Vector(0,0,1));
                     break;
             }
             
-            //MatrixOperations.DebugMatrix(k.Points);
+            //MathOperations.DebugMatrix(k.Points);
             l.Add(k);
 
             solidsList.Add(l);
@@ -360,7 +360,7 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void leftView_Click(object sender, EventArgs e) {
-            if (checkBox1.Checked) {
+            if (addCubeBox.Checked) {
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 AddCube(coordinates, 1);
@@ -383,7 +383,7 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void frontView_Click(object sender, EventArgs e) {
-            if (checkBox1.Checked) {
+            if (addCubeBox.Checked) {
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 AddCube(coordinates, 2);
@@ -420,34 +420,35 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e) {
+            const int desloc = 5;
             switch (view) {
                 case 0:
                     switch (e.KeyChar) {
                         case 'w':
                         case 'W':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, -1);
+                                solid.Translation(0, 0, -desloc);
                             }
                             DrawSolids();
                             break;
                         case 's':
                         case 'S':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, 1);
+                                solid.Translation(0, 0, desloc);
                             }
                             DrawSolids();
                             break;
                         case 'd':
                         case 'D':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(1, 0, 0);
+                                solid.Translation(desloc, 0, 0);
                             }
                             DrawSolids();
                             break;
                         case 'a':
                         case 'A':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(-1, 0, 0);
+                                solid.Translation(-desloc, 0, 0);
                             }
                             DrawSolids();
                             break;
@@ -458,28 +459,28 @@ namespace TrabalhoCGWindowsForms {
                         case 'w':
                         case 'W':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, -1, 0);
+                                solid.Translation(0, -desloc, 0);
                             }
                             DrawSolids();
                             break;
                         case 's':
                         case 'S':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 1, 0);
+                                solid.Translation(0, desloc, 0);
                             }
                             DrawSolids();
                             break;
                         case 'd':
                         case 'D':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, 1);
+                                solid.Translation(0, 0, desloc);
                             }
                             DrawSolids();
                             break;
                         case 'a':
                         case 'A':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, -1);
+                                solid.Translation(0, 0, -desloc);
                             }
                             DrawSolids();
                             break;
@@ -490,28 +491,28 @@ namespace TrabalhoCGWindowsForms {
                         case 'w':
                         case 'W':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, -1, 0);
+                                solid.Translation(0, -desloc, 0);
                             }
                             DrawSolids();
                             break;
                         case 's':
                         case 'S':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 1, 0);
+                                solid.Translation(0, desloc, 0);
                             }
                             DrawSolids();
                             break;
                         case 'd':
                         case 'D':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(1, 0, 0);
+                                solid.Translation(desloc, 0, 0);
                             }
                             DrawSolids();
                             break;
                         case 'a':
                         case 'A':
                             foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(-1, 0, 0);
+                                solid.Translation(-desloc, 0, 0);
                             }
                             DrawSolids();
                             break;
