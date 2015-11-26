@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using TrabalhoCGWindowsForms.Model;
 using TrabalhoCGWindowsForms.Utils;
@@ -24,26 +26,48 @@ namespace TrabalhoCGWindowsForms {
 
         private void DrawSolids() {
             if (solidsList == null) return;
+            
             frontView.Image = new Bitmap(frontView.Width, frontView.Height);
             leftView.Image = new Bitmap(leftView.Width, leftView.Height);
             topView.Image = new Bitmap(topView.Width, topView.Height);
-            for (var i = 0; i < solidsList.Count; i++) {
-                foreach (var solid in solidsList[i]) {
-                    if (i == selectedGuy) {
-                        DrawView(solid, topView, 0, true);
-                        //MatrixOperations.DebugMatrix(solid.Points);
-                        DrawView(solid, frontView, 1, true);
-                        // MatrixOperations.DebugMatrix(solid.Points);
-                        DrawView(solid, leftView, 2,true);
+            if (!checkBox2.Checked) {
+                for (var i = 0; i < solidsList.Count; i++) {
+                    foreach (var solid in solidsList[i]) {
+                        if (i == selectedGuy) {
+                            DrawView(solid, topView, 0, true);
+                            //MatrixOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, frontView, 1, true);
+                            // MatrixOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, leftView, 2, true);
+                        }
+                        else {
+                            DrawView(solid, topView, 0);
+                            //MatrixOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, frontView, 1);
+                            // MatrixOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, leftView, 2);
+                        }
                     }
-                    else {
-                        DrawView(solid, topView, 0);
-                        //MatrixOperations.DebugMatrix(solid.Points);
-                        DrawView(solid, frontView, 1);
-                        // MatrixOperations.DebugMatrix(solid.Points);
-                        DrawView(solid, leftView, 2);
+                }
+            }
+            else {
+                for (var i = 0; i < solidsList.Count; i++) {
+                    foreach (var solid in solidsList[i]) {
+                        if (i == selectedGuy) {
+                            DrawVisibleFaces(solid, topView, 0, true);
+                            //MatrixOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, frontView, 1, true);
+                            // MatrixOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, leftView, 2, true);
+                        } else {
+                            DrawVisibleFaces(solid, topView, 0);
+                            //MatrixOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, frontView, 1);
+                            // MatrixOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, leftView, 2);
+                        }
                     }
-                }     
+                }
             }
             
             //foreach (var solid in solidsList.SelectMany(list => list.Select(solid => solid))) {
@@ -52,7 +76,7 @@ namespace TrabalhoCGWindowsForms {
             //}
         }
 
-        private void DrawView(Solid solid, PictureBox pc, int ipc, bool select = false) {
+        private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false) {
             var x = 0;
             var y = 0;
             switch (ipc) {
@@ -76,7 +100,7 @@ namespace TrabalhoCGWindowsForms {
             var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
             var myPen = new Pen(Color.Black, 1);
-            if (select) {
+            if (selected) {
                 myPen = new Pen(Color.Yellow, 1);
             }
             var matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
@@ -92,33 +116,58 @@ namespace TrabalhoCGWindowsForms {
             //pc.Refresh();
         }
 
+        private void DrawVisibleFaces(Solid solid, PictureBox pc, int ipc, bool selected = false) {
+            var x = 0;
+            var y = 0;
+            switch (ipc) {
+                case 0:        //Top View
+                    x = 0;
+                    y = 2;
+                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], 1, solid.Points[2, 8]));
+                    break;
+                case 1:       //Front View
+                    x = 0;
+                    y = 1;
+                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], solid.Points[1, 8], 1));
+                    break;
+                case 2:       //Left View
+                    x = 2;
+                    y = 1;
+                    solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
+                    break;
+            }
+            var g = Graphics.FromImage(pc.Image);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            var myPen = new Pen(Color.Black, 1);
+            if (selected) {
+                myPen = new Pen(Color.Yellow, 1);
+            }
+            var matrix = solid.Points;//MatrixOperations.AddMatrix(height, MatrixOperations.AddMatrix(width, solid.Points, x), y);
+            for (var i = 0; i < 6; i++) {
+                if (!solid.VisibleFaces[i]) continue;
+                for (int j = 0; j < 3; j++) {
+                    g.DrawLine(myPen, (float)matrix[x, solid.Faces[i,j]],
+                        (float)matrix[y, solid.Faces[i, j]],
+                        (float)matrix[x, solid.Faces[i, j+1]],
+                        (float)matrix[y, solid.Faces[i, j+1]]);
+                }
+                g.DrawLine(myPen, (float)matrix[x, solid.Faces[i, 3]],
+                    (float)matrix[y, solid.Faces[i, 3]],
+                    (float)matrix[x, solid.Faces[i, 0]],
+                    (float)matrix[y, solid.Faces[i, 0]]);
+            }
+            g.DrawLine(myPen, 10, 10, 10, 40);
+            g.DrawLine(myPen, 10, 10, 40, 10);
+            pc.Invalidate();
+
+        }
         private void trackBar1_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
-                if (trackBar1.Value != 0)
+                if (trackBar1.Value != 0) {
                     solid.XAxisRotation(trackBar1.Value);
+                }
             }
             DrawSolids();
-        }
-
-        private void button1_Click(object sender, EventArgs e) {
-            /*
-                for (int i = 0; i < int.MaxValue; i++) {
-
-                    solid.Points = MatrixOperations.MatrixMultiplication(MatrixOperations.XAxisRotation(5), solid.Points);
-                    solid.Points = MatrixOperations.MatrixMultiplication(MatrixOperations.YAxisRotation(5), solid.Points);
-                    solid.Points = MatrixOperations.MatrixMultiplication(MatrixOperations.ZAxisRotation(5), solid.Points);
-                    DrawView(solid, topView, 0);
-                    // MatrixOperations.DebugMatrix(solid.Points);
-                    DrawView(solid, frontView, 1);
-                    // MatrixOperations.DebugMatrix(solid.Points);
-                    DrawView(solid, leftView, 2);
-                    //MatrixOperations.DebugMatrix(solid.Points);
-                    topView.Update();
-                    frontView.Update();
-                    leftView.Update();
-                    Thread.SpinWait(4000000);
-                }
-            */
         }
 
         private void trackBar2_ValueChanged(object sender, EventArgs e) {
@@ -280,15 +329,18 @@ namespace TrabalhoCGWindowsForms {
             switch (index) {
                 case 0:
                     k.Points = MatrixOperations.MatrixMultiplication(
-                    MatrixOperations.Translation(coordinates.X, 0, coordinates.Y), k.Points);
+                        MatrixOperations.Translation(coordinates.X, 0, coordinates.Y), k.Points);
+                    k.ComputeVisibility(new Vector(0,1,0));
                     break;
                 case 1:
                     k.Points = MatrixOperations.MatrixMultiplication(
                         MatrixOperations.Translation(0, coordinates.Y, coordinates.X), k.Points);
+                    k.ComputeVisibility(new Vector(1,0,0));
                     break;
                 case 2:
                     k.Points = MatrixOperations.MatrixMultiplication(
                         MatrixOperations.Translation(coordinates.X, coordinates.Y, 0), k.Points);
+                    k.ComputeVisibility(new Vector(0,0,1));
                     break;
             }
             
@@ -468,6 +520,52 @@ namespace TrabalhoCGWindowsForms {
             }
             
             
+        }
+        
+        private void checkBox2_Click(object sender, EventArgs e) {
+            DrawSolids();
+        }
+
+        private void salvarToolStripMenuItem_Click(object sender, EventArgs e) {
+            // Displays a SaveFileDialog so the user can save the Image
+            // assigned to Button2.
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "Save to File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "") {
+                // Saves the Image via a FileStream created by the OpenFile method.
+                System.IO.FileStream fs =
+                   (System.IO.FileStream)saveFileDialog1.OpenFile();
+                // Saves the Image in the appropriate ImageFormat based upon the
+                // File type selected in the dialog box.
+                // NOTE that the FilterIndex property is one-based.
+                BinaryFormatter bin = new BinaryFormatter();
+                bin.Serialize(fs, solidsList);
+
+                fs.Close();
+            }
+
+            
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Open File";
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileName != "") {
+                // Saves the Image via a FileStream created by the OpenFile method.
+                System.IO.FileStream fs =
+                   (System.IO.FileStream)openFileDialog.OpenFile();
+                // Saves the Image in the appropriate ImageFormat based upon the
+                // File type selected in the dialog box.
+                // NOTE that the FilterIndex property is one-based.
+                BinaryFormatter bin = new BinaryFormatter();
+                solidsList = (List<List<Solid>>) bin.Deserialize(fs);
+                fs.Close();
+                DrawSolids();
+            }
         }
 
     }

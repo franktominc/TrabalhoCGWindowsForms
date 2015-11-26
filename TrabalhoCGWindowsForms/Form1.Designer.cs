@@ -32,7 +32,7 @@ namespace TrabalhoCGWindowsForms {
             this.frontView = new System.Windows.Forms.PictureBox();
             this.topView = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.File = new System.Windows.Forms.ToolStripMenuItem();
             this.leftView = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,7 +40,6 @@ namespace TrabalhoCGWindowsForms {
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.button1 = new System.Windows.Forms.Button();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -56,6 +55,9 @@ namespace TrabalhoCGWindowsForms {
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -95,8 +97,9 @@ namespace TrabalhoCGWindowsForms {
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.GrayText;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.File});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1333, 24);
@@ -104,18 +107,22 @@ namespace TrabalhoCGWindowsForms {
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
-            // toolStripMenuItem1
+            // File
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 20);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            this.File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salvarToolStripMenuItem,
+            this.abrirToolStripMenuItem});
+            this.File.Name = "File";
+            this.File.Size = new System.Drawing.Size(37, 20);
+            this.File.Text = "File";
+            this.File.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // leftView
             // 
             this.leftView.BackColor = System.Drawing.SystemColors.GrayText;
             this.leftView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftView.Image = ((System.Drawing.Image)(resources.GetObject("leftView.Image")));
-            this.leftView.Location = new System.Drawing.Point(476, 57);
+            this.leftView.Location = new System.Drawing.Point(467, 57);
             this.leftView.Name = "leftView";
             this.leftView.Size = new System.Drawing.Size(449, 280);
             this.leftView.TabIndex = 6;
@@ -178,16 +185,6 @@ namespace TrabalhoCGWindowsForms {
             this.trackBar1.Size = new System.Drawing.Size(316, 45);
             this.trackBar1.TabIndex = 11;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1199, 580);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // trackBar2
             // 
@@ -353,12 +350,38 @@ namespace TrabalhoCGWindowsForms {
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(974, 303);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(92, 17);
+            this.checkBox2.TabIndex = 30;
+            this.checkBox2.Text = "Ocultar Faces";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Click += new System.EventHandler(this.checkBox2_Click);
+            // 
+            // salvarToolStripMenuItem
+            // 
+            this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salvarToolStripMenuItem.Text = "Save";
+            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
+            // 
+            // abrirToolStripMenuItem
+            // 
+            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Text = "Open";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1333, 648);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.checkBox1);
@@ -369,7 +392,6 @@ namespace TrabalhoCGWindowsForms {
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -406,7 +428,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.PictureBox frontView;
         private System.Windows.Forms.PictureBox topView;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem File;
         private System.Windows.Forms.PictureBox leftView;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
@@ -417,7 +439,6 @@ namespace TrabalhoCGWindowsForms {
         private List<List<Solid>> solidsList;
         private int selectedGuy;
         private int view;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.TrackBar trackBar3;
         private System.Windows.Forms.Label label5;
@@ -433,6 +454,9 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
 
     }
 }

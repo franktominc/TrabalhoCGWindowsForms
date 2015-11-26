@@ -1,25 +1,41 @@
 ﻿using System;
+using System.Xml;
 using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms.Model {
+    [Serializable]
     class Solid {
 
         private double[,] _points;
         private int[,] _edges;
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public Vector Faces { get; private set; }
+        public int[,] Faces { get; private set; }
 
         public int[,] Edges {
             get { return _edges; }
             set { _edges = value; }
 
         }
+        private bool[] _visibleFaces = {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+
+        public bool[] VisibleFaces{
+            get { return _visibleFaces; }
+            set { _visibleFaces = value; }
+        }
+
         public double[,] Points{
             get { return _points; }
             set { _points = value; }
         }
         public Solid() {
-            Faces = new Vector(0,0,0);
+            
             _points = new double[,] {
                 {0,0,50,1},
                 {50,0,50,1},
@@ -45,7 +61,14 @@ namespace TrabalhoCGWindowsForms.Model {
                 {4,0},
                 {3,7}
             };
-            
+            Faces = new[,] {
+                {0,1,2,3},
+                {1,5,6,2},
+                {5,4,7,6},
+                {0,3,7,4},
+                {3,2,6,7},
+                {0,4,5,1}
+            };
             
             _points = MatrixOperations.TransposeMatrix(_points);
         }
@@ -101,78 +124,40 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MatrixOperations.MatrixMultiplication(MatrixOperations.Translation(x, y, z), Points);
         }
 
-        /*
-        public double[,] GeraCubo() {
+        public void ComputeVisibility(Vector vrp) {
+            var N = new Vector();
+            N.X = vrp.X - Points[0, 8];
+            N.Y = vrp.Y - Points[1, 8];
+            N.Z = vrp.Z - Points[2, 8];
+            N = MatrixOperations.NormalizeVector(N);
+            //Console.WriteLine(@"VRP - P = {0},{1},{2}",N.X,N.Y,N.Z);
+            Vector vec1;
+            Vector vec2;
+            for (int i = 0; i < 6; i++) {
+                 vec1 = new Vector(_points[0, Faces[i, 1]] - _points[0, Faces[i, 0]],
+                                  _points[1, Faces[i, 1]] - _points[1, Faces[i, 0]],
+                                  _points[2, Faces[i, 1]] - _points[2, Faces[i, 0]]);
+                 vec2 = new Vector(_points[0, Faces[i, 2]] - _points[0, Faces[i, 1]],
+                                      _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
+                                      _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);
+                 var face = MatrixOperations.CrossProduct(vec1, vec2);
+                 face = MatrixOperations.NormalizeVector(face);
+                // Console.WriteLine("{0} {1} {2}", face.X, face.Y, face.Z);
+                    
+                 double flag = MatrixOperations.DotProduct(face, N);
+                if (flag>0) {
+                    _visibleFaces[i] = true;
+                }
+                else {
+                    _visibleFaces[i] = false;
+                }
+                 //Console.WriteLine("{0} ", _visibleFaces[i]);
+            }
 
-            var a = new Vector(0, 0, 1);
-            var b = new Vector(1, 0, 1);
-            var c = new Vector(1, 1, 1);
-            var d = new Vector(0, 1, 1);
-            var ee = new Vector(0, 0, 0);
-            var f = new Vector(1, 0, 0);
-            var g = new Vector(1, 1, 0);
-            var h = new Vector(0, 1, 0);
+            
+                        
+            
 
-            var A = new Edge(a, b);
-            var B = new Edge(b, c);
-            var C = new Edge(c, d);
-            var D = new Edge(d, a);
-            var E = new Edge(f, ee);
-            var F = new Edge(ee, h);
-            var G = new Edge(h, g);
-            var H = new Edge(g, f);
-            var I = new Edge(b, f);
-            var J = new Edge(g, c);
-            var K = new Edge(ee, a);
-            var L = new Edge(d, h);
-
-            var P1 = new Model.Polygon();
-            P1.AddEdge(A);
-            P1.AddEdge(B);
-            P1.AddEdge(C);
-            P1.AddEdge(D);
-            P1.FaceNumber = 1;
-            var P2 = new Model.Polygon();
-            P2.AddEdge(C);
-            P2.AddEdge(L);
-            P2.AddEdge(G);
-            P2.AddEdge(J);
-            P2.FaceNumber = 2;
-            var P3 = new Model.Polygon();
-            P3.AddEdge(B);
-            P3.AddEdge(J);
-            P3.AddEdge(H);
-            P3.AddEdge(I);
-            P3.FaceNumber = 3;
-            var P4 = new Model.Polygon();
-            P4.AddEdge(D);
-            P4.AddEdge(K);
-            P4.AddEdge(F);
-            P4.AddEdge(L);
-            P4.FaceNumber = 4;
-            var P5 = new Model.Polygon();
-            P5.AddEdge(E);
-            P5.AddEdge(I);
-            P5.AddEdge(A);
-            P5.AddEdge(K);
-            P5.FaceNumber = 5;
-            var P6 = new Model.Polygon();
-            P6.AddEdge(H);
-            P6.AddEdge(E);
-            P6.AddEdge(F);
-            P6.AddEdge(G);
-            P6.FaceNumber = 6;
-
-            var solid = new Solid();
-            solid.addPolygon(P1);
-            solid.addPolygon(P2);
-            solid.addPolygon(P3);
-            solid.addPolygon(P4);
-            solid.addPolygon(P5);
-            solid.addPolygon(P6);
-            var x = solid.AsMatrix();
-            return x;
         }
-        */
     }
 }
