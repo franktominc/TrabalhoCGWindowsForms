@@ -192,20 +192,34 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void trackBar2_ValueChanged(object sender, EventArgs e) {
-            foreach (var solid in solidsList[selectedGuy]) {
-                if (yRotationBar.Value != 0)
-                    solid.YAxisRotation(yRotationBar.Value);
+            if (selectedGuy >= 0) {
+                if (solidsList[selectedGuy].Count > 1) {
+                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        solid.YAxisRotation(yRotationBar.Value, mid.X, mid.Z);
+                    }
+
+                } else if (yRotationBar.Value != 0) {
+                    solidsList[selectedGuy][0].YAxisRotation(yRotationBar.Value, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[2, 8]);
+                }
+                DrawSolids();
             }
-            DrawSolids();
 
         }
 
         private void trackBar3_ValueChanged(object sender, EventArgs e) {
-            foreach (var solid in solidsList[selectedGuy]) {
-                if (zRotationBar.Value != 0)
-                    solid.ZAxisRotation(zRotationBar.Value);
+            if (selectedGuy >= 0) {
+                if (solidsList[selectedGuy].Count > 1) {
+                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        solid.ZAxisRotation(zRotationBar.Value, mid.X, mid.Y);
+                    }
+
+                } else if (zRotationBar.Value != 0) {
+                    solidsList[selectedGuy][0].ZAxisRotation(zRotationBar.Value, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[1, 8]);
+                }
+                DrawSolids();
             }
-            DrawSolids();
         }
 
         private void topView_Click(object sender, EventArgs e) {

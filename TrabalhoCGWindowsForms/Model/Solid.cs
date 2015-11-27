@@ -74,8 +74,6 @@ namespace TrabalhoCGWindowsForms.Model {
 
         public void XAxisRotation(float angle, double y, double z) {    //rotaciona o solido em torno do eixo x
             const double toRadian = Math.PI / 180;
-            /*var y = Points[1, 8];
-            var z = Points[2, 8];*/
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,]{
@@ -85,10 +83,8 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void YAxisRotation(float angle) {    //rotaciona o solido em torno do eixo y
+        public void YAxisRotation(float angle, double x, double z) {    //rotaciona o solido em torno do eixo y
             const double toRadian = Math.PI / 180;
-            var x = Points[0, 8];
-            var z = Points[2, 8];
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,] {
@@ -98,10 +94,8 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void ZAxisRotation(float angle) {    //rotaciona o solido em torno do eixo z
+        public void ZAxisRotation(float angle, double x, double y) {    //rotaciona o solido em torno do eixo z
             const double toRadian = Math.PI / 180;
-            var x = Points[0, 8];
-            var y = Points[1, 8];
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,] {
