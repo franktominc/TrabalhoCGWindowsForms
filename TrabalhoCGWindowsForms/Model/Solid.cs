@@ -4,7 +4,7 @@ using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms.Model {
     [Serializable]
-    class Solid {
+    public class Solid {
 
         private double[,] _points;  //vertices do solido
         private int[,] _edges;  //arestas do solido
@@ -72,10 +72,10 @@ namespace TrabalhoCGWindowsForms.Model {
             _points = MathOperations.TransposeMatrix(_points);
         }
 
-        public void XAxisRotation(float angle) {    //rotaciona o solido em torno do eixo x
+        public void XAxisRotation(float angle, double y, double z) {    //rotaciona o solido em torno do eixo x
             const double toRadian = Math.PI / 180;
-            var y = Points[1, 8];
-            var z = Points[2, 8];
+            /*var y = Points[1, 8];
+            var z = Points[2, 8];*/
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
             var matrix = new[,]{

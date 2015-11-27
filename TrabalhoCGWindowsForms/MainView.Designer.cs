@@ -33,6 +33,8 @@ namespace TrabalhoCGWindowsForms {
             this.topView = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.File = new System.Windows.Forms.ToolStripMenuItem();
+            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leftView = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,8 +58,8 @@ namespace TrabalhoCGWindowsForms {
             this.btScalePlus = new System.Windows.Forms.Button();
             this.btScaleMinus = new System.Windows.Forms.Button();
             this.hideFacesBox = new System.Windows.Forms.CheckBox();
-            this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupSolidsCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -116,6 +118,20 @@ namespace TrabalhoCGWindowsForms {
             this.File.Size = new System.Drawing.Size(37, 20);
             this.File.Text = "File";
             this.File.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // abrirToolStripMenuItem
+            // 
+            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.abrirToolStripMenuItem.Text = "Open";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            // 
+            // salvarToolStripMenuItem
+            // 
+            this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.salvarToolStripMenuItem.Text = "Save";
+            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // leftView
             // 
@@ -361,19 +377,26 @@ namespace TrabalhoCGWindowsForms {
             this.hideFacesBox.UseVisualStyleBackColor = true;
             this.hideFacesBox.Click += new System.EventHandler(this.checkBox2_Click);
             // 
-            // salvarToolStripMenuItem
+            // groupSolidsCheckBox
             // 
-            this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
-            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.salvarToolStripMenuItem.Text = "Save";
-            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
+            this.groupSolidsCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.groupSolidsCheckBox.AutoSize = true;
+            this.groupSolidsCheckBox.Location = new System.Drawing.Point(1094, 380);
+            this.groupSolidsCheckBox.Name = "groupSolidsCheckBox";
+            this.groupSolidsCheckBox.Size = new System.Drawing.Size(121, 23);
+            this.groupSolidsCheckBox.TabIndex = 31;
+            this.groupSolidsCheckBox.Text = "groupSolidsCheckBox";
+            this.groupSolidsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // abrirToolStripMenuItem
+            // groupBt
             // 
-            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.abrirToolStripMenuItem.Text = "Open";
-            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            this.groupBt.Location = new System.Drawing.Point(1119, 433);
+            this.groupBt.Name = "groupBt";
+            this.groupBt.Size = new System.Drawing.Size(55, 34);
+            this.groupBt.TabIndex = 32;
+            this.groupBt.Text = "grup";
+            this.groupBt.UseVisualStyleBackColor = true;
+            this.groupBt.Click += new System.EventHandler(this.groupBt_Click);
             // 
             // MainView
             // 
@@ -381,6 +404,8 @@ namespace TrabalhoCGWindowsForms {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.groupBt);
+            this.Controls.Add(this.groupSolidsCheckBox);
             this.Controls.Add(this.hideFacesBox);
             this.Controls.Add(this.btScaleMinus);
             this.Controls.Add(this.btScalePlus);
@@ -437,6 +462,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar xRotationBar;
         private List<List<Solid>> solidsList;
+        private List<int> selectedSolids; 
         private int selectedGuy;
         private int view;
         private System.Windows.Forms.TrackBar yRotationBar;
@@ -457,6 +483,8 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.CheckBox hideFacesBox;
         private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
+        private System.Windows.Forms.CheckBox groupSolidsCheckBox;
+        private System.Windows.Forms.Button groupBt;
 
     }
 }

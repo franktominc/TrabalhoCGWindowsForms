@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using TrabalhoCGWindowsForms.Model;
@@ -22,6 +23,7 @@ namespace TrabalhoCGWindowsForms {
         private void Form1_Load(object sender, EventArgs e) {
             solidsList = new List<List<Solid>>();   //Cria a lista de solido
             selectedGuy = -1;   //configura o solido selecionado para: nenhum
+            selectedSolids = new List<int>();
         }
 
         private void DrawSolids() {     //Desenha um solido
@@ -33,12 +35,18 @@ namespace TrabalhoCGWindowsForms {
             if (!hideFacesBox.Checked) {
                 for (var i = 0; i < solidsList.Count; i++) {
                     foreach (var solid in solidsList[i]) {
-                        if (i == selectedGuy) {
-                            DrawView(solid, topView, 0, true);
+                        if (i == selectedGuy || selectedSolids.Contains(i)) {
+                            DrawView(solid, topView, 0, true, new Pen(Color.Yellow, 1));
                             //MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, frontView, 1, true);
+                            DrawView(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
                             // MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, leftView, 2, true);
+                            DrawView(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
+                        }else if (solidsList[i].Count > 1) {
+                            DrawView(solid, topView, 0, true, new Pen(Color.Aquamarine,1));
+                            //MathOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
+                            // MathOperations.DebugMatrix(solid.Points);
+                            DrawView(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));       
                         }
                         else {
                             DrawView(solid, topView, 0);
@@ -53,12 +61,18 @@ namespace TrabalhoCGWindowsForms {
             else {
                 for (var i = 0; i < solidsList.Count; i++) {
                     foreach (var solid in solidsList[i]) {
-                        if (i == selectedGuy) {
-                            DrawVisibleFaces(solid, topView, 0, true);
+                        if (i == selectedGuy || selectedSolids.Contains(i)) {
+                            DrawVisibleFaces(solid, topView, 0, true, new Pen(Color.Yellow, 1));
                             //MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, frontView, 1, true);
+                            DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
                             // MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, leftView, 2, true);
+                            DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
+                        } else if (solidsList[i].Count > 1) {
+                            DrawVisibleFaces(solid, topView, 0, true, new Pen(Color.Aquamarine, 1));
+                            //MathOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
+                            // MathOperations.DebugMatrix(solid.Points);
+                            DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));
                         } else {
                             DrawVisibleFaces(solid, topView, 0);
                             //MathOperations.DebugMatrix(solid.Points);
@@ -76,7 +90,7 @@ namespace TrabalhoCGWindowsForms {
             //}
         }
 
-        private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false) {
+        private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
             var x = 0;
             var y = 0;
             switch (ipc) {
@@ -99,10 +113,11 @@ namespace TrabalhoCGWindowsForms {
 
             var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            var myPen = new Pen(Color.Black, 1);
-            if (selected) {
-                myPen = new Pen(Color.Yellow, 1);
-            }
+            if(myPen == null)
+                myPen = new Pen(Color.Black, 1);
+            
+            
+
             var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
             for (var i = 0; i < 12; i++) {
                 g.DrawLine(myPen, (float)matrix[x, solid.Edges[i, 0]],
@@ -116,7 +131,7 @@ namespace TrabalhoCGWindowsForms {
             //pc.Refresh();
         }
 
-        private void DrawVisibleFaces(Solid solid, PictureBox pc, int ipc, bool selected = false) {
+        private void DrawVisibleFaces(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
             var x = 0;
             var y = 0;
             switch (ipc) {
@@ -138,10 +153,10 @@ namespace TrabalhoCGWindowsForms {
             }
             var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            var myPen = new Pen(Color.Black, 1);
-            if (selected) {
-                myPen = new Pen(Color.Yellow, 1);
+            if (myPen == null) {
+                myPen = new Pen(Color.Black, 1);
             }
+            
             var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
             for (var i = 0; i < 6; i++) {
                 if (!solid.VisibleFaces[i]) continue;
@@ -162,18 +177,24 @@ namespace TrabalhoCGWindowsForms {
 
         }
         private void trackBar1_ValueChanged(object sender, EventArgs e) {
-            foreach (var solid in solidsList[selectedGuy]) {
-                if (xRotationBar.Value != 0) {
-                    solid.XAxisRotation(xRotationBar.Value);
+            if (selectedGuy >= 0) {
+                if (solidsList[selectedGuy].Count > 1) {
+                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        solid.XAxisRotation(xRotationBar.Value, mid.Y, mid.Z);
+                    }
+                   
+                }else if (xRotationBar.Value != 0) {
+                    solidsList[selectedGuy][0].XAxisRotation(xRotationBar.Value, solidsList[selectedGuy][0].Points[1, 8], solidsList[selectedGuy][0].Points[2, 8]);
                 }
+                DrawSolids();
             }
-            DrawSolids();
         }
 
         private void trackBar2_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
                 if (yRotationBar.Value != 0)
-                    solid.YAxisRotation(xRotationBar.Value);
+                    solid.YAxisRotation(yRotationBar.Value);
             }
             DrawSolids();
 
@@ -182,7 +203,7 @@ namespace TrabalhoCGWindowsForms {
         private void trackBar3_ValueChanged(object sender, EventArgs e) {
             foreach (var solid in solidsList[selectedGuy]) {
                 if (zRotationBar.Value != 0)
-                    solid.ZAxisRotation(xRotationBar.Value);
+                    solid.ZAxisRotation(zRotationBar.Value);
             }
             DrawSolids();
         }
@@ -194,10 +215,22 @@ namespace TrabalhoCGWindowsForms {
                 AddCube(coordinates,0);
                
             }
-            else {
+            else if (groupSolidsCheckBox.Checked) {
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
-               if(solidsList.Count != 0){
+                selectedGuy = SelectCube(coordinates, 0);
+                if (selectedGuy == -1) {
+                    selectedSolids = new List<int>();
+                }
+                else {
+                    selectedSolids.Add(selectedGuy); 
+                }
+                
+                DrawSolids();
+            }else{
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
+                if(solidsList.Count != 0){
                     selectedGuy = SelectCube(coordinates, 0);
                     DrawSolids();
                 }
@@ -226,6 +259,7 @@ namespace TrabalhoCGWindowsForms {
                             if (!(menor > distance)) continue;
                             menor = distance;
                             solidInQuestion = i;
+                            
                         }   
                     }
                     break;
@@ -238,6 +272,7 @@ namespace TrabalhoCGWindowsForms {
                             if (!(menor > distance)) continue;
                             menor = distance;
                             solidInQuestion = i;
+                            
                         }   
                     }
                     break;
@@ -250,6 +285,7 @@ namespace TrabalhoCGWindowsForms {
                             if (menor > distance) {
                                 menor = distance;
                                 solidInQuestion = i;
+                                
                             }
                         }
                     }
@@ -351,6 +387,7 @@ namespace TrabalhoCGWindowsForms {
             //Console.WriteLine(l[0]);
             DrawSolids();
         }
+
         private void topView_Paint(object sender, PaintEventArgs e) {
             var myPen = new Pen(Color.Black,1);
             e.Graphics.DrawLine(myPen, 10, 10, 10, 40);
@@ -527,7 +564,7 @@ namespace TrabalhoCGWindowsForms {
             DrawSolids();
         }
 
-        private void salvarToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e) {
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -537,8 +574,8 @@ namespace TrabalhoCGWindowsForms {
             // If the file name is not an empty string open it for saving.
             if (saveFileDialog1.FileName != "") {
                 // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)saveFileDialog1.OpenFile();
+                FileStream fs =
+                   (FileStream)saveFileDialog1.OpenFile();
                 // Saves the Image in the appropriate ImageFormat based upon the
                 // File type selected in the dialog box.
                 // NOTE that the FilterIndex property is one-based.
@@ -551,14 +588,14 @@ namespace TrabalhoCGWindowsForms {
             
         }
 
-        private void abrirToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open File";
             openFileDialog.ShowDialog();
             if (openFileDialog.FileName != "") {
                 // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)openFileDialog.OpenFile();
+                FileStream fs =
+                   (FileStream)openFileDialog.OpenFile();
                 // Saves the Image in the appropriate ImageFormat based upon the
                 // File type selected in the dialog box.
                 // NOTE that the FilterIndex property is one-based.
@@ -569,5 +606,20 @@ namespace TrabalhoCGWindowsForms {
             }
         }
 
+        private void groupBt_Click(object sender, EventArgs e) {
+            if (selectedSolids.Count >= 1) {
+                selectedSolids.Sort((a, b) => -1*a.CompareTo(b));
+                var k = selectedSolids[selectedSolids.Count - 1];
+                for (int i = 0; i < selectedSolids.Count - 1; i++) {
+                    for (int j = 0; j < solidsList[selectedSolids[i]].Count; j++) {
+                        solidsList[k].Add(solidsList[selectedSolids[i]][j]);
+                    }
+                    solidsList.RemoveAt(selectedSolids[i]);
+                }
+                selectedSolids = new List<int>();
+            }
+            selectedGuy = -1;
+            DrawSolids();
+        }
     }
 }
