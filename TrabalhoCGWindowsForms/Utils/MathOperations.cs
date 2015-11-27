@@ -57,7 +57,7 @@ namespace TrabalhoCGWindowsForms.Utils {
             return aux;
         }
 
-        public static Vector MidPoint(List<Solid> solids) {
+        public static Vector MidPoint(List<Solid> solids) { //Calcula o ponto medio entre os solidos agrupados
             var sumX = 0.0;
             var sumY = 0.0;
             var sumZ = 0.0;

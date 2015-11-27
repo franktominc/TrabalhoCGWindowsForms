@@ -416,6 +416,17 @@ namespace TrabalhoCGWindowsForms {
                 var coordinates = me.Location;
                 AddCube(coordinates, 1);
 
+            } else if (groupSolidsCheckBox.Checked) {
+                var me = (MouseEventArgs)e;
+                var coordinates = me.Location;
+                selectedGuy = SelectCube(coordinates, 1);
+                if (selectedGuy == -1) {
+                    selectedSolids = new List<int>();
+                } else {
+                    selectedSolids.Add(selectedGuy);
+                }
+
+                DrawSolids();
             } else {
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
@@ -457,17 +468,22 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            foreach (var solid in solidsList[selectedGuy]) {
-                solid.ZScale(1.1);
+            if (solidsList[selectedGuy].Count == 1) {
+                foreach (var solid in solidsList[selectedGuy]) {
+                    solid.ZScale(1.1);
+                }
+                DrawSolids();
             }
-            DrawSolids();
+            
         }
 
         private void button3_Click(object sender, EventArgs e) {
-            foreach (var solid in solidsList[selectedGuy]) {
-                solid.ZScale(0.9);
+            if (solidsList[selectedGuy].Count == 1) {
+                foreach (var solid in solidsList[selectedGuy]) {
+                    solid.ZScale(0.9);
+                }
+                DrawSolids();
             }
-            DrawSolids();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e) {
@@ -633,6 +649,32 @@ namespace TrabalhoCGWindowsForms {
                 selectedSolids = new List<int>();
             }
             selectedGuy = -1;
+            DrawSolids();
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            var k = selectedGuy;
+            if (selectedGuy != -1) {
+                for (int i = 1; i < solidsList[k].Count; i++) {
+                    var l = new List<Solid> {solidsList[k][i]};
+                    solidsList.Add(l);
+                    solidsList[k].RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        private void removeView_Click(object sender, EventArgs e) {
+            if (selectedGuy != -1) {
+                solidsList.RemoveAt(selectedGuy);
+                selectedGuy = -1;
+                DrawSolids();
+                
+            }
+        }
+
+        private void removeAllButton_Click(object sender, EventArgs e) {
+            solidsList = new List<List<Solid>>();
             DrawSolids();
         }
     }
