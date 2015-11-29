@@ -63,6 +63,7 @@ namespace TrabalhoCGWindowsForms {
             this.button1 = new System.Windows.Forms.Button();
             this.removeView = new System.Windows.Forms.Button();
             this.removeAllButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -343,93 +344,123 @@ namespace TrabalhoCGWindowsForms {
             this.addCubeBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.addCubeBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addCubeBox.Image = ((System.Drawing.Image)(resources.GetObject("addCubeBox.Image")));
-            this.addCubeBox.Location = new System.Drawing.Point(962, 356);
+            this.addCubeBox.Location = new System.Drawing.Point(931, 332);
             this.addCubeBox.Name = "addCubeBox";
             this.addCubeBox.Size = new System.Drawing.Size(40, 40);
             this.addCubeBox.TabIndex = 25;
             this.addCubeBox.UseVisualStyleBackColor = false;
+            this.addCubeBox.Click += new System.EventHandler(this.addCubeBox_Click);
             // 
             // btScalePlus
             // 
-            this.btScalePlus.Location = new System.Drawing.Point(961, 437);
+            this.btScalePlus.BackColor = System.Drawing.SystemColors.GrayText;
+            this.btScalePlus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btScalePlus.Image = ((System.Drawing.Image)(resources.GetObject("btScalePlus.Image")));
+            this.btScalePlus.Location = new System.Drawing.Point(931, 378);
             this.btScalePlus.Name = "btScalePlus";
-            this.btScalePlus.Size = new System.Drawing.Size(34, 31);
+            this.btScalePlus.Size = new System.Drawing.Size(40, 40);
             this.btScalePlus.TabIndex = 27;
-            this.btScalePlus.Text = "+";
-            this.btScalePlus.UseVisualStyleBackColor = true;
+            this.btScalePlus.UseVisualStyleBackColor = false;
             this.btScalePlus.Click += new System.EventHandler(this.button2_Click);
             // 
             // btScaleMinus
             // 
-            this.btScaleMinus.Location = new System.Drawing.Point(1027, 437);
+            this.btScaleMinus.BackColor = System.Drawing.SystemColors.GrayText;
+            this.btScaleMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btScaleMinus.Image = ((System.Drawing.Image)(resources.GetObject("btScaleMinus.Image")));
+            this.btScaleMinus.Location = new System.Drawing.Point(974, 378);
             this.btScaleMinus.Name = "btScaleMinus";
-            this.btScaleMinus.Size = new System.Drawing.Size(34, 31);
+            this.btScaleMinus.Size = new System.Drawing.Size(40, 40);
             this.btScaleMinus.TabIndex = 28;
             this.btScaleMinus.Text = "-";
-            this.btScaleMinus.UseVisualStyleBackColor = true;
+            this.btScaleMinus.UseVisualStyleBackColor = false;
             this.btScaleMinus.Click += new System.EventHandler(this.button3_Click);
             // 
             // hideFacesBox
             // 
-            this.hideFacesBox.AutoSize = true;
-            this.hideFacesBox.Location = new System.Drawing.Point(974, 303);
+            this.hideFacesBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.hideFacesBox.BackColor = System.Drawing.SystemColors.GrayText;
+            this.hideFacesBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.hideFacesBox.Image = ((System.Drawing.Image)(resources.GetObject("hideFacesBox.Image")));
+            this.hideFacesBox.Location = new System.Drawing.Point(974, 516);
             this.hideFacesBox.Name = "hideFacesBox";
-            this.hideFacesBox.Size = new System.Drawing.Size(92, 17);
+            this.hideFacesBox.Size = new System.Drawing.Size(40, 40);
             this.hideFacesBox.TabIndex = 30;
-            this.hideFacesBox.Text = "Ocultar Faces";
-            this.hideFacesBox.UseVisualStyleBackColor = true;
+            this.hideFacesBox.UseVisualStyleBackColor = false;
             this.hideFacesBox.Click += new System.EventHandler(this.checkBox2_Click);
             // 
             // groupSolidsCheckBox
             // 
             this.groupSolidsCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.groupSolidsCheckBox.AutoSize = true;
-            this.groupSolidsCheckBox.Location = new System.Drawing.Point(1094, 380);
+            this.groupSolidsCheckBox.BackColor = System.Drawing.SystemColors.GrayText;
+            this.groupSolidsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupSolidsCheckBox.Image = ((System.Drawing.Image)(resources.GetObject("groupSolidsCheckBox.Image")));
+            this.groupSolidsCheckBox.Location = new System.Drawing.Point(931, 470);
             this.groupSolidsCheckBox.Name = "groupSolidsCheckBox";
-            this.groupSolidsCheckBox.Size = new System.Drawing.Size(121, 23);
+            this.groupSolidsCheckBox.Size = new System.Drawing.Size(40, 40);
             this.groupSolidsCheckBox.TabIndex = 31;
-            this.groupSolidsCheckBox.Text = "groupSolidsCheckBox";
-            this.groupSolidsCheckBox.UseVisualStyleBackColor = true;
+            this.groupSolidsCheckBox.UseVisualStyleBackColor = false;
+            this.groupSolidsCheckBox.Click += new System.EventHandler(this.groupSolidsCheckBox_Click);
             // 
             // groupBt
             // 
-            this.groupBt.Location = new System.Drawing.Point(1119, 433);
+            this.groupBt.BackColor = System.Drawing.SystemColors.GrayText;
+            this.groupBt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupBt.Image = ((System.Drawing.Image)(resources.GetObject("groupBt.Image")));
+            this.groupBt.Location = new System.Drawing.Point(931, 424);
             this.groupBt.Name = "groupBt";
-            this.groupBt.Size = new System.Drawing.Size(55, 34);
+            this.groupBt.Size = new System.Drawing.Size(40, 40);
             this.groupBt.TabIndex = 32;
-            this.groupBt.Text = "grup";
-            this.groupBt.UseVisualStyleBackColor = true;
+            this.groupBt.UseVisualStyleBackColor = false;
             this.groupBt.Click += new System.EventHandler(this.groupBt_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1230, 443);
+            this.button1.BackColor = System.Drawing.SystemColors.GrayText;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(974, 424);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(40, 40);
             this.button1.TabIndex = 33;
-            this.button1.Text = "Ungroup";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // removeView
             // 
-            this.removeView.Location = new System.Drawing.Point(985, 555);
+            this.removeView.BackColor = System.Drawing.SystemColors.GrayText;
+            this.removeView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.removeView.Image = ((System.Drawing.Image)(resources.GetObject("removeView.Image")));
+            this.removeView.Location = new System.Drawing.Point(974, 332);
             this.removeView.Name = "removeView";
-            this.removeView.Size = new System.Drawing.Size(75, 23);
+            this.removeView.Size = new System.Drawing.Size(40, 40);
             this.removeView.TabIndex = 34;
-            this.removeView.Text = "Remove Cube";
-            this.removeView.UseVisualStyleBackColor = true;
+            this.removeView.UseVisualStyleBackColor = false;
             this.removeView.Click += new System.EventHandler(this.removeView_Click);
             // 
             // removeAllButton
             // 
-            this.removeAllButton.Location = new System.Drawing.Point(1185, 554);
+            this.removeAllButton.BackColor = System.Drawing.SystemColors.GrayText;
+            this.removeAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.removeAllButton.Image = ((System.Drawing.Image)(resources.GetObject("removeAllButton.Image")));
+            this.removeAllButton.Location = new System.Drawing.Point(931, 516);
             this.removeAllButton.Name = "removeAllButton";
-            this.removeAllButton.Size = new System.Drawing.Size(75, 23);
+            this.removeAllButton.Size = new System.Drawing.Size(40, 40);
             this.removeAllButton.TabIndex = 35;
-            this.removeAllButton.Text = "Remove All";
-            this.removeAllButton.UseVisualStyleBackColor = true;
+            this.removeAllButton.UseVisualStyleBackColor = false;
             this.removeAllButton.Click += new System.EventHandler(this.removeAllButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.GrayText;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.Location = new System.Drawing.Point(974, 470);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(40, 40);
+            this.button2.TabIndex = 36;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // MainView
             // 
@@ -437,6 +468,7 @@ namespace TrabalhoCGWindowsForms {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.removeAllButton);
             this.Controls.Add(this.removeView);
             this.Controls.Add(this.button1);
@@ -524,6 +556,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button removeView;
         private System.Windows.Forms.Button removeAllButton;
+        private System.Windows.Forms.Button button2;
 
     }
 }

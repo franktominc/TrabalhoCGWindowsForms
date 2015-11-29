@@ -230,18 +230,22 @@ namespace TrabalhoCGWindowsForms {
                
             }
             else if (groupSolidsCheckBox.Checked) {
-                var me = (MouseEventArgs)e;
-                var coordinates = me.Location;
-                selectedGuy = SelectCube(coordinates, 0);
-                if (selectedGuy == -1) {
-                    selectedSolids = new List<int>();
+                if (solidsList.Count != 0) {
+                    var me = (MouseEventArgs) e;
+                    var coordinates = me.Location;
+                    selectedGuy = SelectCube(coordinates, 0);
+                    if (selectedGuy == -1) {
+                        selectedSolids = new List<int>();
+                    }
+                    else {
+                        if (!selectedSolids.Contains(selectedGuy))
+                            selectedSolids.Add(selectedGuy);
+                    }
+
+                    DrawSolids();
                 }
-                else {
-                    selectedSolids.Add(selectedGuy); 
-                }
-                
-                DrawSolids();
             }else{
+                selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 if(solidsList.Count != 0){
@@ -417,17 +421,22 @@ namespace TrabalhoCGWindowsForms {
                 AddCube(coordinates, 1);
 
             } else if (groupSolidsCheckBox.Checked) {
-                var me = (MouseEventArgs)e;
-                var coordinates = me.Location;
-                selectedGuy = SelectCube(coordinates, 1);
-                if (selectedGuy == -1) {
-                    selectedSolids = new List<int>();
-                } else {
-                    selectedSolids.Add(selectedGuy);
-                }
+                if (solidsList.Count != 0) {
+                    var me = (MouseEventArgs) e;
+                    var coordinates = me.Location;
+                    selectedGuy = SelectCube(coordinates, 1);
+                    if (selectedGuy == -1) {
+                        selectedSolids = new List<int>();
+                    }
+                    else {
+                        if (!selectedSolids.Contains(selectedGuy))
+                            selectedSolids.Add(selectedGuy);
+                    }
 
-                DrawSolids();
+                    DrawSolids();
+                }
             } else {
+                selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 if (solidsList.Count != 0) {
@@ -450,10 +459,25 @@ namespace TrabalhoCGWindowsForms {
                 var coordinates = me.Location;
                 AddCube(coordinates, 2);
 
+            } else if (groupSolidsCheckBox.Checked) {
+                if (solidsList.Count != 0) {
+                    var me = (MouseEventArgs)e;
+                    var coordinates = me.Location;
+                    selectedGuy = SelectCube(coordinates, 2);
+                    if (selectedGuy == -1) {
+                        selectedSolids = new List<int>();
+                    } else {
+                        if(!selectedSolids.Contains(selectedGuy))
+                            selectedSolids.Add(selectedGuy);
+                    }
+
+                    DrawSolids();
+                }
             } else {
+                selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
-                if (solidsList.Count != 0){
+                if (solidsList.Count != 0) {
                     selectedGuy = SelectCube(coordinates, 2);
                     DrawSolids();
                 }
@@ -468,6 +492,8 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void button2_Click(object sender, EventArgs e) {
+            if (selectedGuy < 0)
+                return;
             if (solidsList[selectedGuy].Count == 1) {
                 foreach (var solid in solidsList[selectedGuy]) {
                     solid.ZScale(1.1);
@@ -478,6 +504,8 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void button3_Click(object sender, EventArgs e) {
+            if (selectedGuy < 0)
+                return;
             if (solidsList[selectedGuy].Count == 1) {
                 foreach (var solid in solidsList[selectedGuy]) {
                     solid.ZScale(0.9);
@@ -487,6 +515,8 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e) {
+            if(selectedGuy < 0)
+                return;
             const int desloc = 5;
             switch (view) {
                 case 0:
@@ -642,6 +672,7 @@ namespace TrabalhoCGWindowsForms {
                 var k = selectedSolids[selectedSolids.Count - 1];
                 for (int i = 0; i < selectedSolids.Count - 1; i++) {
                     for (int j = 0; j < solidsList[selectedSolids[i]].Count; j++) {
+                        
                         solidsList[k].Add(solidsList[selectedSolids[i]][j]);
                     }
                     solidsList.RemoveAt(selectedSolids[i]);
@@ -675,6 +706,22 @@ namespace TrabalhoCGWindowsForms {
 
         private void removeAllButton_Click(object sender, EventArgs e) {
             solidsList = new List<List<Solid>>();
+            DrawSolids();
+        }
+
+        private void addCubeBox_Click(object sender, EventArgs e) {
+            groupSolidsCheckBox.Checked = false;
+        }
+
+        private void groupSolidsCheckBox_Click(object sender, EventArgs e) {
+            addCubeBox.Checked = false;
+        }
+
+        private void button2_Click_1(object sender, EventArgs e) {
+            var k = Enumerable.Range(0, solidsList.Count);
+            foreach (var i in k) {
+                selectedSolids.Add(i);
+            }
             DrawSolids();
         }
     }
