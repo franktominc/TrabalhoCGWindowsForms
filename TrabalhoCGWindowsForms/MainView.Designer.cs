@@ -28,6 +28,7 @@ namespace TrabalhoCGWindowsForms {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.frontView = new System.Windows.Forms.PictureBox();
             this.topView = new System.Windows.Forms.PictureBox();
@@ -64,6 +65,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeView = new System.Windows.Forms.Button();
             this.removeAllButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -462,6 +464,10 @@ namespace TrabalhoCGWindowsForms {
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "Adicionar Cubo";
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -557,6 +563,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Button removeView;
         private System.Windows.Forms.Button removeAllButton;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }
