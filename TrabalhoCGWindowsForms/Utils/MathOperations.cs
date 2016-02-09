@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TrabalhoCGWindowsForms.Model;
 
 namespace TrabalhoCGWindowsForms.Utils {
@@ -77,5 +78,9 @@ namespace TrabalhoCGWindowsForms.Utils {
                 Console.WriteLine();
             }
         }
+
+        /*public static List<List<Solid>> Clone(this List<List<Solid>> sourceList) {
+            
+        }*/
     }
 }

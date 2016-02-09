@@ -42,19 +42,12 @@ namespace TrabalhoCGWindowsForms {
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.xRotationBar = new System.Windows.Forms.TrackBar();
-            this.yRotationBar = new System.Windows.Forms.TrackBar();
-            this.zRotationBar = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.addCubeBox = new System.Windows.Forms.CheckBox();
             this.btScalePlus = new System.Windows.Forms.Button();
             this.btScaleMinus = new System.Windows.Forms.Button();
@@ -66,15 +59,12 @@ namespace TrabalhoCGWindowsForms {
             this.removeAllButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.rotateCubeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xRotationBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.yRotationBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zRotationBar)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // frontView
@@ -198,36 +188,6 @@ namespace TrabalhoCGWindowsForms {
             this.label4.TabIndex = 10;
             this.label4.Text = "Front View";
             // 
-            // xRotationBar
-            // 
-            this.xRotationBar.Location = new System.Drawing.Point(12, 25);
-            this.xRotationBar.Maximum = 72;
-            this.xRotationBar.Minimum = -72;
-            this.xRotationBar.Name = "xRotationBar";
-            this.xRotationBar.Size = new System.Drawing.Size(316, 45);
-            this.xRotationBar.TabIndex = 11;
-            this.xRotationBar.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
-            // 
-            // yRotationBar
-            // 
-            this.yRotationBar.Location = new System.Drawing.Point(12, 87);
-            this.yRotationBar.Maximum = 72;
-            this.yRotationBar.Minimum = -72;
-            this.yRotationBar.Name = "yRotationBar";
-            this.yRotationBar.Size = new System.Drawing.Size(316, 45);
-            this.yRotationBar.TabIndex = 13;
-            this.yRotationBar.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
-            // 
-            // zRotationBar
-            // 
-            this.zRotationBar.Location = new System.Drawing.Point(12, 149);
-            this.zRotationBar.Maximum = 72;
-            this.zRotationBar.Minimum = -72;
-            this.zRotationBar.Name = "zRotationBar";
-            this.zRotationBar.Size = new System.Drawing.Size(316, 45);
-            this.zRotationBar.TabIndex = 14;
-            this.zRotationBar.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -293,52 +253,6 @@ namespace TrabalhoCGWindowsForms {
             this.label10.Size = new System.Drawing.Size(11, 12);
             this.label10.TabIndex = 19;
             this.label10.Text = "X";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.SystemColors.Control;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(144, 6);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "X Rotation";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.SystemColors.Control;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(144, 68);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(57, 13);
-            this.label12.TabIndex = 22;
-            this.label12.Text = "Y Rotation";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.SystemColors.Control;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(144, 130);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(57, 13);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "Z Rotation";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.xRotationBar);
-            this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.yRotationBar);
-            this.panel1.Controls.Add(this.zRotationBar);
-            this.panel1.Location = new System.Drawing.Point(962, 61);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(337, 213);
-            this.panel1.TabIndex = 24;
             // 
             // addCubeBox
             // 
@@ -468,12 +382,23 @@ namespace TrabalhoCGWindowsForms {
             // 
             this.toolTip1.ToolTipTitle = "Adicionar Cubo";
             // 
+            // rotateCubeCheckbox
+            // 
+            this.rotateCubeCheckbox.AutoSize = true;
+            this.rotateCubeCheckbox.Location = new System.Drawing.Point(1057, 332);
+            this.rotateCubeCheckbox.Name = "rotateCubeCheckbox";
+            this.rotateCubeCheckbox.Size = new System.Drawing.Size(80, 17);
+            this.rotateCubeCheckbox.TabIndex = 37;
+            this.rotateCubeCheckbox.Text = "checkBox1";
+            this.rotateCubeCheckbox.UseVisualStyleBackColor = true;
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.rotateCubeCheckbox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.removeAllButton);
             this.Controls.Add(this.removeView);
@@ -484,7 +409,6 @@ namespace TrabalhoCGWindowsForms {
             this.Controls.Add(this.btScaleMinus);
             this.Controls.Add(this.btScalePlus);
             this.Controls.Add(this.addCubeBox);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
@@ -512,11 +436,6 @@ namespace TrabalhoCGWindowsForms {
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xRotationBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.yRotationBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zRotationBar)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,23 +453,18 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TrackBar xRotationBar;
+        private List<List<Solid>> perspectiveSolidList;
         private List<List<Solid>> solidsList;
         private List<int> selectedSolids; 
         private int selectedGuy;
         private int view;
-        private System.Windows.Forms.TrackBar yRotationBar;
-        private System.Windows.Forms.TrackBar zRotationBar;
+        private bool amIRotating;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox addCubeBox;
         private System.Windows.Forms.Button btScalePlus;
         private System.Windows.Forms.Button btScaleMinus;
@@ -564,6 +478,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Button removeAllButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox rotateCubeCheckbox;
 
     }
 }

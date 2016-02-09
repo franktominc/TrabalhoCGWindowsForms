@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms.Model {
     [Serializable]
-    public class Solid {
+    public class Solid : ICloneable{
 
         private double[,] _points;  //vertices do solido
         private int[,] _edges;  //arestas do solido
@@ -72,7 +74,7 @@ namespace TrabalhoCGWindowsForms.Model {
             _points = MathOperations.TransposeMatrix(_points);
         }
 
-        public void XAxisRotation(float angle, double y, double z) {    //rotaciona o solido em torno do eixo x
+        public void XAxisRotation(double angle, double y, double z) {    //rotaciona o solido em torno do eixo x
             const double toRadian = Math.PI / 180;
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
@@ -83,7 +85,7 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void YAxisRotation(float angle, double x, double z) {    //rotaciona o solido em torno do eixo y
+        public void YAxisRotation(double angle, double x, double z) {    //rotaciona o solido em torno do eixo y
             const double toRadian = Math.PI / 180;
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
@@ -94,7 +96,7 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MathOperations.MatrixMultiplication(matrix, Points);
         }
 
-        public void ZAxisRotation(float angle, double x, double y) {    //rotaciona o solido em torno do eixo z
+        public void ZAxisRotation(double angle, double x, double y) {    //rotaciona o solido em torno do eixo z
             const double toRadian = Math.PI / 180;
             var cosTheta = Math.Cos(angle * toRadian);
             var sinTheta = Math.Sin(angle * toRadian);
@@ -140,6 +142,18 @@ namespace TrabalhoCGWindowsForms.Model {
                     _visibleFaces[i] = false;
                 }
             }
+        }
+
+        public object Clone() {
+            MemoryStream ms = new MemoryStream();
+            BinaryFormatter bf = new BinaryFormatter();
+
+            bf.Serialize(ms, this);
+
+            ms.Position = 0;
+            object obj = bf.Deserialize(ms);
+            ms.Close();
+            return obj;
         }
     }
 }

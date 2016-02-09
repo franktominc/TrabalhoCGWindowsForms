@@ -23,77 +23,41 @@ namespace TrabalhoCGWindowsForms {
             solidsList = new List<List<Solid>>();   //Cria a lista de solido
             selectedGuy = -1;   //configura o solido selecionado para: nenhum
             selectedSolids = new List<int>();
-        }
+            amIRotating = false;
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e) {
-            if (selectedGuy >= 0) {
-                if (solidsList[selectedGuy].Count > 1) {
-                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
-                    foreach (var solid in solidsList[selectedGuy]) {
-                        solid.XAxisRotation(xRotationBar.Value, mid.Y, mid.Z);
-                    }
-                   
-                }else if (xRotationBar.Value != 0) {
-                    solidsList[selectedGuy][0].XAxisRotation(xRotationBar.Value, solidsList[selectedGuy][0].Points[1, 8], solidsList[selectedGuy][0].Points[2, 8]);
-                }
-                DrawSolids();
-            }
-        }
-
-        private void trackBar2_ValueChanged(object sender, EventArgs e) {
-            if (selectedGuy >= 0) {
-                if (solidsList[selectedGuy].Count > 1) {
-                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
-                    foreach (var solid in solidsList[selectedGuy]) {
-                        solid.YAxisRotation(yRotationBar.Value, mid.X, mid.Z);
-                    }
-
-                } else if (yRotationBar.Value != 0) {
-                    solidsList[selectedGuy][0].YAxisRotation(yRotationBar.Value, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[2, 8]);
-                }
-                DrawSolids();
-            }
-
-        }
-
-        private void trackBar3_ValueChanged(object sender, EventArgs e) {
-            if (selectedGuy >= 0) {
-                if (solidsList[selectedGuy].Count > 1) {
-                    var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
-                    foreach (var solid in solidsList[selectedGuy]) {
-                        solid.ZAxisRotation(zRotationBar.Value, mid.X, mid.Y);
-                    }
-
-                } else if (zRotationBar.Value != 0) {
-                    solidsList[selectedGuy][0].ZAxisRotation(zRotationBar.Value, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[1, 8]);
-                }
-                DrawSolids();
-            }
         }
 
         private void topView_Click(object sender, EventArgs e) {
             if (addCubeBox.Checked) {
                 var me = (MouseEventArgs) e;
                 var coordinates = me.Location;
-                AddCube(coordinates,0);
-               
+                AddCube(coordinates, 0);
+
             }
             else if (groupSolidsCheckBox.Checked) {
-                if (solidsList.Count != 0) {
-                    var me = (MouseEventArgs) e;
-                    var coordinates = me.Location;
-                    selectedGuy = SelectCube(coordinates, 0);
-                    if (selectedGuy == -1) {
-                        selectedSolids = new List<int>();
-                    }
-                    else {
-                        if (!selectedSolids.Contains(selectedGuy))
-                            selectedSolids.Add(selectedGuy);
-                    }
-
-                    DrawSolids();
+                if (solidsList.Count == 0) return;
+                var me = (MouseEventArgs) e;
+                var coordinates = me.Location;
+                selectedGuy = SelectCube(coordinates, 0);
+                if (selectedGuy == -1) {
+                    selectedSolids = new List<int>();
                 }
-            }else{
+                else {
+                    if (!selectedSolids.Contains(selectedGuy))
+                        selectedSolids.Add(selectedGuy);
+                }
+
+                DrawSolids();
+            }
+            else if (rotateCubeCheckbox.Checked) {
+                if (!amIRotating) {
+                    amIRotating = true;
+                    BeginInvoke(new Action(() => TopViewRotation()));
+                }
+                else {
+                    amIRotating = false;
+                }
+            }else {
                 selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
@@ -103,6 +67,7 @@ namespace TrabalhoCGWindowsForms {
                 }
                 view = 0;
             }
+
         }
 
         private void topView_Paint(object sender, PaintEventArgs e) {
@@ -134,7 +99,15 @@ namespace TrabalhoCGWindowsForms {
 
                     DrawSolids();
                 }
-            } else {
+            } else if (rotateCubeCheckbox.Checked) {
+                if (!amIRotating) {
+                    amIRotating = true;
+                    BeginInvoke(new Action(() => LeftViewRotation()));
+                } else {
+                    amIRotating = false;
+                }
+            }
+            else {
                 selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
@@ -171,6 +144,13 @@ namespace TrabalhoCGWindowsForms {
                     }
 
                     DrawSolids();
+                }
+            } else if (rotateCubeCheckbox.Checked) {
+                if (!amIRotating) {
+                    amIRotating = true;
+                    BeginInvoke(new Action(() => FrontViewRotation()));
+                } else {
+                    amIRotating = false;
                 }
             } else {
                 selectedSolids = new List<int>();
