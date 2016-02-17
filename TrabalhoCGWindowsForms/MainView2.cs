@@ -19,6 +19,8 @@ namespace TrabalhoCGWindowsForms {
             frontView.Image = new Bitmap(frontView.Width, frontView.Height);
             leftView.Image = new Bitmap(leftView.Width, leftView.Height);
             topView.Image = new Bitmap(topView.Width, topView.Height);
+            perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
+            
             if (!hideFacesBox.Checked) {
                 for (var i = 0; i < solidsList.Count; i++) {
                     foreach (var solid in solidsList[i]) {
@@ -28,25 +30,28 @@ namespace TrabalhoCGWindowsForms {
                             DrawView(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
                             // MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
-                        }
-                        else if (solidsList[i].Count > 1) {
+                             DrawPerpectiveSolids(new Pen(Color.Yellow, 1));
+
+                        } else if (solidsList[i].Count > 1) {
                             DrawView(solid, topView, 0, true, new Pen(Color.Aquamarine, 1));
                             //MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
                             // MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));
-                        }
-                        else {
+                            DrawPerpectiveSolids(new Pen(Color.Aquamarine, 1));
+                        } else {
                             DrawView(solid, topView, 0);
                             //MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, frontView, 1);
                             // MathOperations.DebugMatrix(solid.Points);
                             DrawView(solid, leftView, 2);
+                            DrawPerpectiveSolids();
                         }
                     }
                 }
-            }
-            else {
+               
+
+            } else {
                 for (var i = 0; i < solidsList.Count; i++) {
                     foreach (var solid in solidsList[i]) {
                         if (i == selectedGuy || selectedSolids.Contains(i)) {
@@ -55,15 +60,13 @@ namespace TrabalhoCGWindowsForms {
                             DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
                             // MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
-                        }
-                        else if (solidsList[i].Count > 1) {
+                        } else if (solidsList[i].Count > 1) {
                             DrawVisibleFaces(solid, topView, 0, true, new Pen(Color.Aquamarine, 1));
                             //MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
                             // MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));
-                        }
-                        else {
+                        } else {
                             DrawVisibleFaces(solid, topView, 0);
                             //MathOperations.DebugMatrix(solid.Points);
                             DrawVisibleFaces(solid, frontView, 1);
@@ -71,23 +74,63 @@ namespace TrabalhoCGWindowsForms {
                             DrawVisibleFaces(solid, leftView, 2);
                         }
                     }
+                    if (isometricCheckBox.Checked) {
+                        IsometricTransformation();
+                        foreach (var solid in isometricSolidList[i]) {
+                            if (i == selectedGuy || selectedSolids.Contains(i)) {
+                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Yellow, 1));
+                            } else if (solidsList[i].Count > 1) {
+                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Aquamarine, 1));
+                            } else {
+                                DrawVisibleFaces(solid, perspectiveBox, 3);
+                            }
+                        }
+                    } else {
+                        PerspectiveTransformation();
+                        foreach (var solid in perspectiveSolidList[i]) {
+                            if (i == selectedGuy || selectedSolids.Contains(i)) {
+                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Yellow, 1));
+                            } else if (solidsList[i].Count > 1) {
+                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Aquamarine, 1));
+                            } else {
+                                DrawVisibleFaces(solid, perspectiveBox, 3);
+                            }
+                        }
+                    }
+                   
                 }
             }
-
-            //foreach (var solid in solidsList.SelectMany(list => list.Select(solid => solid))) {
-            DrawPerpectiveSolids();
-
-            //}
         }
 
-        private void DrawPerpectiveSolids() {
-            PerspectiveTransformation();
-            pictureBox2.Image = new Bitmap(pictureBox2.Width, pictureBox2.Height);
-            for (var i = 0; i < perspectiveSolidList.Count; i++) {
-                foreach (var solid in perspectiveSolidList[i]) {
-                    DrawFourthView(solid, pictureBox2, new Pen(Color.Black, 1));
+        private void DrawPerpectiveSolids(Pen myPen = null) {
+            perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
+            if (isometricCheckBox.Checked) {
+                Vector temp = new Vector();
+                IsometricTransformation();
+                for (var i = 0; i < isometricSolidList.Count; i++) {
+                    foreach (var solid in isometricSolidList[i]) {
+                        if (myPen == null)
+                            DrawFourthView(solid, perspectiveBox, new Pen(Color.Black, 1));
+                        else {
+                            DrawFourthView(solid, perspectiveBox, myPen);
+                        }
+                    }
                 }
             }
+            else {
+                PerspectiveTransformation();
+                for (var i = 0; i < perspectiveSolidList.Count; i++) {
+                    foreach (var solid in perspectiveSolidList[i]) {
+                        if (myPen == null)
+                            DrawFourthView(solid, perspectiveBox, new Pen(Color.Black, 1));
+                        else {
+                            DrawFourthView(solid, perspectiveBox, myPen);
+                        }
+                    }
+                }
+            }
+            
+            
         }
 
         private void DrawFourthView(Solid solid, PictureBox pc, Pen myPen = null) {
@@ -107,12 +150,11 @@ namespace TrabalhoCGWindowsForms {
                                          (float)matrix[x, solid.Edges[i, 1]],
                                          (float)matrix[y, solid.Edges[i, 1]]);
             }
-            g.DrawLine(myPen, 10, 10, 10, 40);
-            g.DrawLine(myPen, 10, 10, 40, 10);
+            
             pc.Invalidate();
         }
 
-    private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
+        private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
             var x = 0;
             var y = 0;
             switch (ipc) {
@@ -129,9 +171,6 @@ namespace TrabalhoCGWindowsForms {
                     y = 1;
                     break;
             }
-            //var height = (pc.Height / 2.0) - solid.Points[y, 8];
-            //var width = (pc.Width / 2.0) - solid.Points[x, 8];
-            // Console.WriteLine("{0} {1}",pc.Width, pc.Height);
 
             var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -172,6 +211,19 @@ namespace TrabalhoCGWindowsForms {
                     y = 1;
                     solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
                     break;
+                case 3:     //Perspective
+                    x = 0;
+                    y = 1;
+                    if (isometricCheckBox.Checked) {
+                        solid.ComputeVisibility(VRPiso, new Vector(0,0,0));
+                    }
+                    else {
+                        solid.ComputeVisibility(VRP, P);
+                    }
+                    
+                    pc.Invalidate();
+                    break;
+                   
             }
             var g = Graphics.FromImage(pc.Image);
             g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -193,8 +245,6 @@ namespace TrabalhoCGWindowsForms {
                     (float)matrix[x, solid.Faces[i, 0]],
                     (float)matrix[y, solid.Faces[i, 0]]);
             }
-            g.DrawLine(myPen, 10, 10, 10, 40);
-            g.DrawLine(myPen, 10, 10, 40, 10);
             pc.Invalidate();
 
         }
@@ -362,13 +412,13 @@ namespace TrabalhoCGWindowsForms {
                     if (solidsList[selectedGuy].Count > 1) {
                         var mid = MathOperations.MidPoint(solidsList[selectedGuy]);
                         foreach (var solid in solidsList[selectedGuy]) {
-                            solid.XAxisRotation(2*desloc.Y, mid.Y, mid.Z);
-                            solid.ZAxisRotation(2*desloc.X, mid.X, mid.Y);
+                            solid.XAxisRotation(2 * desloc.Y, mid.Y, mid.Z);
+                            solid.ZAxisRotation(2 * desloc.X, mid.X, mid.Y);
                         }
 
-                    } else{
-                        solidsList[selectedGuy][0].XAxisRotation(2*desloc.Y, solidsList[selectedGuy][0].Points[1, 8], solidsList[selectedGuy][0].Points[2, 8]);
-                        solidsList[selectedGuy][0].ZAxisRotation(2*desloc.X, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[1, 8]);
+                    } else {
+                        solidsList[selectedGuy][0].XAxisRotation(2 * desloc.Y, solidsList[selectedGuy][0].Points[1, 8], solidsList[selectedGuy][0].Points[2, 8]);
+                        solidsList[selectedGuy][0].ZAxisRotation(2 * desloc.X, solidsList[selectedGuy][0].Points[0, 8], solidsList[selectedGuy][0].Points[1, 8]);
                     }
                     DrawSolids();
                 }
@@ -436,21 +486,86 @@ namespace TrabalhoCGWindowsForms {
             }
         }
 
+        public async void TopViewTranslation() {
+            Point antigo = new Point();
+            Point atual = new Point(Cursor.Position.X, Cursor.Position.Y);
+            Point desloc = new Point();
+            while (amITranlating) {
+                antigo = atual;
+                atual = Cursor.Position;
+                desloc.X = atual.X - antigo.X;
+                desloc.Y = atual.Y - antigo.Y;
+                if (selectedGuy >= 0) {
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        //Console.WriteLine(atual);
+                        solid.Translation(desloc.X, 0, desloc.Y);
+                    }
+                    DrawSolids();
+                }
+                await Task.Delay(1);
+            }
+        }
+
+        public async void FrontViewTranslation() {
+            Point antigo = new Point();
+            Point atual = new Point(Cursor.Position.X, Cursor.Position.Y);
+            Point desloc = new Point();
+            while (amITranlating) {
+                antigo = atual;
+                atual = Cursor.Position;
+                desloc.X = atual.X - antigo.X;
+                desloc.Y = atual.Y - antigo.Y;
+                if (selectedGuy >= 0) {
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        //Console.WriteLine(atual);
+                        solid.Translation(desloc.X, desloc.Y, 0);
+                    }
+                    DrawSolids();
+                }
+                await Task.Delay(1);
+            }
+        }
+
+        public async void LeftViewTranslation() {
+            Point antigo = new Point();
+            Point atual = new Point(Cursor.Position.X, Cursor.Position.Y);
+            Point desloc = new Point();
+            while (amITranlating) {
+                antigo = atual;
+                atual = Cursor.Position;
+                desloc.X = atual.X - antigo.X;
+                desloc.Y = atual.Y - antigo.Y;
+                if (selectedGuy >= 0) {
+                    foreach (var solid in solidsList[selectedGuy]) {
+                        //Console.WriteLine(atual);
+                        solid.Translation(0, desloc.Y, desloc.X);
+                    }
+                    DrawSolids();
+                }
+                await Task.Delay(1);
+            }
+        }
+
         private void PerspectiveTransformation() {
-
+            //Console.WriteLine(VRP);
+            //Console.WriteLine(P);
             //Coordenadas de tela
-            perspectiveSolidList = solidsList;
-            Vector P = new Vector(0, 0, 0);
-            Vector VRP = new Vector(150, 150, 150);
+            perspectiveSolidList = solidsList.Clone();
+            Vector Xico = new Vector();
+            Xico.X = VRP.X - P.X;
+            Xico.Y = VRP.Y - P.Y;
+            Xico.Z = VRP.Z - P.Z;
+            Vector n = MathOperations.NormalizeVector(Xico);
 
-            Vector n = MathOperations.NormalizeVector(VRP);
+
 
             Vector Y = new Vector(0, 1, 0);
+            Vector n1 = new Vector();
             double aux = MathOperations.DotProduct(Y, n);
-            n.X = aux*n.X;
-            n.Y = aux*n.Y;
-            n.Z = aux*n.Z;
-            Vector v = new Vector(Y.X - n.X, Y.Y - n.Y, Y.Z - n.Z);
+            n1.X = aux * n.X;
+            n1.Y = aux * n.Y;
+            n1.Z = aux * n.Z;
+            Vector v = new Vector(Y.X - n1.X, Y.Y - n1.Y, Y.Z - n1.Z);
             v = MathOperations.NormalizeVector(v);
 
             Vector u = new Vector();
@@ -460,32 +575,88 @@ namespace TrabalhoCGWindowsForms {
                 {u.X, u.Y, u.Z, -1*MathOperations.DotProduct(VRP, u)},
                 {v.X, v.Y, v.Z, -1*MathOperations.DotProduct(VRP, v)},
                 {n.X, n.Y, n.Z, -1*MathOperations.DotProduct(VRP, n)},
-                {1,1,1,1}
+                {0,0,0,1}
             };
+            /*Console.WriteLine(Xico);
+            Console.WriteLine(n);
+            Console.WriteLine(u);
+            Console.WriteLine(v);
+            MathOperations.DebugMatrix(M);
+
+            double[,] solid = {
+                {-10.00, 10.00, 7.00, -7.00, -10.00, 10.00, 7.00, -7.00},
+                {-20, -20 ,	20,	20,	-20, -20, 20, 20},
+                {10, 10, 10, 10, -10, -10, -10, -10},
+                {1,1,1,1,1,1,1,1}
+            };
+            solid = MathOperations.MatrixMultiplication(M, solid);
+            MathOperations.DebugMatrix(solid);
+            */
             foreach (List<Solid> t in perspectiveSolidList) {
                 foreach (var solid in t) {
                     solid.Points = MathOperations.MatrixMultiplication(M, solid.Points);
                 }
             }
 
+            var dp = Math.Sqrt(Math.Pow(VRP.X - P.X, 2) +
+                               Math.Pow(VRP.Y - P.Y, 2) +
+                               Math.Pow(VRP.Z - P.Z, 2));
             //Transformacao perspectiva
             double[,] perspecMatrix = new double[,] {
                 {1,0,0,0},
                 {0,1,0,0},
                 {0,0,1,0},
-                {0,0,-1/(VRP.Z-P.Z),0},
+                {0,0,-1/(dp*alpha/100.0),0},
             };
             foreach (List<Solid> t in perspectiveSolidList) {
                 foreach (var solid in t) {
                     solid.Points = MathOperations.MatrixMultiplication(perspecMatrix, solid.Points);
-                    for (int j = 0; j < perspecMatrix.GetLength(1); j++) {
-                        for (int i = 0; i < perspecMatrix.GetLength(0); i++) {
-                            solid.Points[i,j]/= solid.Points[perspecMatrix.GetLength(1)-1, j];
+                    for (int i = 0; i < solid.Points.GetLength(0); i++) {
+                        for (int j = 0; j < solid.Points.GetLength(1); j++) {
+                            solid.Points[i, j] /= solid.Points[solid.Points.GetLength(0) - 1, j];
                         }
                     }
                 }
             }
 
         }
+
+        private void IsometricTransformation() {
+            //Coordenadas de tela
+
+            isometricSolidList = solidsList.Clone();
+            Vector Xico = new Vector();
+            Xico.X = VRPiso.X;
+            Xico.Y = VRPiso.Y;
+            Xico.Z = VRPiso.Z;
+            Vector n = MathOperations.NormalizeVector(Xico);
+
+
+
+            Vector Y = new Vector(0, 1, 0);
+            Vector n1 = new Vector();
+            double aux = MathOperations.DotProduct(Y, n);
+            n1.X = aux * n.X;
+            n1.Y = aux * n.Y;
+            n1.Z = aux * n.Z;
+            Vector v = new Vector(Y.X - n1.X, Y.Y - n1.Y, Y.Z - n1.Z);
+            v = MathOperations.NormalizeVector(v);
+
+            Vector u = new Vector();
+            u = MathOperations.CrossProduct(v, n);
+
+            double[,] M = new double[,] {
+                {u.X, u.Y, u.Z, -1*MathOperations.DotProduct(VRPiso, u)},
+                {v.X, v.Y, v.Z, -1*MathOperations.DotProduct(VRPiso, v)},
+                {n.X, n.Y, n.Z, -1*MathOperations.DotProduct(VRPiso, n)},
+                {0,0,0,1}
+            };
+            foreach (List<Solid> t in isometricSolidList) {
+                foreach (var solid in t) {
+                    solid.Points = MathOperations.MatrixMultiplication(M, solid.Points);
+                }
+            }
+        }
+
     }
 }

@@ -24,44 +24,51 @@ namespace TrabalhoCGWindowsForms {
             selectedGuy = -1;   //configura o solido selecionado para: nenhum
             selectedSolids = new List<int>();
             amIRotating = false;
+            P = new Vector(30, 20, 50);
+            VRP = new Vector(300, 500, 3000);
+            VRPiso = new Vector(100,100,100);
+            alpha = 50;
 
         }
 
         private void topView_Click(object sender, EventArgs e) {
             if (addCubeBox.Checked) {
-                var me = (MouseEventArgs) e;
+                var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 AddCube(coordinates, 0);
 
-            }
-            else if (groupSolidsCheckBox.Checked) {
+            } else if (groupSolidsCheckBox.Checked) {
                 if (solidsList.Count == 0) return;
-                var me = (MouseEventArgs) e;
+                var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
                 selectedGuy = SelectCube(coordinates, 0);
                 if (selectedGuy == -1) {
                     selectedSolids = new List<int>();
-                }
-                else {
+                } else {
                     if (!selectedSolids.Contains(selectedGuy))
                         selectedSolids.Add(selectedGuy);
                 }
 
                 DrawSolids();
-            }
-            else if (rotateCubeCheckbox.Checked) {
+            } else if (rotateCubeCheckbox.Checked) {
                 if (!amIRotating) {
                     amIRotating = true;
                     BeginInvoke(new Action(() => TopViewRotation()));
-                }
-                else {
+                } else {
                     amIRotating = false;
                 }
-            }else {
+            } else if (translateCubeCheckbox.Checked) {
+                if (!amITranlating) {
+                    amITranlating = true;
+                    BeginInvoke(new Action(() => TopViewTranslation()));
+                } else {
+                    amITranlating = false;
+                }
+            } else {
                 selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
-                if(solidsList.Count != 0){
+                if (solidsList.Count != 0) {
                     selectedGuy = SelectCube(coordinates, 0);
                     DrawSolids();
                 }
@@ -71,11 +78,17 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void topView_Paint(object sender, PaintEventArgs e) {
-            var myPen = new Pen(Color.Black,1);
+
+            var myPen = new Pen(Color.Black, 1);
             e.Graphics.DrawLine(myPen, 10, 10, 10, 40);
             e.Graphics.DrawLine(myPen, 10, 10, 40, 10);
+            /*var auxz = new Point[3];
+            auxz[0] = new Point(0, 0);
+            auxz[1] = new Point(0, 50);
+            auxz[2] = new Point(50, 50);
+            e.Graphics.FillPolygon(new SolidBrush(Color.FromArgb(80, 0, 0)), auxz);
             //Console.WriteLine("Ue");
-            
+            */
         }
 
         private void leftView_Click(object sender, EventArgs e) {
@@ -86,13 +99,12 @@ namespace TrabalhoCGWindowsForms {
 
             } else if (groupSolidsCheckBox.Checked) {
                 if (solidsList.Count != 0) {
-                    var me = (MouseEventArgs) e;
+                    var me = (MouseEventArgs)e;
                     var coordinates = me.Location;
                     selectedGuy = SelectCube(coordinates, 1);
                     if (selectedGuy == -1) {
                         selectedSolids = new List<int>();
-                    }
-                    else {
+                    } else {
                         if (!selectedSolids.Contains(selectedGuy))
                             selectedSolids.Add(selectedGuy);
                     }
@@ -106,8 +118,14 @@ namespace TrabalhoCGWindowsForms {
                 } else {
                     amIRotating = false;
                 }
-            }
-            else {
+            } else if (translateCubeCheckbox.Checked) {
+                if (!amITranlating) {
+                    amITranlating = true;
+                    BeginInvoke(new Action(() => LeftViewTranslation()));
+                } else {
+                    amITranlating = false;
+                }
+            } else {
                 selectedSolids = new List<int>();
                 var me = (MouseEventArgs)e;
                 var coordinates = me.Location;
@@ -139,7 +157,7 @@ namespace TrabalhoCGWindowsForms {
                     if (selectedGuy == -1) {
                         selectedSolids = new List<int>();
                     } else {
-                        if(!selectedSolids.Contains(selectedGuy))
+                        if (!selectedSolids.Contains(selectedGuy))
                             selectedSolids.Add(selectedGuy);
                     }
 
@@ -151,6 +169,13 @@ namespace TrabalhoCGWindowsForms {
                     BeginInvoke(new Action(() => FrontViewRotation()));
                 } else {
                     amIRotating = false;
+                }
+            } else if (translateCubeCheckbox.Checked) {
+                if (!amITranlating) {
+                    amITranlating = true;
+                    BeginInvoke(new Action(() => FrontViewTranslation()));
+                } else {
+                    amITranlating = false;
                 }
             } else {
                 selectedSolids = new List<int>();
@@ -179,7 +204,7 @@ namespace TrabalhoCGWindowsForms {
                 }
                 DrawSolids();
             }
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e) {
@@ -193,112 +218,6 @@ namespace TrabalhoCGWindowsForms {
             }
         }
 
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e) {
-            if(selectedGuy < 0)
-                return;
-            const int desloc = 5;
-            switch (view) {
-                case 0:
-                    switch (e.KeyChar) {
-                        case 'w':
-                        case 'W':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, -desloc);
-                            }
-                            DrawSolids();
-                            break;
-                        case 's':
-                        case 'S':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, desloc);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'd':
-                        case 'D':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(desloc, 0, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'a':
-                        case 'A':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(-desloc, 0, 0);
-                            }
-                            DrawSolids();
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (e.KeyChar) {
-                        case 'w':
-                        case 'W':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, -desloc, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 's':
-                        case 'S':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, desloc, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'd':
-                        case 'D':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, desloc);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'a':
-                        case 'A':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, 0, -desloc);
-                            }
-                            DrawSolids();
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (e.KeyChar) {
-                        case 'w':
-                        case 'W':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, -desloc, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 's':
-                        case 'S':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(0, desloc, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'd':
-                        case 'D':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(desloc, 0, 0);
-                            }
-                            DrawSolids();
-                            break;
-                        case 'a':
-                        case 'A':
-                            foreach (var solid in solidsList[selectedGuy]) {
-                                solid.Translation(-desloc, 0, 0);
-                            }
-                            DrawSolids();
-                            break;
-                    }
-                    break;
-            }
-            
-            
-        }
-        
         private void checkBox2_Click(object sender, EventArgs e) {
             DrawSolids();
         }
@@ -324,7 +243,7 @@ namespace TrabalhoCGWindowsForms {
                 fs.Close();
             }
 
-            
+
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -339,7 +258,7 @@ namespace TrabalhoCGWindowsForms {
                 // File type selected in the dialog box.
                 // NOTE that the FilterIndex property is one-based.
                 BinaryFormatter bin = new BinaryFormatter();
-                solidsList = (List<List<Solid>>) bin.Deserialize(fs);
+                solidsList = (List<List<Solid>>)bin.Deserialize(fs);
                 fs.Close();
                 DrawSolids();
             }
@@ -347,11 +266,11 @@ namespace TrabalhoCGWindowsForms {
 
         private void groupBt_Click(object sender, EventArgs e) {
             if (selectedSolids.Count >= 1) {
-                selectedSolids.Sort((a, b) => -1*a.CompareTo(b));
+                selectedSolids.Sort((a, b) => -1 * a.CompareTo(b));
                 var k = selectedSolids[selectedSolids.Count - 1];
                 for (int i = 0; i < selectedSolids.Count - 1; i++) {
                     for (int j = 0; j < solidsList[selectedSolids[i]].Count; j++) {
-                        
+
                         solidsList[k].Add(solidsList[selectedSolids[i]][j]);
                     }
                     solidsList.RemoveAt(selectedSolids[i]);
@@ -366,7 +285,7 @@ namespace TrabalhoCGWindowsForms {
             var k = selectedGuy;
             if (selectedGuy != -1) {
                 for (int i = 1; i < solidsList[k].Count; i++) {
-                    var l = new List<Solid> {solidsList[k][i]};
+                    var l = new List<Solid> { solidsList[k][i] };
                     solidsList.Add(l);
                     solidsList[k].RemoveAt(i);
                     i--;
@@ -379,7 +298,7 @@ namespace TrabalhoCGWindowsForms {
                 solidsList.RemoveAt(selectedGuy);
                 selectedGuy = -1;
                 DrawSolids();
-                
+
             }
         }
 
@@ -401,6 +320,33 @@ namespace TrabalhoCGWindowsForms {
             foreach (var i in k) {
                 selectedSolids.Add(i);
             }
+            DrawSolids();
+        }
+
+        private void translateCubeCheckbox_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e) {
+            //Console.WriteLine(VRP);
+            //Console.WriteLine(P);
+            VRP.X = Int32.Parse(vrpTfX.Text);
+            VRP.Y = Int32.Parse(vrpTfY.Text);
+            VRP.Z = Int32.Parse(vrpTfZ.Text);
+            P.X = Int32.Parse(pTfX.Text);
+            P.Y = Int32.Parse(pTfY.Text);
+            P.Z = Int32.Parse(pTfZ.Text);
+            //Console.WriteLine(VRP);
+            //Console.WriteLine(P);
+            DrawSolids();
+        }
+
+        private void button4_Click(object sender, EventArgs e) {
+            alpha = Int32.Parse(alphaTF.Text);
+            DrawSolids();
+        }
+
+        private void isometricCheckBox_Click(object sender, EventArgs e) {
             DrawSolids();
         }
     }

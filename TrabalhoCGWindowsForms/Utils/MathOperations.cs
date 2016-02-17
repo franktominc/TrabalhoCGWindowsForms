@@ -79,8 +79,19 @@ namespace TrabalhoCGWindowsForms.Utils {
             }
         }
 
-        /*public static List<List<Solid>> Clone(this List<List<Solid>> sourceList) {
-            
-        }*/
+        public static List<List<Solid>> Clone(this List<List<Solid>> sourceList) {
+            var result = new List<List<Solid>>();
+            foreach (var innerList in sourceList) {
+                var innerResult = new List<Solid>();
+                foreach (Solid item in innerList) {
+                    var clone = (Solid)(item.Clone());
+                    innerResult.Add(clone);
+                }
+
+                result.Add(innerResult);
+            }
+
+            return result;
+        }
     }
 }

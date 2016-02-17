@@ -764,6 +764,32 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <data name="isometricCheckBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAOD8YVAtlgAAAvdpQ0NQUGhv
+        dG9zaG9wIElDQyBwcm9maWxlAAA4y2NgYJ7g6OLkyiTAwFBQVFLkHuQYGREZpcB+noGNgZkBDBKTiwsc
+        AwJ8QOy8/LxUBlTAyMDw7RqIZGC4rAsyi4E0wJoMtBhIHwBio5TU4mQg/QWI08tLCoDijDFAtkhSNphd
+        AGJnhwQ5A9ktDAxMPCWpFSC9DM75BZVFmekZJQqGlpaWCo4p+UmpCsGVxSWpucUKnnnJ+UUF+UWJJakp
+        QLVQO0CA1yW/RME9MTNPwchAlYHKABSOEBYifBBiCJBcWlQGD0oGBgEGBQYDBgeGAIZEhnqGBQxHGd4w
+        ijO6MJYyrmC8xyTGFMQ0gekCszBzJPNC5jcsliwdLLdY9VhbWe+xWbJNY/vGHs6+m0OJo4vjC2ci5wUu
+        R64t3JrcC3ikeKbyCvFO4hPmm8Yvw79YQEdgh6Cr4BWhVKEfwr0iKiJ7RcNFv4hNEjcSvyJRISkneUwq
+        X1pa+oRMmay67C25PnkX+T8KWxULlfSU3iqvVSlQNVH9qXZQvUsjVFNJ84PWAe1JOqm6VnqCeq/0jxgs
+        MKw1ijG2NZE3ZTZ9aXbBfKfFEssJVnXWuTZxtoF2rvbWDsaOOk5qzkouCq7ybgruyh7qnrpeJt42Pu6+
+        wX4J/vkB9YETg5YG7wq5GPoynClCLtIqKiK6ImZm7J64BwlsibpJYckNKWtSb6ZzZFhkZmbNzb6Yy55n
+        n19RsKnwXbF2SVbpqrI3FfqVJVW7ahhrveqm1j9s1GuqaT7bKtdW2H60U7qrqPt0r2pfY//diTaTZk/+
+        OzV+2uEZGjP7Z32fkzD39HzzBUsXiSxuXfJtWebyeytDVp1e47J233rLDds2mWzestVk2/YdVjv373bd
+        c3Zf2P4HB3MO/TzSfkz8+IqT1qfOnUk+++v8pIval45eSbz67/qcmza37t6pv6d8/8TDvMdiT/Y/y3wh
+        8vLg6/y38u8ufGj6ZPr51dcF38N/Cvw69af1n+P//wANAA8013ReGAAAAAlwSFlzAAANnAAADZwBNDr3
+        GQAAAbZJREFUWEft100oBGEAxvE5cOEgN+RIFFFucnBxo1xcXMjB0YGUrxsScUEpF7m4SuKgSJF8HVAO
+        vqIkLuQrhHz8n9mdWW2zi53Z3cs+9at535l557Fmd2eNCDKAG9zjLgK32ME2xvHnVOMFX7jCEU7/Secs
+        QGvIMX5NNuahE65RBTepgVVgWRPh0grr4H5NuEwntNYwlnAOx5TiDDp4C3lwmz5ovSlzZBhzePBtBpKC
+        CVh/dS28yCi03pg58kU3ov6lduqhu1sHdmnCo0xCaw6Zo0D0ypoFijALHfSKRqQiAwUojIDOK8Y0tG43
+        gmMXmIEOipY2OMUusIh3NKEFevk7XGjHCHTxXoSKXUCfSE/a8DDJUIEKc+Qcu8Aa9AnnZXQPqEC4d1Gi
+        QKJAokCiQNwLbEDfvnErsI4PbcSjQC60f0+DWBfIhPY9IksTsSyQDv020L4cTSixKpCES2i+RBNWolmg
+        zhz5sg/NlZujH4lmAetiK9C40hwFJRoF8qELlmHQv90Ax2zi2bfpWdLwiQvo4s0ImVXooF0/vTfd0A+O
+        E2hN6UHY6Mn1EG8e0kPuAcI9FRPD+AZiXAgodQE2MwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>

@@ -117,11 +117,12 @@ namespace TrabalhoCGWindowsForms.Model {
             Points = MathOperations.MatrixMultiplication(MathOperations.Translation(x, y, z), Points);
         }
 
-        public void ComputeVisibility(Vector vrp) {     //processa cada face e determina sua visibilidade
+        public void ComputeVisibility(Vector vrp, Vector P =null) {     //processa cada face e determina sua visibilidade
+            Console.WriteLine("BAtata");
             var N = new Vector();   //vetor vrp - p
-            N.X = vrp.X - Points[0, 8];
-            N.Y = vrp.Y - Points[1, 8];
-            N.Z = vrp.Z - Points[2, 8];
+            N.X = vrp.X - (P == null?Points[0, 8]:P.X);
+            N.Y = vrp.Y - (P == null?Points[1, 8]:P.Y);
+            N.Z = vrp.Z - (P == null?Points[2, 8]:P.Z);
             N = MathOperations.NormalizeVector(N);
             Vector vec1;    //vetor 1 da face
             Vector vec2;    //vetor 2 da face
@@ -141,6 +142,8 @@ namespace TrabalhoCGWindowsForms.Model {
                 } else {
                     _visibleFaces[i] = false;
                 }
+                Console.WriteLine(_visibleFaces[i]);
+
             }
         }
 
