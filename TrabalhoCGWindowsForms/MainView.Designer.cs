@@ -628,10 +628,10 @@ namespace TrabalhoCGWindowsForms {
         private int view;
         private bool amIRotating;
         private bool amITranlating;
-        private Vector VRP;
-        private Vector VRPiso;
-        private Vector P;
-        private int alpha;
+        public Vector VRP;
+        public Vector VRPiso;
+        public Vector P;
+        public int alpha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

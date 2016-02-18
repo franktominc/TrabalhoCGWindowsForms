@@ -12,7 +12,7 @@ using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms {
     public partial class MainView {
-        private void DrawSolids() {
+        public void DrawSolids() {
             //Desenha um solido
             if (solidsList == null) return;
 
@@ -215,7 +215,7 @@ namespace TrabalhoCGWindowsForms {
                     x = 0;
                     y = 1;
                     if (isometricCheckBox.Checked) {
-                        solid.ComputeVisibility(VRPiso, new Vector(0,0,0));
+                        solid.ComputeVisibility(new Vector(0, 0, 1), new Vector(0, 0, 0));
                     }
                     else {
                         solid.ComputeVisibility(VRP, P);
@@ -657,5 +657,64 @@ namespace TrabalhoCGWindowsForms {
             }
         }
 
+        public void FlatShading(Solid solid, Vector ka, Vector kd, Vector ks, int n, Vector iL, Vector iLa, Vector L) {
+            Vector iT;
+            Vector iA;
+            Vector iD;
+            Vector iS;
+            Vector R;
+            Vector S;
+            Vector Pm;
+            for (int i = 0; i < 6; i++) {
+
+                iA = new Vector();
+                iA.X = iLa.X * ka.X;
+                iA.Y = iLa.Y * ka.Y;
+                iA.Z = iLa.Z * ka.Z;
+
+                iD = new Vector();
+                var vec1 = new Vector(solid.Points[0, solid.Faces[i, 1]] - solid.Points[0, solid.Faces[i, 0]],
+                                      solid.Points[1, solid.Faces[i, 1]] - solid.Points[1, solid.Faces[i, 0]],
+                                      solid.Points[2, solid.Faces[i, 1]] - solid.Points[2, solid.Faces[i, 0]]);    //vetor 1 da face
+                var vec2 = new Vector(solid.Points[0, solid.Faces[i, 2]] - solid.Points[0, solid.Faces[i, 1]],
+                                      solid.Points[1, solid.Faces[i, 2]] - solid.Points[1, solid.Faces[i, 1]],
+                                      solid.Points[2, solid.Faces[i, 2]] - solid.Points[2, solid.Faces[i, 1]]);    //vetor 2 da face
+                var N = MathOperations.CrossProduct(vec1, vec2);    //vetor normal a face
+                N = MathOperations.NormalizeVector(N);
+                L = MathOperations.NormalizeVector(L);
+                double value = MathOperations.DotProduct(N, L);
+                iD.X = iL.X * kd.X * value;
+                iD.Y = iL.Y * kd.Y * value;
+                iD.Z = iL.Z * kd.Z * value;
+
+                R = new Vector();
+                R.X = (2 * value * N.X) - L.X;
+                R.Y = (2 * value * N.Y) - L.Y;
+                R.Z = (2 * value * N.Z) - L.Z;
+
+                S = new Vector();
+                Pm = new Vector();
+                Pm.X = (solid.Points[0, solid.Faces[i, 0]] + solid.Points[0, solid.Faces[i, 2]]) / 2;
+                Pm.Y = (solid.Points[1, solid.Faces[i, 0]] + solid.Points[1, solid.Faces[i, 2]]) / 2;
+                Pm.Z = (solid.Points[2, solid.Faces[i, 0]] + solid.Points[2, solid.Faces[i, 2]]) / 2;
+                S.X = VRP.X - Pm.X;
+                S.Y = VRP.Y - Pm.Y;
+                S.Z = VRP.Z - Pm.Z;
+                S = MathOperations.NormalizeVector(S);
+
+                iS = new Vector();
+                double value2 = Math.Pow(MathOperations.DotProduct(R, S), n);
+                iS.X = iL.X * ks.X * value2;
+                iS.Y = iL.Y * ks.Y * value2;
+                iS.X = iL.Z * ks.Z * value2;
+
+                iT = new Vector();
+                iT.X = iA.X + iD.X + iS.X;
+                iT.Y = iA.Y + iD.Y + iS.Y;
+                iT.Z = iA.Z + iD.Z + iS.Z;
+
+
+            }
+        }
     }
 }

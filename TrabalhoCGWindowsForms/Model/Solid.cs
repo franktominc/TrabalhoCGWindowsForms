@@ -118,7 +118,6 @@ namespace TrabalhoCGWindowsForms.Model {
         }
 
         public void ComputeVisibility(Vector vrp, Vector P =null) {     //processa cada face e determina sua visibilidade
-            Console.WriteLine("BAtata");
             var n = new Vector();   //vetor vrp - p
             n.X = vrp.X - (P == null?Points[0, 8]:P.X);
             n.Y = vrp.Y - (P == null?Points[1, 8]:P.Y);
@@ -140,7 +139,6 @@ namespace TrabalhoCGWindowsForms.Model {
                 } else {
                     _visibleFaces[i] = false;
                 }
-                Console.WriteLine(_visibleFaces[i]);
 
             }
         }

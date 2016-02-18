@@ -358,8 +358,9 @@ namespace TrabalhoCGWindowsForms {
             myForm.Px.Text = P.X.ToString();
             myForm.Py.Text = P.Y.ToString();
             myForm.Pz.Text = P.Z.ToString();
+            myForm.Parent = this;
             myForm.Show();
-            while (myForm.Visible) ;
+            
             Console.WriteLine("Aeee");
         }
     }

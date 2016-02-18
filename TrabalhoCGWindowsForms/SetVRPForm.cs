@@ -19,7 +19,11 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void button1_Click(object sender, EventArgs e) {
+            Parent.VRP.X = Convert.ToInt32(VRPx.Text);
+            Parent.VRP.Y = Convert.ToInt32(VRPy.Text);
+            Parent.VRP.Z = Convert.ToInt32(VRPz.Text);
             this.Hide();
+            Parent.DrawSolids();
         }
     }
 }
