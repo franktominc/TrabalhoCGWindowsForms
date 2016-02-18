@@ -26,7 +26,7 @@ namespace TrabalhoCGWindowsForms {
             amIRotating = false;
             P = new Vector(30, 20, 50);
             VRP = new Vector(300, 500, 3000);
-            VRPiso = new Vector(100,100,100);
+            VRPiso = new Vector(300,300,300);
             alpha = 50;
 
         }
@@ -348,6 +348,19 @@ namespace TrabalhoCGWindowsForms {
 
         private void isometricCheckBox_Click(object sender, EventArgs e) {
             DrawSolids();
+        }
+
+        private void setVRPAndPToolStripMenuItem_Click(object sender, EventArgs e) {
+            var myForm = new SetVRPForm();
+            myForm.VRPx.Text = VRP.X.ToString();
+            myForm.VRPy.Text = VRP.Y.ToString();
+            myForm.VRPz.Text = VRP.Z.ToString();
+            myForm.Px.Text = P.X.ToString();
+            myForm.Py.Text = P.Y.ToString();
+            myForm.Pz.Text = P.Z.ToString();
+            myForm.Show();
+            while (myForm.Visible) ;
+            Console.WriteLine("Aeee");
         }
     }
 }

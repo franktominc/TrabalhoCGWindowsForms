@@ -630,8 +630,7 @@ namespace TrabalhoCGWindowsForms {
             Xico.Y = VRPiso.Y;
             Xico.Z = VRPiso.Z;
             Vector n = MathOperations.NormalizeVector(Xico);
-
-
+            
 
             Vector Y = new Vector(0, 1, 0);
             Vector n1 = new Vector();

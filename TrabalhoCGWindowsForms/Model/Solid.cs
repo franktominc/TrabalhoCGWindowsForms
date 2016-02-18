@@ -119,24 +119,22 @@ namespace TrabalhoCGWindowsForms.Model {
 
         public void ComputeVisibility(Vector vrp, Vector P =null) {     //processa cada face e determina sua visibilidade
             Console.WriteLine("BAtata");
-            var N = new Vector();   //vetor vrp - p
-            N.X = vrp.X - (P == null?Points[0, 8]:P.X);
-            N.Y = vrp.Y - (P == null?Points[1, 8]:P.Y);
-            N.Z = vrp.Z - (P == null?Points[2, 8]:P.Z);
-            N = MathOperations.NormalizeVector(N);
-            Vector vec1;    //vetor 1 da face
-            Vector vec2;    //vetor 2 da face
+            var n = new Vector();   //vetor vrp - p
+            n.X = vrp.X - (P == null?Points[0, 8]:P.X);
+            n.Y = vrp.Y - (P == null?Points[1, 8]:P.Y);
+            n.Z = vrp.Z - (P == null?Points[2, 8]:P.Z);
+            n = MathOperations.NormalizeVector(n);
             for (int i = 0; i < 6; i++) {   //processa as faces uma a uma
-                vec1 = new Vector(_points[0, Faces[i, 1]] - _points[0, Faces[i, 0]],
-                                 _points[1, Faces[i, 1]] - _points[1, Faces[i, 0]],
-                                 _points[2, Faces[i, 1]] - _points[2, Faces[i, 0]]);
-                vec2 = new Vector(_points[0, Faces[i, 2]] - _points[0, Faces[i, 1]],
-                                     _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
-                                     _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);
+                var vec1 = new Vector(_points[0, Faces[i, 1]] - _points[0, Faces[i, 0]],
+                    _points[1, Faces[i, 1]] - _points[1, Faces[i, 0]],
+                    _points[2, Faces[i, 1]] - _points[2, Faces[i, 0]]);    //vetor 1 da face
+                var vec2 = new Vector(_points[0, Faces[i, 2]] - _points[0, Faces[i, 1]],
+                    _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
+                    _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);    //vetor 2 da face
                 var face = MathOperations.CrossProduct(vec1, vec2);    //vetor normal a face
                 face = MathOperations.NormalizeVector(face);
 
-                var visibilityK = MathOperations.DotProduct(face, N);   //coeficiente de visibilidade
+                var visibilityK = MathOperations.DotProduct(face, n);   //coeficiente de visibilidade
                 if (visibilityK > 0) {
                     _visibleFaces[i] = true;
                 } else {

@@ -74,6 +74,8 @@ namespace TrabalhoCGWindowsForms {
             this.button4 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.isometricCheckBox = new System.Windows.Forms.CheckBox();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setVRPAndPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -111,7 +113,8 @@ namespace TrabalhoCGWindowsForms {
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.GrayText;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.File});
+            this.File,
+            this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
@@ -526,6 +529,21 @@ namespace TrabalhoCGWindowsForms {
             this.isometricCheckBox.UseVisualStyleBackColor = false;
             this.isometricCheckBox.Click += new System.EventHandler(this.isometricCheckBox_Click);
             // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setVRPAndPToolStripMenuItem});
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Text = "Config";
+            // 
+            // setVRPAndPToolStripMenuItem
+            // 
+            this.setVRPAndPToolStripMenuItem.Name = "setVRPAndPToolStripMenuItem";
+            this.setVRPAndPToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.setVRPAndPToolStripMenuItem.Text = "Set VRP and P";
+            this.setVRPAndPToolStripMenuItem.Click += new System.EventHandler(this.setVRPAndPToolStripMenuItem_Click);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -648,6 +666,8 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox isometricCheckBox;
+        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setVRPAndPToolStripMenuItem;
 
     }
 }
