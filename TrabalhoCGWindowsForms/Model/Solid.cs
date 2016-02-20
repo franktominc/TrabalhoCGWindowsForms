@@ -162,8 +162,8 @@ namespace TrabalhoCGWindowsForms.Model {
         }
 
         public object Clone() {
-            MemoryStream ms = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
+            var ms = new MemoryStream();
+            var bf = new BinaryFormatter();
 
             bf.Serialize(ms, this);
 

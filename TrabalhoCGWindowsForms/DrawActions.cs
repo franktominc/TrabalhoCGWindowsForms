@@ -28,10 +28,8 @@ namespace TrabalhoCGWindowsForms {
 
             DrawSolidFaces(perspectiveSolid, perspectiveBox, 3, pen ?? new Pen(Color.Black, 1));
             
-             
         }
 
-        
         public void DrawSolids() {
             if (solidsList == null) return;
 
@@ -76,8 +74,7 @@ namespace TrabalhoCGWindowsForms {
                 FlatShading(solid, perspectiveBox);
                    
             }
-            foreach (var solid in perspectiveSolidList[selectedGuy]) {
-                    
+            foreach (var solid in perspectiveSolidList[selectedGuy]) {    
                 FlatPaint(perspectiveBox, solid, 0, 1);
             }
         }
@@ -138,5 +135,23 @@ namespace TrabalhoCGWindowsForms {
             pc.Invalidate();
 
         }
+
+        private void FlatPaint(PictureBox pc, Solid solid, int x, int y) {
+            var g = Graphics.FromImage(pc.Image);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            for (var i = 0; i < 6; i++) {
+                if (solid.FlatColor[i] == null) continue;
+
+                var face = new Point[4];
+                face[0] = new Point((int)solid.Points[x, solid.Faces[i, 0]], (int)solid.Points[y, solid.Faces[i, 0]]);
+                face[1] = new Point((int)solid.Points[x, solid.Faces[i, 1]], (int)solid.Points[y, solid.Faces[i, 1]]);
+                face[2] = new Point((int)solid.Points[x, solid.Faces[i, 2]], (int)solid.Points[y, solid.Faces[i, 2]]);
+                face[3] = new Point((int)solid.Points[x, solid.Faces[i, 3]], (int)solid.Points[y, solid.Faces[i, 3]]);
+                
+                g.FillPolygon(new SolidBrush(Color.FromArgb((int)solid.FlatColor[i].X, (int)solid.FlatColor[i].Y, (int)solid.FlatColor[i].Z)), face);
+            }
+
+        }
+
     }
 }

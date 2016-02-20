@@ -85,7 +85,7 @@ namespace TrabalhoCGWindowsForms {
                 case 2:
                     if (!amIRotating) {
                         amIRotating = true;
-                        BeginInvoke(new Action(TopViewRotation));
+                        BeginInvoke(new Action(() => Rotation(0)));
                     }
                     else {
                         amIRotating = false;
@@ -97,12 +97,12 @@ namespace TrabalhoCGWindowsForms {
                     #region Translate Cube
 
                 case 3:
-                    if (!amITranlating) {
-                        amITranlating = true;
-                        BeginInvoke(new Action(TopViewTranslation));
+                    if (!amITranslating) {
+                        amITranslating = true;
+                        BeginInvoke(new Action(() => Translation(0)));
                     }
                     else {
-                        amITranlating = false;
+                        amITranslating = false;
                     }
                     break;
 
@@ -164,7 +164,7 @@ namespace TrabalhoCGWindowsForms {
                 case 2:
                     if (!amIRotating) {
                         amIRotating = true;
-                        BeginInvoke(new Action(LeftViewRotation));
+                        BeginInvoke(new Action(()=>Rotation(2)));
                     }
                     else {
                         amIRotating = false;
@@ -176,12 +176,12 @@ namespace TrabalhoCGWindowsForms {
                     #region Translate Solid
 
                 case 3:
-                    if (!amITranlating) {
-                        amITranlating = true;
-                        BeginInvoke(new Action(LeftViewTranslation));
+                    if (!amITranslating) {
+                        amITranslating = true;
+                        BeginInvoke(new Action(() => Translation(2)));
                     }
                     else {
-                        amITranlating = false;
+                        amITranslating = false;
                     }
                     break;
 
@@ -245,7 +245,7 @@ namespace TrabalhoCGWindowsForms {
                 case 2:
                     if (!amIRotating) {
                         amIRotating = true;
-                        BeginInvoke(new Action(FrontViewRotation));
+                        BeginInvoke(new Action(() => Rotation(1)));
                     }
                     else {
                         amIRotating = false;
@@ -257,12 +257,12 @@ namespace TrabalhoCGWindowsForms {
                     #region Translate Solids
 
                 case 3:
-                    if (!amITranlating) {
-                        amITranlating = true;
-                        BeginInvoke(new Action(FrontViewTranslation));
+                    if (!amITranslating) {
+                        amITranslating = true;
+                        BeginInvoke(new Action(() => Translation(1)));
                     }
                     else {
-                        amITranlating = false;
+                        amITranslating = false;
                     }
                     break;
 

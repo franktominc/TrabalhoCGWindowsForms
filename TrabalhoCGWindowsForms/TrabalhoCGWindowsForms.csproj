@@ -65,7 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\PainterController.cs" />
     <Compile Include="DrawActions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,8 +75,6 @@
     <Compile Include="MainView2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Model\Edge.cs" />
-    <Compile Include="Model\Polygon.cs" />
     <Compile Include="Model\Solid.cs" />
     <Compile Include="Model\Vector.cs" />
     <Compile Include="Program.cs" />
@@ -90,6 +87,9 @@
     </Compile>
     <Compile Include="SetVRPForm.Designer.cs">
       <DependentUpon>SetVRPForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transformations.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utils\MathOperations.cs" />
     <EmbeddedResource Include="MainView.resx">

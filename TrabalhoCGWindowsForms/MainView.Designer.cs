@@ -511,14 +511,14 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private List<List<Solid>> isometricSolidList;
+
         private List<List<Solid>> perspectiveSolidList;
         private List<List<Solid>> solidsList;
         private List<int> selectedSolids; 
         private int selectedGuy;
 
         private bool amIRotating;
-        private bool amITranlating;
+        private bool amITranslating;
         public Vector VRP;
         public Vector VRPiso;
         public Vector P;
