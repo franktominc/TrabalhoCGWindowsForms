@@ -93,5 +93,35 @@ namespace TrabalhoCGWindowsForms.Utils {
 
             return result;
         }
+
+        public static double[,] ConvertToCamera(double[,] pontos, Vector VRP, Vector P) {
+            
+            Vector bigN = new Vector();
+            bigN.X = VRP.X - P.X;
+            bigN.Y = VRP.Y - P.Y;
+            bigN.Z = VRP.Z - P.Z;
+            Vector vectorN = NormalizeVector(bigN);
+
+            Vector Y = new Vector(0, 1, 0);
+            Vector n1 = new Vector();
+            double aux = DotProduct(Y, vectorN);
+            n1.X = aux*vectorN.X;
+            n1.Y = aux*vectorN.Y;
+            n1.Z = aux*vectorN.Z;
+            Vector v = new Vector(Y.X - n1.X, Y.Y - n1.Y, Y.Z - n1.Z);
+            v = NormalizeVector(v);
+
+            Vector u = new Vector();
+            u = CrossProduct(v, vectorN);
+
+            double[,] M = new double[,] {
+                {u.X, u.Y, u.Z, -1*DotProduct(VRP, u)},
+                {v.X, v.Y, v.Z, -1*DotProduct(VRP, v)},
+                {vectorN.X, vectorN.Y, vectorN.Z, -1*DotProduct(VRP, vectorN)},
+                {0, 0, 0, 1}
+            };
+
+            return MatrixMultiplication(M, pontos);
+        }
     }
 }

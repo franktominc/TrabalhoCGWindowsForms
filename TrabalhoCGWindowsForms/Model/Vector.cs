@@ -1,5 +1,9 @@
-﻿namespace TrabalhoCGWindowsForms.Model {
-    public class Vector {
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace TrabalhoCGWindowsForms.Model {
+    [Serializable]
+    public class Vector{
         private double _x;
         private double _y;
         private double _z;

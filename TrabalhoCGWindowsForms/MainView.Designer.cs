@@ -36,6 +36,8 @@ namespace TrabalhoCGWindowsForms {
             this.File = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setVRPAndPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leftView = new System.Windows.Forms.PictureBox();
             this.perspectiveBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,21 +63,8 @@ namespace TrabalhoCGWindowsForms {
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.rotateCubeCheckbox = new System.Windows.Forms.CheckBox();
             this.translateCubeCheckbox = new System.Windows.Forms.CheckBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.vrpTfX = new System.Windows.Forms.TextBox();
-            this.vrpTfY = new System.Windows.Forms.TextBox();
-            this.vrpTfZ = new System.Windows.Forms.TextBox();
-            this.pTfZ = new System.Windows.Forms.TextBox();
-            this.pTfY = new System.Windows.Forms.TextBox();
-            this.pTfX = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.alphaTF = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
             this.isometricCheckBox = new System.Windows.Forms.CheckBox();
-            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setVRPAndPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flatBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -120,7 +109,6 @@ namespace TrabalhoCGWindowsForms {
             this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // File
             // 
@@ -145,6 +133,21 @@ namespace TrabalhoCGWindowsForms {
             this.salvarToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.salvarToolStripMenuItem.Text = "Save";
             this.salvarToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setVRPAndPToolStripMenuItem});
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Text = "Config";
+            // 
+            // setVRPAndPToolStripMenuItem
+            // 
+            this.setVRPAndPToolStripMenuItem.Name = "setVRPAndPToolStripMenuItem";
+            this.setVRPAndPToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.setVRPAndPToolStripMenuItem.Text = "Object Properties";
+            this.setVRPAndPToolStripMenuItem.Click += new System.EventHandler(this.setPropertiesMenuItem_Click);
             // 
             // leftView
             // 
@@ -294,7 +297,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScalePlus.Size = new System.Drawing.Size(40, 40);
             this.btScalePlus.TabIndex = 27;
             this.btScalePlus.UseVisualStyleBackColor = false;
-            this.btScalePlus.Click += new System.EventHandler(this.button2_Click);
+            this.btScalePlus.Click += new System.EventHandler(this.ZScalePlus_Click);
             // 
             // btScaleMinus
             // 
@@ -307,7 +310,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScaleMinus.TabIndex = 28;
             this.btScaleMinus.Text = "-";
             this.btScaleMinus.UseVisualStyleBackColor = false;
-            this.btScaleMinus.Click += new System.EventHandler(this.button3_Click);
+            this.btScaleMinus.Click += new System.EventHandler(this.ZScaleMinus_Click);
             // 
             // hideFacesBox
             // 
@@ -320,7 +323,7 @@ namespace TrabalhoCGWindowsForms {
             this.hideFacesBox.Size = new System.Drawing.Size(40, 40);
             this.hideFacesBox.TabIndex = 30;
             this.hideFacesBox.UseVisualStyleBackColor = false;
-            this.hideFacesBox.Click += new System.EventHandler(this.checkBox2_Click);
+            this.hideFacesBox.Click += new System.EventHandler(this.HideFacesBox_Click);
             // 
             // groupSolidsCheckBox
             // 
@@ -357,7 +360,7 @@ namespace TrabalhoCGWindowsForms {
             this.button1.Size = new System.Drawing.Size(40, 40);
             this.button1.TabIndex = 33;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.UngroupSolidsBt_Click);
             // 
             // removeView
             // 
@@ -369,7 +372,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeView.Size = new System.Drawing.Size(40, 40);
             this.removeView.TabIndex = 34;
             this.removeView.UseVisualStyleBackColor = false;
-            this.removeView.Click += new System.EventHandler(this.removeView_Click);
+            this.removeView.Click += new System.EventHandler(this.removeSolidBt_Click);
             // 
             // removeAllButton
             // 
@@ -393,7 +396,7 @@ namespace TrabalhoCGWindowsForms {
             this.button2.Size = new System.Drawing.Size(40, 40);
             this.button2.TabIndex = 36;
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.SelectAllSolidsBt_Click);
             // 
             // toolTip1
             // 
@@ -418,103 +421,6 @@ namespace TrabalhoCGWindowsForms {
             this.translateCubeCheckbox.TabIndex = 38;
             this.translateCubeCheckbox.Text = "Translation";
             this.translateCubeCheckbox.UseVisualStyleBackColor = true;
-            this.translateCubeCheckbox.CheckedChanged += new System.EventHandler(this.translateCubeCheckbox_CheckedChanged);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(931, 258);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 39;
-            this.button3.Text = "Change";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // vrpTfX
-            // 
-            this.vrpTfX.Location = new System.Drawing.Point(977, 194);
-            this.vrpTfX.Name = "vrpTfX";
-            this.vrpTfX.Size = new System.Drawing.Size(29, 20);
-            this.vrpTfX.TabIndex = 40;
-            // 
-            // vrpTfY
-            // 
-            this.vrpTfY.Location = new System.Drawing.Point(1017, 194);
-            this.vrpTfY.Name = "vrpTfY";
-            this.vrpTfY.Size = new System.Drawing.Size(30, 20);
-            this.vrpTfY.TabIndex = 42;
-            // 
-            // vrpTfZ
-            // 
-            this.vrpTfZ.Location = new System.Drawing.Point(1057, 194);
-            this.vrpTfZ.Name = "vrpTfZ";
-            this.vrpTfZ.Size = new System.Drawing.Size(30, 20);
-            this.vrpTfZ.TabIndex = 43;
-            // 
-            // pTfZ
-            // 
-            this.pTfZ.Location = new System.Drawing.Point(1057, 231);
-            this.pTfZ.Name = "pTfZ";
-            this.pTfZ.Size = new System.Drawing.Size(30, 20);
-            this.pTfZ.TabIndex = 46;
-            // 
-            // pTfY
-            // 
-            this.pTfY.Location = new System.Drawing.Point(1017, 232);
-            this.pTfY.Name = "pTfY";
-            this.pTfY.Size = new System.Drawing.Size(30, 20);
-            this.pTfY.TabIndex = 45;
-            // 
-            // pTfX
-            // 
-            this.pTfX.Location = new System.Drawing.Point(977, 232);
-            this.pTfX.Name = "pTfX";
-            this.pTfX.Size = new System.Drawing.Size(29, 20);
-            this.pTfX.TabIndex = 44;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(932, 238);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(14, 13);
-            this.label11.TabIndex = 47;
-            this.label11.Text = "P";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(929, 201);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 13);
-            this.label12.TabIndex = 48;
-            this.label12.Text = "VRP";
-            // 
-            // alphaTF
-            // 
-            this.alphaTF.Location = new System.Drawing.Point(974, 103);
-            this.alphaTF.Name = "alphaTF";
-            this.alphaTF.Size = new System.Drawing.Size(35, 20);
-            this.alphaTF.TabIndex = 49;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(935, 129);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 50;
-            this.button4.Text = "Change";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(931, 104);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 13);
-            this.label13.TabIndex = 51;
-            this.label13.Text = "Alfa";
             // 
             // isometricCheckBox
             // 
@@ -529,20 +435,16 @@ namespace TrabalhoCGWindowsForms {
             this.isometricCheckBox.UseVisualStyleBackColor = false;
             this.isometricCheckBox.Click += new System.EventHandler(this.isometricCheckBox_Click);
             // 
-            // configToolStripMenuItem
+            // flatBox
             // 
-            this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setVRPAndPToolStripMenuItem});
-            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.configToolStripMenuItem.Text = "Config";
-            // 
-            // setVRPAndPToolStripMenuItem
-            // 
-            this.setVRPAndPToolStripMenuItem.Name = "setVRPAndPToolStripMenuItem";
-            this.setVRPAndPToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.setVRPAndPToolStripMenuItem.Text = "Set VRP and P";
-            this.setVRPAndPToolStripMenuItem.Click += new System.EventHandler(this.setVRPAndPToolStripMenuItem_Click);
+            this.flatBox.AutoSize = true;
+            this.flatBox.Location = new System.Drawing.Point(994, 214);
+            this.flatBox.Name = "flatBox";
+            this.flatBox.Size = new System.Drawing.Size(43, 17);
+            this.flatBox.TabIndex = 53;
+            this.flatBox.Text = "Flat";
+            this.flatBox.UseVisualStyleBackColor = true;
+            this.flatBox.Click += new System.EventHandler(this.flatBox_Click);
             // 
             // MainView
             // 
@@ -552,19 +454,8 @@ namespace TrabalhoCGWindowsForms {
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.flatBox);
             this.Controls.Add(this.isometricCheckBox);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.alphaTF);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.pTfZ);
-            this.Controls.Add(this.pTfY);
-            this.Controls.Add(this.pTfX);
-            this.Controls.Add(this.vrpTfZ);
-            this.Controls.Add(this.vrpTfY);
-            this.Controls.Add(this.vrpTfX);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.translateCubeCheckbox);
             this.Controls.Add(this.rotateCubeCheckbox);
             this.Controls.Add(this.button2);
@@ -596,7 +487,7 @@ namespace TrabalhoCGWindowsForms {
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainView";
             this.Text = "Desanim8or";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -625,13 +516,21 @@ namespace TrabalhoCGWindowsForms {
         private List<List<Solid>> solidsList;
         private List<int> selectedSolids; 
         private int selectedGuy;
-        private int view;
+
         private bool amIRotating;
         private bool amITranlating;
         public Vector VRP;
         public Vector VRPiso;
         public Vector P;
-        public int alpha;
+        public  int alpha;
+        public Vector ka;
+        public Vector kd;
+        public Vector ks;
+        public Vector L;
+        public Vector iLa;
+        public Vector iL;
+        public Vector Y;
+        public int n;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -653,21 +552,10 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox rotateCubeCheckbox;
         private System.Windows.Forms.CheckBox translateCubeCheckbox;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox vrpTfX;
-        private System.Windows.Forms.TextBox vrpTfY;
-        private System.Windows.Forms.TextBox vrpTfZ;
-        private System.Windows.Forms.TextBox pTfZ;
-        private System.Windows.Forms.TextBox pTfY;
-        private System.Windows.Forms.TextBox pTfX;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox alphaTF;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox isometricCheckBox;
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setVRPAndPToolStripMenuItem;
+        private System.Windows.Forms.CheckBox flatBox;
 
     }
 }

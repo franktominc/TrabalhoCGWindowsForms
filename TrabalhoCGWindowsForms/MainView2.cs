@@ -12,242 +12,29 @@ using TrabalhoCGWindowsForms.Utils;
 
 namespace TrabalhoCGWindowsForms {
     public partial class MainView {
-        public void DrawSolids() {
-            //Desenha um solido
-            if (solidsList == null) return;
+        
 
-            frontView.Image = new Bitmap(frontView.Width, frontView.Height);
-            leftView.Image = new Bitmap(leftView.Width, leftView.Height);
-            topView.Image = new Bitmap(topView.Width, topView.Height);
-            perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
-            
-            if (!hideFacesBox.Checked) {
-                for (var i = 0; i < solidsList.Count; i++) {
-                    foreach (var solid in solidsList[i]) {
-                        if (i == selectedGuy || selectedSolids.Contains(i)) {
-                            DrawView(solid, topView, 0, true, new Pen(Color.Yellow, 1));
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
-                             DrawPerpectiveSolids(new Pen(Color.Yellow, 1));
+        private void FlatPaint(PictureBox pc, Solid solid, int x, int y) {
+            Console.WriteLine();
+            for (int i = 0; i < 6; i++) {
+                var g = Graphics.FromImage(pc.Image);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                        } else if (solidsList[i].Count > 1) {
-                            DrawView(solid, topView, 0, true, new Pen(Color.Aquamarine, 1));
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));
-                            DrawPerpectiveSolids(new Pen(Color.Aquamarine, 1));
-                        } else {
-                            DrawView(solid, topView, 0);
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, frontView, 1);
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawView(solid, leftView, 2);
-                            DrawPerpectiveSolids();
-                        }
-                    }
+                var face = new Point[4];
+                face[0] = new Point((int)solid.Points[x, solid.Faces[i, 0]], (int)solid.Points[y, solid.Faces[i, 0]]);
+                face[1] = new Point((int)solid.Points[x, solid.Faces[i, 1]], (int)solid.Points[y, solid.Faces[i, 1]]);
+                face[2] = new Point((int)solid.Points[x, solid.Faces[i, 2]], (int)solid.Points[y, solid.Faces[i, 2]]);
+                face[3] = new Point((int)solid.Points[x, solid.Faces[i, 3]], (int)solid.Points[y, solid.Faces[i, 3]]);
+                if (solid.FlatColor[i] == null) {
+                    continue;
                 }
-               
-
-            } else {
-                for (var i = 0; i < solidsList.Count; i++) {
-                    foreach (var solid in solidsList[i]) {
-                        if (i == selectedGuy || selectedSolids.Contains(i)) {
-                            DrawVisibleFaces(solid, topView, 0, true, new Pen(Color.Yellow, 1));
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Yellow, 1));
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Yellow, 1));
-                        } else if (solidsList[i].Count > 1) {
-                            DrawVisibleFaces(solid, topView, 0, true, new Pen(Color.Aquamarine, 1));
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, frontView, 1, true, new Pen(Color.Aquamarine, 1));
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, leftView, 2, true, new Pen(Color.Aquamarine, 1));
-                        } else {
-                            DrawVisibleFaces(solid, topView, 0);
-                            //MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, frontView, 1);
-                            // MathOperations.DebugMatrix(solid.Points);
-                            DrawVisibleFaces(solid, leftView, 2);
-                        }
-                    }
-                    if (isometricCheckBox.Checked) {
-                        IsometricTransformation();
-                        foreach (var solid in isometricSolidList[i]) {
-                            if (i == selectedGuy || selectedSolids.Contains(i)) {
-                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Yellow, 1));
-                            } else if (solidsList[i].Count > 1) {
-                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Aquamarine, 1));
-                            } else {
-                                DrawVisibleFaces(solid, perspectiveBox, 3);
-                            }
-                        }
-                    } else {
-                        PerspectiveTransformation();
-                        foreach (var solid in perspectiveSolidList[i]) {
-                            if (i == selectedGuy || selectedSolids.Contains(i)) {
-                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Yellow, 1));
-                            } else if (solidsList[i].Count > 1) {
-                                DrawVisibleFaces(solid, perspectiveBox, 3, true, new Pen(Color.Aquamarine, 1));
-                            } else {
-                                DrawVisibleFaces(solid, perspectiveBox, 3);
-                            }
-                        }
-                    }
-                   
-                }
+                g.FillPolygon(new SolidBrush(Color.FromArgb((int)solid.FlatColor[i].X, (int)solid.FlatColor[i].Y, (int)solid.FlatColor[i].Z)), face);
             }
+
         }
 
-        private void DrawPerpectiveSolids(Pen myPen = null) {
-            perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
-            if (isometricCheckBox.Checked) {
-                Vector temp = new Vector();
-                IsometricTransformation();
-                for (var i = 0; i < isometricSolidList.Count; i++) {
-                    foreach (var solid in isometricSolidList[i]) {
-                        if (myPen == null)
-                            DrawFourthView(solid, perspectiveBox, new Pen(Color.Black, 1));
-                        else {
-                            DrawFourthView(solid, perspectiveBox, myPen);
-                        }
-                    }
-                }
-            }
-            else {
-                PerspectiveTransformation();
-                for (var i = 0; i < perspectiveSolidList.Count; i++) {
-                    foreach (var solid in perspectiveSolidList[i]) {
-                        if (myPen == null)
-                            DrawFourthView(solid, perspectiveBox, new Pen(Color.Black, 1));
-                        else {
-                            DrawFourthView(solid, perspectiveBox, myPen);
-                        }
-                    }
-                }
-            }
-            
-            
-        }
-
-        private void DrawFourthView(Solid solid, PictureBox pc, Pen myPen = null) {
-            var x = 0;
-            var y = 1;
-            var g = Graphics.FromImage(pc.Image);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            if (myPen == null)
-                myPen = new Pen(Color.Black, 1);
-
-
-
-            var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
-            for (var i = 0; i < 12; i++) {
-                g.DrawLine(myPen, (float)matrix[x, solid.Edges[i, 0]],
-                                         (float)matrix[y, solid.Edges[i, 0]],
-                                         (float)matrix[x, solid.Edges[i, 1]],
-                                         (float)matrix[y, solid.Edges[i, 1]]);
-            }
-            
-            pc.Invalidate();
-        }
-
-        private void DrawView(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
-            var x = 0;
-            var y = 0;
-            switch (ipc) {
-                case 0:        //Top View
-                    x = 0;
-                    y = 2;
-                    break;
-                case 1:       //Front View
-                    x = 0;
-                    y = 1;
-                    break;
-                case 2:       //Left View
-                    x = 2;
-                    y = 1;
-                    break;
-            }
-
-            var g = Graphics.FromImage(pc.Image);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            if (myPen == null)
-                myPen = new Pen(Color.Black, 1);
-
-
-
-            var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
-            for (var i = 0; i < 12; i++) {
-                g.DrawLine(myPen, (float)matrix[x, solid.Edges[i, 0]],
-                                         (float)matrix[y, solid.Edges[i, 0]],
-                                         (float)matrix[x, solid.Edges[i, 1]],
-                                         (float)matrix[y, solid.Edges[i, 1]]);
-            }
-            g.DrawLine(myPen, 10, 10, 10, 40);
-            g.DrawLine(myPen, 10, 10, 40, 10);
-            pc.Invalidate();
-            //pc.Refresh();
-        }
-
-        private void DrawVisibleFaces(Solid solid, PictureBox pc, int ipc, bool selected = false, Pen myPen = null) {
-            var x = 0;
-            var y = 0;
-            switch (ipc) {
-                case 0:        //Top View
-                    x = 0;
-                    y = 2;
-                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], 1, solid.Points[2, 8]));
-                    break;
-                case 1:       //Front View
-                    x = 0;
-                    y = 1;
-                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], solid.Points[1, 8], 1));
-                    break;
-                case 2:       //Left View
-                    x = 2;
-                    y = 1;
-                    solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
-                    break;
-                case 3:     //Perspective
-                    x = 0;
-                    y = 1;
-                    if (isometricCheckBox.Checked) {
-                        solid.ComputeVisibility(new Vector(0, 0, 1), new Vector(0, 0, 0));
-                    }
-                    else {
-                        solid.ComputeVisibility(VRP, P);
-                    }
-                    
-                    pc.Invalidate();
-                    break;
-                   
-            }
-            var g = Graphics.FromImage(pc.Image);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            if (myPen == null) {
-                myPen = new Pen(Color.Black, 1);
-            }
-
-            var matrix = solid.Points;//MathOperations.AddMatrix(height, MathOperations.AddMatrix(width, solid.Points, x), y);
-            for (var i = 0; i < 6; i++) {
-                if (!solid.VisibleFaces[i]) continue;
-                for (int j = 0; j < 3; j++) {
-                    g.DrawLine(myPen, (float)matrix[x, solid.Faces[i, j]],
-                        (float)matrix[y, solid.Faces[i, j]],
-                        (float)matrix[x, solid.Faces[i, j + 1]],
-                        (float)matrix[y, solid.Faces[i, j + 1]]);
-                }
-                g.DrawLine(myPen, (float)matrix[x, solid.Faces[i, 3]],
-                    (float)matrix[y, solid.Faces[i, 3]],
-                    (float)matrix[x, solid.Faces[i, 0]],
-                    (float)matrix[y, solid.Faces[i, 0]]);
-            }
-            pc.Invalidate();
-
-        }
+       
+       
 
         private int SelectCube(Point coordinates, int index) {
             var maiorX = 0.0;
@@ -396,7 +183,7 @@ namespace TrabalhoCGWindowsForms {
 
             solidsList.Add(l);
             //Console.WriteLine(l[0]);
-            DrawSolids();
+
         }
 
         async public void TopViewRotation() {
@@ -547,19 +334,15 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void PerspectiveTransformation() {
-            //Console.WriteLine(VRP);
-            //Console.WriteLine(P);
-            //Coordenadas de tela
+
+            #region Camera Transformations
             perspectiveSolidList = solidsList.Clone();
-            Vector Xico = new Vector();
-            Xico.X = VRP.X - P.X;
-            Xico.Y = VRP.Y - P.Y;
-            Xico.Z = VRP.Z - P.Z;
-            Vector n = MathOperations.NormalizeVector(Xico);
+            Vector bigN = new Vector();
+            bigN.X = VRP.X - P.X;
+            bigN.Y = VRP.Y - P.Y;
+            bigN.Z = VRP.Z - P.Z;
+            Vector n = MathOperations.NormalizeVector(bigN);
 
-
-
-            Vector Y = new Vector(0, 1, 0);
             Vector n1 = new Vector();
             double aux = MathOperations.DotProduct(Y, n);
             n1.X = aux * n.X;
@@ -597,6 +380,7 @@ namespace TrabalhoCGWindowsForms {
                     solid.Points = MathOperations.MatrixMultiplication(M, solid.Points);
                 }
             }
+            #endregion
 
             var dp = Math.Sqrt(Math.Pow(VRP.X - P.X, 2) +
                                Math.Pow(VRP.Y - P.Y, 2) +
@@ -624,7 +408,7 @@ namespace TrabalhoCGWindowsForms {
         private void IsometricTransformation() {
             //Coordenadas de tela
 
-            isometricSolidList = solidsList.Clone();
+            perspectiveSolidList = solidsList.Clone();
             Vector Xico = new Vector();
             Xico.X = VRPiso.X;
             Xico.Y = VRPiso.Y;
@@ -650,14 +434,15 @@ namespace TrabalhoCGWindowsForms {
                 {n.X, n.Y, n.Z, -1*MathOperations.DotProduct(VRPiso, n)},
                 {0,0,0,1}
             };
-            foreach (List<Solid> t in isometricSolidList) {
+            foreach (List<Solid> t in perspectiveSolidList) {
                 foreach (var solid in t) {
                     solid.Points = MathOperations.MatrixMultiplication(M, solid.Points);
                 }
             }
         }
 
-        public void FlatShading(Solid solid, Vector ka, Vector kd, Vector ks, int n, Vector iL, Vector iLa, Vector L) {
+        
+        public void FlatShading(Solid solid, PictureBox pc) {
             Vector iT;
             Vector iA;
             Vector iD;
@@ -665,6 +450,8 @@ namespace TrabalhoCGWindowsForms {
             Vector R;
             Vector S;
             Vector Pm;
+         
+
             for (int i = 0; i < 6; i++) {
 
                 iA = new Vector();
@@ -672,49 +459,55 @@ namespace TrabalhoCGWindowsForms {
                 iA.Y = iLa.Y * ka.Y;
                 iA.Z = iLa.Z * ka.Z;
 
-                iD = new Vector();
-                var vec1 = new Vector(solid.Points[0, solid.Faces[i, 1]] - solid.Points[0, solid.Faces[i, 0]],
-                                      solid.Points[1, solid.Faces[i, 1]] - solid.Points[1, solid.Faces[i, 0]],
-                                      solid.Points[2, solid.Faces[i, 1]] - solid.Points[2, solid.Faces[i, 0]]);    //vetor 1 da face
-                var vec2 = new Vector(solid.Points[0, solid.Faces[i, 2]] - solid.Points[0, solid.Faces[i, 1]],
-                                      solid.Points[1, solid.Faces[i, 2]] - solid.Points[1, solid.Faces[i, 1]],
-                                      solid.Points[2, solid.Faces[i, 2]] - solid.Points[2, solid.Faces[i, 1]]);    //vetor 2 da face
-                var N = MathOperations.CrossProduct(vec1, vec2);    //vetor normal a face
-                N = MathOperations.NormalizeVector(N);
-                L = MathOperations.NormalizeVector(L);
-                double value = MathOperations.DotProduct(N, L);
-                iD.X = iL.X * kd.X * value;
-                iD.Y = iL.Y * kd.Y * value;
-                iD.Z = iL.Z * kd.Z * value;
+                if (solid.VisibleFaces[i] == false) {
+                    solid.FlatColor[i] = null;
+                    continue;
+                }
+                    
 
-                R = new Vector();
-                R.X = (2 * value * N.X) - L.X;
-                R.Y = (2 * value * N.Y) - L.Y;
-                R.Z = (2 * value * N.Z) - L.Z;
-
-                S = new Vector();
+                iD = new Vector(0,0,0);
+                iS = new Vector(0,0,0);
+                Vector N = solid.NormalFaces[i];
                 Pm = new Vector();
                 Pm.X = (solid.Points[0, solid.Faces[i, 0]] + solid.Points[0, solid.Faces[i, 2]]) / 2;
                 Pm.Y = (solid.Points[1, solid.Faces[i, 0]] + solid.Points[1, solid.Faces[i, 2]]) / 2;
                 Pm.Z = (solid.Points[2, solid.Faces[i, 0]] + solid.Points[2, solid.Faces[i, 2]]) / 2;
-                S.X = VRP.X - Pm.X;
-                S.Y = VRP.Y - Pm.Y;
-                S.Z = VRP.Z - Pm.Z;
-                S = MathOperations.NormalizeVector(S);
+                L = new Vector(L.X - Pm.X, L.Y - Pm.Y, L.Z - Pm.Z);
+                L = MathOperations.NormalizeVector(L);
+                double value = MathOperations.DotProduct(N, L);
 
-                iS = new Vector();
-                double value2 = Math.Pow(MathOperations.DotProduct(R, S), n);
-                iS.X = iL.X * ks.X * value2;
-                iS.Y = iL.Y * ks.Y * value2;
-                iS.X = iL.Z * ks.Z * value2;
+                if (value > 0) {
+                    iD.X = iL.X * kd.X * value;
+                    iD.Y = iL.Y * kd.Y * value;
+                    iD.Z = iL.Z * kd.Z * value;
 
+                    R = new Vector();
+                    R.X = (2 * value * N.X) - L.X;
+                    R.Y = (2 * value * N.Y) - L.Y;
+                    R.Z = (2 * value * N.Z) - L.Z;
+
+                    S = new Vector();
+
+                    S.X = VRP.X - Pm.X;
+                    S.Y = VRP.Y - Pm.Y;
+                    S.Z = VRP.Z - Pm.Z;
+                    S = MathOperations.NormalizeVector(S);
+
+                    double value2 = Math.Pow(MathOperations.DotProduct(R, S), n);
+                    iS.X = iL.X * ks.X * value2;
+                    iS.Y = iL.Y * ks.Y * value2;
+                    iS.X = iL.Z * ks.Z * value2;
+                }
+                
                 iT = new Vector();
                 iT.X = iA.X + iD.X + iS.X;
                 iT.Y = iA.Y + iD.Y + iS.Y;
                 iT.Z = iA.Z + iD.Z + iS.Z;
 
-
+  
+                solid.FlatColor[i] = new Vector(iT.X, iT.Y, iT.Z);
             }
         }
+
     }
 }

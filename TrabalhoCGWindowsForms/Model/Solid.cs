@@ -26,6 +26,15 @@ namespace TrabalhoCGWindowsForms.Model {
             false
         };
 
+        private Vector[] normalFaces = new Vector[6];
+
+        public Vector[] NormalFaces {
+            get { return normalFaces; }
+            set { normalFaces = value; }
+        }
+
+        
+
         public bool[] VisibleFaces {
             get { return _visibleFaces; }
             set { _visibleFaces = value; }
@@ -35,8 +44,14 @@ namespace TrabalhoCGWindowsForms.Model {
             get { return _points; }
             set { _points = value; }
         }
-        public Solid() {    //cria um solido padrao
+        private Vector[] flatColor;
 
+        public Vector[] FlatColor {
+            get { return flatColor; }
+            set { flatColor = value; }
+        }
+        
+        public Solid() {    //cria um solido padrao
             _points = new double[,] {
                 {0,0,50,1},
                 {50,0,50,1},
@@ -71,6 +86,7 @@ namespace TrabalhoCGWindowsForms.Model {
                 {0,4,5,1}
             };
 
+            FlatColor = new Vector[6];
             _points = MathOperations.TransposeMatrix(_points);
         }
 
@@ -136,8 +152,10 @@ namespace TrabalhoCGWindowsForms.Model {
                 var visibilityK = MathOperations.DotProduct(face, n);   //coeficiente de visibilidade
                 if (visibilityK > 0) {
                     _visibleFaces[i] = true;
+                    normalFaces[i] = face;
                 } else {
                     _visibleFaces[i] = false;
+                    normalFaces[i] = face;
                 }
 
             }
