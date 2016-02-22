@@ -393,6 +393,7 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void isometricCheckBox_Click(object sender, EventArgs e) {
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             DrawSolids();
         }
 

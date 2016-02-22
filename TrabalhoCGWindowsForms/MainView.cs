@@ -19,6 +19,7 @@ namespace TrabalhoCGWindowsForms {
             frontView.Image = new Bitmap(frontView.Width, frontView.Height);
             DrawZbuffer(frontView);
             frontView.Invalidate();
+            
         }
 
 

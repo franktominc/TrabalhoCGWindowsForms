@@ -78,7 +78,7 @@ namespace TrabalhoCGWindowsForms {
             this.frontView.BackColor = System.Drawing.SystemColors.GrayText;
             this.frontView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.frontView.Image = ((System.Drawing.Image)(resources.GetObject("frontView.Image")));
-            this.frontView.Location = new System.Drawing.Point(12, 401);
+            this.frontView.Location = new System.Drawing.Point(12, 383);
             this.frontView.Name = "frontView";
             this.frontView.Size = new System.Drawing.Size(315, 315);
             this.frontView.TabIndex = 2;
@@ -91,7 +91,7 @@ namespace TrabalhoCGWindowsForms {
             this.topView.BackColor = System.Drawing.SystemColors.GrayText;
             this.topView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.topView.Image = ((System.Drawing.Image)(resources.GetObject("topView.Image")));
-            this.topView.Location = new System.Drawing.Point(12, 57);
+            this.topView.Location = new System.Drawing.Point(12, 50);
             this.topView.Name = "topView";
             this.topView.Size = new System.Drawing.Size(315, 315);
             this.topView.TabIndex = 3;
@@ -107,7 +107,7 @@ namespace TrabalhoCGWindowsForms {
             this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(881, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -155,7 +155,7 @@ namespace TrabalhoCGWindowsForms {
             this.leftView.BackColor = System.Drawing.SystemColors.GrayText;
             this.leftView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftView.Image = ((System.Drawing.Image)(resources.GetObject("leftView.Image")));
-            this.leftView.Location = new System.Drawing.Point(352, 57);
+            this.leftView.Location = new System.Drawing.Point(352, 50);
             this.leftView.Name = "leftView";
             this.leftView.Size = new System.Drawing.Size(315, 315);
             this.leftView.TabIndex = 6;
@@ -167,7 +167,7 @@ namespace TrabalhoCGWindowsForms {
             // 
             this.perspectiveBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.perspectiveBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.perspectiveBox.Location = new System.Drawing.Point(352, 401);
+            this.perspectiveBox.Location = new System.Drawing.Point(352, 383);
             this.perspectiveBox.Name = "perspectiveBox";
             this.perspectiveBox.Size = new System.Drawing.Size(315, 315);
             this.perspectiveBox.TabIndex = 5;
@@ -176,7 +176,7 @@ namespace TrabalhoCGWindowsForms {
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 36);
+            this.label1.Location = new System.Drawing.Point(13, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 7;
@@ -185,7 +185,7 @@ namespace TrabalhoCGWindowsForms {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(349, 36);
+            this.label2.Location = new System.Drawing.Point(349, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 8;
@@ -194,7 +194,7 @@ namespace TrabalhoCGWindowsForms {
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(349, 385);
+            this.label3.Location = new System.Drawing.Point(349, 367);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 9;
@@ -203,7 +203,7 @@ namespace TrabalhoCGWindowsForms {
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 385);
+            this.label4.Location = new System.Drawing.Point(13, 367);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 13);
             this.label4.TabIndex = 10;
@@ -214,7 +214,7 @@ namespace TrabalhoCGWindowsForms {
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.GrayText;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(396, 61);
+            this.label5.Location = new System.Drawing.Point(396, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 15;
@@ -225,7 +225,7 @@ namespace TrabalhoCGWindowsForms {
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.GrayText;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(359, 98);
+            this.label6.Location = new System.Drawing.Point(359, 91);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 12);
             this.label6.TabIndex = 16;
@@ -236,7 +236,7 @@ namespace TrabalhoCGWindowsForms {
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.SystemColors.GrayText;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(18, 98);
+            this.label7.Location = new System.Drawing.Point(18, 91);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(11, 12);
             this.label7.TabIndex = 18;
@@ -247,7 +247,7 @@ namespace TrabalhoCGWindowsForms {
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.SystemColors.GrayText;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(55, 61);
+            this.label8.Location = new System.Drawing.Point(55, 54);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(11, 12);
             this.label8.TabIndex = 17;
@@ -258,7 +258,7 @@ namespace TrabalhoCGWindowsForms {
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.SystemColors.GrayText;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(18, 443);
+            this.label9.Location = new System.Drawing.Point(18, 425);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(10, 12);
             this.label9.TabIndex = 20;
@@ -269,7 +269,7 @@ namespace TrabalhoCGWindowsForms {
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.SystemColors.GrayText;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(55, 406);
+            this.label10.Location = new System.Drawing.Point(55, 388);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(11, 12);
             this.label10.TabIndex = 19;
@@ -484,9 +484,8 @@ namespace TrabalhoCGWindowsForms {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.ClientSize = new System.Drawing.Size(881, 701);
             this.Controls.Add(this.zBufferBt);
             this.Controls.Add(this.flatBox);
             this.Controls.Add(this.isometricCheckBox);
@@ -520,6 +519,7 @@ namespace TrabalhoCGWindowsForms {
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Desanim8or";
             this.Load += new System.EventHandler(this.MainView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).EndInit();
