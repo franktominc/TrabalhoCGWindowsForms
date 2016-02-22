@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using TrabalhoCGWindowsForms.Model;
 using TrabalhoCGWindowsForms.Utils;
 
@@ -127,8 +121,12 @@ namespace TrabalhoCGWindowsForms {
             }
 
             if (flag) {
+                rotateCubeCheckbox.Enabled = true;
+                translateCubeCheckbox.Enabled = true;
                 return solidInQuestion;
             }
+            rotateCubeCheckbox.Enabled = false;
+            translateCubeCheckbox.Enabled = false;
             return -1;
 
         }

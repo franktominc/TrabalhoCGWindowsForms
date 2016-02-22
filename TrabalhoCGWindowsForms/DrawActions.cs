@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabalhoCGWindowsForms.Model;
 
@@ -36,7 +32,7 @@ namespace TrabalhoCGWindowsForms {
             ResetViews();
 
             if (isometricCheckBox.Checked) IsometricTransformation();
-            else PerspectiveTransformation();
+            else{ PerspectiveTransformation(); MapToScreen(3);}
 
 
             for (var i = 0; i < solidsList.Count; i++) {
@@ -54,28 +50,33 @@ namespace TrabalhoCGWindowsForms {
                     }
                 }
             }
+
             if (!flatBox.Checked) return;
-            perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
+            //perspectiveBox.Image = new Bitmap(perspectiveBox.Width, perspectiveBox.Height);
+           // if (selectedGuy < 0) return;
+            foreach (var list in solidsList) {
+                foreach (var solid in list) {
+                    solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
+                    FlatShading(solid, leftView);
+                    FlatPaint(leftView, solid, 2, 1);
 
-            foreach (var solid in solidsList[selectedGuy]) {
-                solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
-                FlatShading(solid, leftView);
-                FlatPaint(leftView, solid, 2, 1);
+                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], solid.Points[1, 8], 1));
+                    FlatShading(solid, frontView);
+                    FlatPaint(frontView, solid, 0, 1);
 
-                solid.ComputeVisibility(new Vector(solid.Points[0, 8], solid.Points[1, 8], 1));
-                FlatShading(solid, frontView);
-                FlatPaint(frontView, solid, 0, 1);
+                    solid.ComputeVisibility(new Vector(solid.Points[0, 8], 1, solid.Points[2, 8]));
+                    FlatShading(solid, topView);
+                    FlatPaint(topView, solid, 0, 2);
 
-                solid.ComputeVisibility(new Vector(solid.Points[0, 8], 1, solid.Points[2, 8]));
-                FlatShading(solid, topView);
-                FlatPaint(topView, solid, 0, 2);
-
-                solid.ComputeVisibility(VRP, P);
-                FlatShading(solid, perspectiveBox);
-                   
+                    solid.ComputeVisibility(VRP, P);
+                    FlatShading(solid, perspectiveBox);
+                }
             }
-            foreach (var solid in perspectiveSolidList[selectedGuy]) {    
-                FlatPaint(perspectiveBox, solid, 0, 1);
+            PerspectiveTransformation();
+            foreach (var list in perspectiveSolidList) {
+                foreach (var solid in list) {
+                    FlatPaint(perspectiveBox, solid, 0, 1);    
+                }
             }
         }
 
@@ -107,7 +108,7 @@ namespace TrabalhoCGWindowsForms {
                         solid.ComputeVisibility(VRP, P);
                     }
 
-                    pc.Invalidate();
+                    
                     break;
 
             }
@@ -141,7 +142,6 @@ namespace TrabalhoCGWindowsForms {
             g.SmoothingMode = SmoothingMode.AntiAlias;
             for (var i = 0; i < 6; i++) {
                 if (solid.FlatColor[i] == null) continue;
-
                 var face = new Point[4];
                 face[0] = new Point((int)solid.Points[x, solid.Faces[i, 0]], (int)solid.Points[y, solid.Faces[i, 0]]);
                 face[1] = new Point((int)solid.Points[x, solid.Faces[i, 1]], (int)solid.Points[y, solid.Faces[i, 1]]);
@@ -153,5 +153,18 @@ namespace TrabalhoCGWindowsForms {
 
         }
 
+        public void DrawZbuffer(PictureBox pc) {
+            /*Color[,] colors = ZBuffer(1, frontView);
+            var g = Graphics.FromImage(pc.Image);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            for (int i = 0; i < colors.GetLength(0); i++) {
+                for (int j = 0; j < colors.GetLength(1); j++) {
+                    g.FillRectangle(new SolidBrush(colors[i,j]), i, j, 1, 1);
+                    if(colors[i,j] != pc.BackColor)
+                    Console.WriteLine(colors[i,j]);
+                }
+            }*/
+            ZBuffer(1, pc);
+        }
     }
 }

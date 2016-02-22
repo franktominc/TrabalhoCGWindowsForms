@@ -34,11 +34,8 @@ namespace TrabalhoCGWindowsForms {
             iL = new Vector(150, 100, 250);
             iLa = new Vector(20, 80, 50);
 
-            ka = new Vector(0.3, 0.5, 0.2);
-            ks = new Vector(0.9, 0.4, 0.1);
-            kd = new Vector(0.1, 0.8, 0.3);
-            n = 4;
-
+            xMin = yMin = 0;
+            xMax = yMax = 315;
 
         }
 
@@ -116,7 +113,6 @@ namespace TrabalhoCGWindowsForms {
                     if (solidsList.Count != 0) {
                         selectedGuy = SelectCube(coordinates, 0);
                     }
-
                     break;
 
                     #endregion
@@ -277,7 +273,7 @@ namespace TrabalhoCGWindowsForms {
                         selectedGuy = SelectCube(coordinates, 2);
                     }
                     break;
-
+                    
                     #endregion
 
             }
@@ -401,6 +397,10 @@ namespace TrabalhoCGWindowsForms {
         }
 
         private void flatBox_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void flatBox_CheckedChanged(object sender, EventArgs e) {
             DrawSolids();
         }
 
@@ -456,15 +456,10 @@ namespace TrabalhoCGWindowsForms {
                 YYTf = {Text = Y.Y.ToString()},
                 YZTf = {Text = Y.Z.ToString()},
                 alphaTF = {Text = alpha.ToString()},
-                KaR = {Text = ka.X.ToString()},
-                KaG = {Text = ka.Y.ToString()},
-                KaB = {Text = ka.Z.ToString()},
-                KdR = {Text = kd.X.ToString()},
-                KdG = {Text = kd.Y.ToString()},
-                KdB = {Text = kd.Z.ToString()},
-                KsR = {Text = kd.X.ToString()},
-                KsG = {Text = kd.Y.ToString()},
-                KsB = {Text = kd.Z.ToString()},
+                xMax = {Text = xMax.ToString()},
+                xMin = {Text = xMin.ToString()},
+                yMax = {Text = yMax.ToString()},
+                yMin=  {Text = yMin.ToString()},
                 ILaR = {Text = iLa.X.ToString()},
                 ILaG = {Text = iLa.Y.ToString()},
                 ILaB = {Text = iLa.Z.ToString()},
@@ -474,23 +469,23 @@ namespace TrabalhoCGWindowsForms {
                 LX = {Text = L.X.ToString()},
                 LY = {Text = L.Y.ToString()},
                 LZ = {Text = L.Z.ToString()},
-                n = {Text = n.ToString()},
                 Parent = this
             };
 
-
-
-
-
-
-
-
-
-
-
+            if (selectedGuy >= 0) {
+                myForm.KaR.Text = solidsList[selectedGuy][0].Ka.X.ToString();
+                myForm.KaG.Text = solidsList[selectedGuy][0].Ka.Y.ToString();
+                myForm.KaB.Text = solidsList[selectedGuy][0].Ka.Z.ToString();
+                myForm.KdR.Text = solidsList[selectedGuy][0].Kd.X.ToString();
+                myForm.KdG.Text = solidsList[selectedGuy][0].Kd.Y.ToString();
+                myForm.KdB.Text = solidsList[selectedGuy][0].Kd.Z.ToString();
+                myForm.KsR.Text = solidsList[selectedGuy][0].Ks.X.ToString();
+                myForm.KsG.Text = solidsList[selectedGuy][0].Ks.Y.ToString();
+                myForm.KsB.Text = solidsList[selectedGuy][0].Ks.Z.ToString();
+                myForm.n.Text = solidsList[selectedGuy][0].N.ToString();
+            }
+            
             myForm.Show();
-
-            Console.WriteLine("Aeee");
         }
 
         #endregion

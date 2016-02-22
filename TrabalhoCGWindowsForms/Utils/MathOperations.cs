@@ -26,6 +26,26 @@ namespace TrabalhoCGWindowsForms.Utils {
             }
             return c;
         }
+        public static double[,] Multiply(this double[,] a, double[,] b) {
+
+            var c = new double[a.GetLength(0), b.GetLength(1)];
+            var la = a.GetLength(0);    //linha da matriz a
+            var ca = a.GetLength(1);    //coluda da matriz a
+            var lb = b.GetLength(0);    //linha da matriz b
+            var cb = b.GetLength(1);    //coluna da matriz b
+            if (ca != lb) {
+                Console.WriteLine(@"As matrizes possuem dimensoes incompativeis");
+            }
+            for (var i = 0; i < la; i++) {
+                for (var j = 0; j < cb; j++) {
+                    c[i, j] = 0;
+                    for (var k = 0; k < ca; k++) {
+                        c[i, j] = c[i, j] + (a[i, k] * b[k, j]);
+                    }
+                }
+            }
+            return c;
+        }
 
         public static double[,] Translation(double x, double y, double z) {
             return new[,] { { 1, 0, 0, x }, { 0, 1, 0, y }, { 0, 0, 1, z }, { 0, 0, 0, 1 } };
@@ -122,6 +142,16 @@ namespace TrabalhoCGWindowsForms.Utils {
             };
 
             return MatrixMultiplication(M, pontos);
+        }
+
+        public static double[,] SRTMatrix(double uMax, double uMin, double vMax, double vMin, double xMax, double xMin,
+            double yMax, double yMin) {
+            return new double[,] {
+                {(uMax-uMin)/(xMax-xMin), 0,0,(-xMin*((uMax-uMin)/(xMax-xMin)))+uMin}, 
+                {0, (vMax-vMin)/(yMax-yMin), 0, (yMin*((vMax-vMin)/(yMax-yMin))+vMin)},
+                {0,0,1,0},
+                {0,0,0,1}
+            };
         }
     }
 }

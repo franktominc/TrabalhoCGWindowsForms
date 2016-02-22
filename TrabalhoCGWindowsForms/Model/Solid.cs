@@ -50,6 +50,35 @@ namespace TrabalhoCGWindowsForms.Model {
             get { return flatColor; }
             set { flatColor = value; }
         }
+
+        private Vector _ka;
+
+        public Vector Ka{
+            get { return _ka; }
+            set { _ka = value; }
+        }
+
+        private Vector _kd;
+
+        public Vector Kd {
+            get { return _kd; }
+            set { _kd = value; }
+        }
+
+        private Vector _ks;
+
+        public Vector Ks {
+            get { return _ks; }
+            set { _ks = value; }
+        }
+
+        private int n;
+
+        public int N {
+            get { return n; }
+            set { n = value; }
+        }
+        
         
         public Solid() {    //cria um solido padrao
             _points = new double[,] {
@@ -88,6 +117,11 @@ namespace TrabalhoCGWindowsForms.Model {
 
             FlatColor = new Vector[6];
             _points = MathOperations.TransposeMatrix(_points);
+
+            _ka = new Vector(0.3, 0.5, 0.2);
+            _ks = new Vector(0.9, 0.4, 0.1);
+            _kd = new Vector(0.1, 0.8, 0.3);
+            n = 4;
         }
 
         public void XAxisRotation(double angle, double y, double z) {    //rotaciona o solido em torno do eixo x
@@ -147,6 +181,7 @@ namespace TrabalhoCGWindowsForms.Model {
                     _points[1, Faces[i, 2]] - _points[1, Faces[i, 1]],
                     _points[2, Faces[i, 2]] - _points[2, Faces[i, 1]]);    //vetor 2 da face
                 var face = MathOperations.CrossProduct(vec1, vec2);    //vetor normal a face
+               
                 face = MathOperations.NormalizeVector(face);
 
                 var visibilityK = MathOperations.DotProduct(face, n);   //coeficiente de visibilidade

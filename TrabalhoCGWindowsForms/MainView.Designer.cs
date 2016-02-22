@@ -65,6 +65,7 @@ namespace TrabalhoCGWindowsForms {
             this.translateCubeCheckbox = new System.Windows.Forms.CheckBox();
             this.isometricCheckBox = new System.Windows.Forms.CheckBox();
             this.flatBox = new System.Windows.Forms.CheckBox();
+            this.zBufferBt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.frontView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -79,7 +80,7 @@ namespace TrabalhoCGWindowsForms {
             this.frontView.Image = ((System.Drawing.Image)(resources.GetObject("frontView.Image")));
             this.frontView.Location = new System.Drawing.Point(12, 401);
             this.frontView.Name = "frontView";
-            this.frontView.Size = new System.Drawing.Size(449, 315);
+            this.frontView.Size = new System.Drawing.Size(315, 315);
             this.frontView.TabIndex = 2;
             this.frontView.TabStop = false;
             this.frontView.Click += new System.EventHandler(this.frontView_Click);
@@ -92,7 +93,7 @@ namespace TrabalhoCGWindowsForms {
             this.topView.Image = ((System.Drawing.Image)(resources.GetObject("topView.Image")));
             this.topView.Location = new System.Drawing.Point(12, 57);
             this.topView.Name = "topView";
-            this.topView.Size = new System.Drawing.Size(449, 315);
+            this.topView.Size = new System.Drawing.Size(315, 315);
             this.topView.TabIndex = 3;
             this.topView.TabStop = false;
             this.topView.Click += new System.EventHandler(this.topView_Click);
@@ -154,9 +155,9 @@ namespace TrabalhoCGWindowsForms {
             this.leftView.BackColor = System.Drawing.SystemColors.GrayText;
             this.leftView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftView.Image = ((System.Drawing.Image)(resources.GetObject("leftView.Image")));
-            this.leftView.Location = new System.Drawing.Point(467, 57);
+            this.leftView.Location = new System.Drawing.Point(352, 57);
             this.leftView.Name = "leftView";
-            this.leftView.Size = new System.Drawing.Size(449, 315);
+            this.leftView.Size = new System.Drawing.Size(315, 315);
             this.leftView.TabIndex = 6;
             this.leftView.TabStop = false;
             this.leftView.Click += new System.EventHandler(this.leftView_Click);
@@ -166,9 +167,9 @@ namespace TrabalhoCGWindowsForms {
             // 
             this.perspectiveBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.perspectiveBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.perspectiveBox.Location = new System.Drawing.Point(467, 401);
+            this.perspectiveBox.Location = new System.Drawing.Point(352, 401);
             this.perspectiveBox.Name = "perspectiveBox";
-            this.perspectiveBox.Size = new System.Drawing.Size(449, 315);
+            this.perspectiveBox.Size = new System.Drawing.Size(315, 315);
             this.perspectiveBox.TabIndex = 5;
             this.perspectiveBox.TabStop = false;
             // 
@@ -184,7 +185,7 @@ namespace TrabalhoCGWindowsForms {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(464, 36);
+            this.label2.Location = new System.Drawing.Point(349, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 8;
@@ -193,7 +194,7 @@ namespace TrabalhoCGWindowsForms {
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(464, 385);
+            this.label3.Location = new System.Drawing.Point(349, 385);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 9;
@@ -213,7 +214,7 @@ namespace TrabalhoCGWindowsForms {
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.GrayText;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(511, 61);
+            this.label5.Location = new System.Drawing.Point(396, 61);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 15;
@@ -224,7 +225,7 @@ namespace TrabalhoCGWindowsForms {
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.GrayText;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(474, 98);
+            this.label6.Location = new System.Drawing.Point(359, 98);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 12);
             this.label6.TabIndex = 16;
@@ -280,7 +281,7 @@ namespace TrabalhoCGWindowsForms {
             this.addCubeBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.addCubeBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addCubeBox.Image = ((System.Drawing.Image)(resources.GetObject("addCubeBox.Image")));
-            this.addCubeBox.Location = new System.Drawing.Point(931, 332);
+            this.addCubeBox.Location = new System.Drawing.Point(697, 325);
             this.addCubeBox.Name = "addCubeBox";
             this.addCubeBox.Size = new System.Drawing.Size(40, 40);
             this.addCubeBox.TabIndex = 25;
@@ -292,7 +293,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScalePlus.BackColor = System.Drawing.SystemColors.GrayText;
             this.btScalePlus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btScalePlus.Image = ((System.Drawing.Image)(resources.GetObject("btScalePlus.Image")));
-            this.btScalePlus.Location = new System.Drawing.Point(931, 378);
+            this.btScalePlus.Location = new System.Drawing.Point(697, 371);
             this.btScalePlus.Name = "btScalePlus";
             this.btScalePlus.Size = new System.Drawing.Size(40, 40);
             this.btScalePlus.TabIndex = 27;
@@ -304,7 +305,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScaleMinus.BackColor = System.Drawing.SystemColors.GrayText;
             this.btScaleMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btScaleMinus.Image = ((System.Drawing.Image)(resources.GetObject("btScaleMinus.Image")));
-            this.btScaleMinus.Location = new System.Drawing.Point(974, 378);
+            this.btScaleMinus.Location = new System.Drawing.Point(740, 371);
             this.btScaleMinus.Name = "btScaleMinus";
             this.btScaleMinus.Size = new System.Drawing.Size(40, 40);
             this.btScaleMinus.TabIndex = 28;
@@ -318,7 +319,7 @@ namespace TrabalhoCGWindowsForms {
             this.hideFacesBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.hideFacesBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.hideFacesBox.Image = ((System.Drawing.Image)(resources.GetObject("hideFacesBox.Image")));
-            this.hideFacesBox.Location = new System.Drawing.Point(974, 516);
+            this.hideFacesBox.Location = new System.Drawing.Point(740, 509);
             this.hideFacesBox.Name = "hideFacesBox";
             this.hideFacesBox.Size = new System.Drawing.Size(40, 40);
             this.hideFacesBox.TabIndex = 30;
@@ -331,7 +332,7 @@ namespace TrabalhoCGWindowsForms {
             this.groupSolidsCheckBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.groupSolidsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupSolidsCheckBox.Image = ((System.Drawing.Image)(resources.GetObject("groupSolidsCheckBox.Image")));
-            this.groupSolidsCheckBox.Location = new System.Drawing.Point(931, 470);
+            this.groupSolidsCheckBox.Location = new System.Drawing.Point(697, 463);
             this.groupSolidsCheckBox.Name = "groupSolidsCheckBox";
             this.groupSolidsCheckBox.Size = new System.Drawing.Size(40, 40);
             this.groupSolidsCheckBox.TabIndex = 31;
@@ -343,7 +344,7 @@ namespace TrabalhoCGWindowsForms {
             this.groupBt.BackColor = System.Drawing.SystemColors.GrayText;
             this.groupBt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBt.Image = ((System.Drawing.Image)(resources.GetObject("groupBt.Image")));
-            this.groupBt.Location = new System.Drawing.Point(931, 424);
+            this.groupBt.Location = new System.Drawing.Point(697, 417);
             this.groupBt.Name = "groupBt";
             this.groupBt.Size = new System.Drawing.Size(40, 40);
             this.groupBt.TabIndex = 32;
@@ -355,7 +356,7 @@ namespace TrabalhoCGWindowsForms {
             this.button1.BackColor = System.Drawing.SystemColors.GrayText;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(974, 424);
+            this.button1.Location = new System.Drawing.Point(740, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(40, 40);
             this.button1.TabIndex = 33;
@@ -367,7 +368,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeView.BackColor = System.Drawing.SystemColors.GrayText;
             this.removeView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.removeView.Image = ((System.Drawing.Image)(resources.GetObject("removeView.Image")));
-            this.removeView.Location = new System.Drawing.Point(974, 332);
+            this.removeView.Location = new System.Drawing.Point(740, 325);
             this.removeView.Name = "removeView";
             this.removeView.Size = new System.Drawing.Size(40, 40);
             this.removeView.TabIndex = 34;
@@ -379,7 +380,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeAllButton.BackColor = System.Drawing.SystemColors.GrayText;
             this.removeAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.removeAllButton.Image = ((System.Drawing.Image)(resources.GetObject("removeAllButton.Image")));
-            this.removeAllButton.Location = new System.Drawing.Point(931, 516);
+            this.removeAllButton.Location = new System.Drawing.Point(697, 509);
             this.removeAllButton.Name = "removeAllButton";
             this.removeAllButton.Size = new System.Drawing.Size(40, 40);
             this.removeAllButton.TabIndex = 35;
@@ -391,7 +392,7 @@ namespace TrabalhoCGWindowsForms {
             this.button2.BackColor = System.Drawing.SystemColors.GrayText;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(974, 470);
+            this.button2.Location = new System.Drawing.Point(740, 463);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(40, 40);
             this.button2.TabIndex = 36;
@@ -405,7 +406,8 @@ namespace TrabalhoCGWindowsForms {
             // rotateCubeCheckbox
             // 
             this.rotateCubeCheckbox.AutoSize = true;
-            this.rotateCubeCheckbox.Location = new System.Drawing.Point(1019, 332);
+            this.rotateCubeCheckbox.Enabled = false;
+            this.rotateCubeCheckbox.Location = new System.Drawing.Point(785, 325);
             this.rotateCubeCheckbox.Name = "rotateCubeCheckbox";
             this.rotateCubeCheckbox.Size = new System.Drawing.Size(66, 17);
             this.rotateCubeCheckbox.TabIndex = 37;
@@ -415,7 +417,8 @@ namespace TrabalhoCGWindowsForms {
             // translateCubeCheckbox
             // 
             this.translateCubeCheckbox.AutoSize = true;
-            this.translateCubeCheckbox.Location = new System.Drawing.Point(1020, 355);
+            this.translateCubeCheckbox.Enabled = false;
+            this.translateCubeCheckbox.Location = new System.Drawing.Point(786, 348);
             this.translateCubeCheckbox.Name = "translateCubeCheckbox";
             this.translateCubeCheckbox.Size = new System.Drawing.Size(78, 17);
             this.translateCubeCheckbox.TabIndex = 38;
@@ -428,7 +431,7 @@ namespace TrabalhoCGWindowsForms {
             this.isometricCheckBox.BackColor = System.Drawing.SystemColors.GrayText;
             this.isometricCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.isometricCheckBox.Image = ((System.Drawing.Image)(resources.GetObject("isometricCheckBox.Image")));
-            this.isometricCheckBox.Location = new System.Drawing.Point(1020, 516);
+            this.isometricCheckBox.Location = new System.Drawing.Point(786, 509);
             this.isometricCheckBox.Name = "isometricCheckBox";
             this.isometricCheckBox.Size = new System.Drawing.Size(40, 40);
             this.isometricCheckBox.TabIndex = 52;
@@ -438,13 +441,24 @@ namespace TrabalhoCGWindowsForms {
             // flatBox
             // 
             this.flatBox.AutoSize = true;
-            this.flatBox.Location = new System.Drawing.Point(994, 214);
+            this.flatBox.Location = new System.Drawing.Point(760, 207);
             this.flatBox.Name = "flatBox";
             this.flatBox.Size = new System.Drawing.Size(43, 17);
             this.flatBox.TabIndex = 53;
             this.flatBox.Text = "Flat";
             this.flatBox.UseVisualStyleBackColor = true;
+            this.flatBox.CheckedChanged += new System.EventHandler(this.flatBox_CheckedChanged);
             this.flatBox.Click += new System.EventHandler(this.flatBox_Click);
+            // 
+            // zBufferBt
+            // 
+            this.zBufferBt.Location = new System.Drawing.Point(697, 146);
+            this.zBufferBt.Name = "zBufferBt";
+            this.zBufferBt.Size = new System.Drawing.Size(75, 23);
+            this.zBufferBt.TabIndex = 54;
+            this.zBufferBt.Text = "button3";
+            this.zBufferBt.UseVisualStyleBackColor = true;
+            this.zBufferBt.Click += new System.EventHandler(this.zBufferBt_Click);
             // 
             // MainView
             // 
@@ -454,6 +468,7 @@ namespace TrabalhoCGWindowsForms {
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.zBufferBt);
             this.Controls.Add(this.flatBox);
             this.Controls.Add(this.isometricCheckBox);
             this.Controls.Add(this.translateCubeCheckbox);
@@ -513,9 +528,9 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.Label label4;
 
         private List<List<Solid>> perspectiveSolidList;
-        private List<List<Solid>> solidsList;
-        private List<int> selectedSolids; 
-        private int selectedGuy;
+        public List<List<Solid>> solidsList;
+        private List<int> selectedSolids;
+        public int selectedGuy;
 
         private bool amIRotating;
         private bool amITranslating;
@@ -523,14 +538,14 @@ namespace TrabalhoCGWindowsForms {
         public Vector VRPiso;
         public Vector P;
         public  int alpha;
-        public Vector ka;
-        public Vector kd;
-        public Vector ks;
         public Vector L;
         public Vector iLa;
         public Vector iL;
         public Vector Y;
-        public int n;
+        public double xMin;
+        public double xMax;
+        public double yMin;
+        public double yMax;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -556,6 +571,7 @@ namespace TrabalhoCGWindowsForms {
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setVRPAndPToolStripMenuItem;
         private System.Windows.Forms.CheckBox flatBox;
+        private System.Windows.Forms.Button zBufferBt;
 
     }
 }

@@ -74,6 +74,14 @@
             this.YXTf = new System.Windows.Forms.TextBox();
             this.YYTf = new System.Windows.Forms.TextBox();
             this.YZTf = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.xMin = new System.Windows.Forms.TextBox();
+            this.xMax = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.yMax = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.yMin = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // VRPx
@@ -190,7 +198,7 @@
             this.setButton.TabIndex = 52;
             this.setButton.Text = "Set";
             this.setButton.UseVisualStyleBackColor = true;
-            this.setButton.Click += new System.EventHandler(this.button1_Click);
+            this.setButton.Click += new System.EventHandler(this.setButton_Click);
             // 
             // alphaTF
             // 
@@ -224,7 +232,7 @@
             // 
             this.KaB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KaB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KaB.Location = new System.Drawing.Point(255, 180);
+            this.KaB.Location = new System.Drawing.Point(257, 237);
             this.KaB.Name = "KaB";
             this.KaB.Size = new System.Drawing.Size(86, 20);
             this.KaB.TabIndex = 58;
@@ -234,7 +242,7 @@
             // 
             this.KaG.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KaG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KaG.Location = new System.Drawing.Point(153, 180);
+            this.KaG.Location = new System.Drawing.Point(155, 237);
             this.KaG.Name = "KaG";
             this.KaG.Size = new System.Drawing.Size(86, 20);
             this.KaG.TabIndex = 57;
@@ -244,7 +252,7 @@
             // 
             this.KaR.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KaR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KaR.Location = new System.Drawing.Point(51, 180);
+            this.KaR.Location = new System.Drawing.Point(53, 237);
             this.KaR.Name = "KaR";
             this.KaR.Size = new System.Drawing.Size(86, 20);
             this.KaR.TabIndex = 56;
@@ -254,7 +262,7 @@
             // 
             this.KdB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KdB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KdB.Location = new System.Drawing.Point(255, 206);
+            this.KdB.Location = new System.Drawing.Point(257, 263);
             this.KdB.Name = "KdB";
             this.KdB.Size = new System.Drawing.Size(86, 20);
             this.KdB.TabIndex = 61;
@@ -264,7 +272,7 @@
             // 
             this.KdG.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KdG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KdG.Location = new System.Drawing.Point(153, 206);
+            this.KdG.Location = new System.Drawing.Point(155, 263);
             this.KdG.Name = "KdG";
             this.KdG.Size = new System.Drawing.Size(86, 20);
             this.KdG.TabIndex = 60;
@@ -274,7 +282,7 @@
             // 
             this.KdR.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KdR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KdR.Location = new System.Drawing.Point(51, 206);
+            this.KdR.Location = new System.Drawing.Point(53, 263);
             this.KdR.Name = "KdR";
             this.KdR.Size = new System.Drawing.Size(86, 20);
             this.KdR.TabIndex = 59;
@@ -284,7 +292,7 @@
             // 
             this.KsB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KsB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KsB.Location = new System.Drawing.Point(255, 232);
+            this.KsB.Location = new System.Drawing.Point(257, 289);
             this.KsB.Name = "KsB";
             this.KsB.Size = new System.Drawing.Size(86, 20);
             this.KsB.TabIndex = 64;
@@ -294,7 +302,7 @@
             // 
             this.KsG.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KsG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KsG.Location = new System.Drawing.Point(153, 232);
+            this.KsG.Location = new System.Drawing.Point(155, 289);
             this.KsG.Name = "KsG";
             this.KsG.Size = new System.Drawing.Size(86, 20);
             this.KsG.TabIndex = 63;
@@ -304,7 +312,7 @@
             // 
             this.KsR.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.KsR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KsR.Location = new System.Drawing.Point(51, 232);
+            this.KsR.Location = new System.Drawing.Point(53, 289);
             this.KsR.Name = "KsR";
             this.KsR.Size = new System.Drawing.Size(86, 20);
             this.KsR.TabIndex = 62;
@@ -314,7 +322,7 @@
             // 
             this.ILaB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILaB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILaB.Location = new System.Drawing.Point(255, 258);
+            this.ILaB.Location = new System.Drawing.Point(257, 315);
             this.ILaB.Name = "ILaB";
             this.ILaB.Size = new System.Drawing.Size(86, 20);
             this.ILaB.TabIndex = 67;
@@ -324,7 +332,7 @@
             // 
             this.ILaG.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILaG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILaG.Location = new System.Drawing.Point(153, 258);
+            this.ILaG.Location = new System.Drawing.Point(155, 315);
             this.ILaG.Name = "ILaG";
             this.ILaG.Size = new System.Drawing.Size(86, 20);
             this.ILaG.TabIndex = 66;
@@ -334,7 +342,7 @@
             // 
             this.ILaR.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILaR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILaR.Location = new System.Drawing.Point(51, 258);
+            this.ILaR.Location = new System.Drawing.Point(53, 315);
             this.ILaR.Name = "ILaR";
             this.ILaR.Size = new System.Drawing.Size(86, 20);
             this.ILaR.TabIndex = 65;
@@ -344,7 +352,7 @@
             // 
             this.ILB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILB.Location = new System.Drawing.Point(255, 284);
+            this.ILB.Location = new System.Drawing.Point(257, 341);
             this.ILB.Name = "ILB";
             this.ILB.Size = new System.Drawing.Size(86, 20);
             this.ILB.TabIndex = 70;
@@ -354,7 +362,7 @@
             // 
             this.ILG.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILG.Location = new System.Drawing.Point(153, 284);
+            this.ILG.Location = new System.Drawing.Point(155, 341);
             this.ILG.Name = "ILG";
             this.ILG.Size = new System.Drawing.Size(86, 20);
             this.ILG.TabIndex = 69;
@@ -364,7 +372,7 @@
             // 
             this.ILR.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ILR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ILR.Location = new System.Drawing.Point(51, 284);
+            this.ILR.Location = new System.Drawing.Point(53, 341);
             this.ILR.Name = "ILR";
             this.ILR.Size = new System.Drawing.Size(86, 20);
             this.ILR.TabIndex = 68;
@@ -374,7 +382,7 @@
             // 
             this.LZ.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.LZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LZ.Location = new System.Drawing.Point(255, 335);
+            this.LZ.Location = new System.Drawing.Point(257, 392);
             this.LZ.Name = "LZ";
             this.LZ.Size = new System.Drawing.Size(86, 20);
             this.LZ.TabIndex = 73;
@@ -384,7 +392,7 @@
             // 
             this.LY.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.LY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LY.Location = new System.Drawing.Point(153, 335);
+            this.LY.Location = new System.Drawing.Point(155, 392);
             this.LY.Name = "LY";
             this.LY.Size = new System.Drawing.Size(86, 20);
             this.LY.TabIndex = 72;
@@ -394,7 +402,7 @@
             // 
             this.LX.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.LX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LX.Location = new System.Drawing.Point(51, 335);
+            this.LX.Location = new System.Drawing.Point(53, 392);
             this.LX.Name = "LX";
             this.LX.Size = new System.Drawing.Size(86, 20);
             this.LX.TabIndex = 71;
@@ -404,7 +412,7 @@
             // 
             this.n.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.n.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.n.Location = new System.Drawing.Point(51, 381);
+            this.n.Location = new System.Drawing.Point(53, 438);
             this.n.Name = "n";
             this.n.Size = new System.Drawing.Size(86, 20);
             this.n.TabIndex = 74;
@@ -413,7 +421,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(88, 164);
+            this.label8.Location = new System.Drawing.Point(90, 221);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(15, 13);
             this.label8.TabIndex = 75;
@@ -422,7 +430,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(189, 164);
+            this.label9.Location = new System.Drawing.Point(191, 221);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(15, 13);
             this.label9.TabIndex = 76;
@@ -431,7 +439,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(292, 164);
+            this.label10.Location = new System.Drawing.Point(294, 221);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(14, 13);
             this.label10.TabIndex = 77;
@@ -440,7 +448,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 182);
+            this.label11.Location = new System.Drawing.Point(18, 239);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(20, 13);
             this.label11.TabIndex = 78;
@@ -449,7 +457,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(16, 206);
+            this.label12.Location = new System.Drawing.Point(18, 263);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 79;
@@ -458,7 +466,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 234);
+            this.label13.Location = new System.Drawing.Point(18, 291);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(19, 13);
             this.label13.TabIndex = 80;
@@ -467,7 +475,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 337);
+            this.label14.Location = new System.Drawing.Point(21, 394);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 13);
             this.label14.TabIndex = 81;
@@ -476,7 +484,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(17, 286);
+            this.label15.Location = new System.Drawing.Point(19, 343);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(16, 13);
             this.label15.TabIndex = 82;
@@ -485,7 +493,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(13, 260);
+            this.label16.Location = new System.Drawing.Point(15, 317);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(22, 13);
             this.label16.TabIndex = 83;
@@ -494,7 +502,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 383);
+            this.label17.Location = new System.Drawing.Point(21, 440);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(13, 13);
             this.label17.TabIndex = 84;
@@ -503,7 +511,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(88, 319);
+            this.label18.Location = new System.Drawing.Point(90, 376);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(14, 13);
             this.label18.TabIndex = 87;
@@ -512,7 +520,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(189, 319);
+            this.label19.Location = new System.Drawing.Point(191, 376);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(14, 13);
             this.label19.TabIndex = 86;
@@ -521,7 +529,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(292, 319);
+            this.label20.Location = new System.Drawing.Point(294, 376);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(14, 13);
             this.label20.TabIndex = 85;
@@ -566,12 +574,96 @@
             this.YZTf.TabIndex = 88;
             this.YZTf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(18, 155);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(12, 13);
+            this.label22.TabIndex = 93;
+            this.label22.Text = "x";
+            // 
+            // xMin
+            // 
+            this.xMin.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.xMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xMin.Location = new System.Drawing.Point(53, 153);
+            this.xMin.Name = "xMin";
+            this.xMin.Size = new System.Drawing.Size(86, 20);
+            this.xMin.TabIndex = 92;
+            this.xMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // xMax
+            // 
+            this.xMax.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.xMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xMax.Location = new System.Drawing.Point(155, 153);
+            this.xMax.Name = "xMax";
+            this.xMax.Size = new System.Drawing.Size(86, 20);
+            this.xMax.TabIndex = 94;
+            this.xMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(86, 137);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(23, 13);
+            this.label23.TabIndex = 95;
+            this.label23.Text = "min";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(185, 137);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 13);
+            this.label24.TabIndex = 96;
+            this.label24.Text = "max";
+            // 
+            // yMax
+            // 
+            this.yMax.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.yMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.yMax.Location = new System.Drawing.Point(155, 179);
+            this.yMax.Name = "yMax";
+            this.yMax.Size = new System.Drawing.Size(86, 20);
+            this.yMax.TabIndex = 99;
+            this.yMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(18, 181);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(12, 13);
+            this.label25.TabIndex = 98;
+            this.label25.Text = "y";
+            // 
+            // yMin
+            // 
+            this.yMin.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.yMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.yMin.Location = new System.Drawing.Point(53, 179);
+            this.yMin.Name = "yMin";
+            this.yMin.Size = new System.Drawing.Size(86, 20);
+            this.yMin.TabIndex = 97;
+            this.yMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // SetVRPForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(359, 503);
+            this.Controls.Add(this.yMax);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.yMin);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.xMax);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.xMin);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.YXTf);
             this.Controls.Add(this.YYTf);
@@ -685,5 +777,13 @@
         public System.Windows.Forms.TextBox YXTf;
         public System.Windows.Forms.TextBox YYTf;
         public System.Windows.Forms.TextBox YZTf;
+        private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.TextBox xMin;
+        public System.Windows.Forms.TextBox xMax;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        public System.Windows.Forms.TextBox yMax;
+        private System.Windows.Forms.Label label25;
+        public System.Windows.Forms.TextBox yMin;
     }
 }

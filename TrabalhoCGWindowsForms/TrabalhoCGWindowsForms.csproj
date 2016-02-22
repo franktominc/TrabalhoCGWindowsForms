@@ -68,11 +68,13 @@
     <Compile Include="DrawActions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainView.cs" />
+    <Compile Include="MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainView2.cs">
+    <Compile Include="SolidActions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Model\Solid.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Transformations.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\Helpers.cs" />
     <Compile Include="Utils\MathOperations.cs" />
     <EmbeddedResource Include="MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>

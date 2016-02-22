@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using TrabalhoCGWindowsForms.Model;
 
 namespace TrabalhoCGWindowsForms {
     public partial class SetVRPForm : Form {
@@ -18,7 +13,7 @@ namespace TrabalhoCGWindowsForms {
 
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void setButton_Click(object sender, EventArgs e) {
             Parent.VRP.X = Convert.ToDouble(VRPx.Text);
             Parent.VRP.Y = Convert.ToDouble(VRPy.Text);
             Parent.VRP.Z = Convert.ToDouble(VRPz.Text);
@@ -33,6 +28,11 @@ namespace TrabalhoCGWindowsForms {
             Parent.Y.Y = Convert.ToDouble(YYTf.Text);
             Parent.Y.Z = Convert.ToDouble(YZTf.Text);
 
+            Parent.xMax = Convert.ToDouble(xMax.Text);
+            Parent.xMin = Convert.ToDouble(xMin.Text);
+            Parent.yMax = Convert.ToDouble(yMax.Text);
+            Parent.yMin = Convert.ToDouble(yMin.Text);
+            
             Parent.L.X = Convert.ToDouble(LX.Text);
             Parent.L.Y = Convert.ToDouble(LY.Text);
             Parent.L.Z = Convert.ToDouble(LZ.Text);
@@ -44,24 +44,24 @@ namespace TrabalhoCGWindowsForms {
             Parent.iLa.X = Convert.ToDouble(ILaR.Text);
             Parent.iLa.Y = Convert.ToDouble(ILaG.Text);
             Parent.iLa.Z = Convert.ToDouble(ILaB.Text);
+            if (Parent.selectedGuy >= 0) {
+                foreach (var solid in Parent.solidsList[Parent.selectedGuy]) {
+                    solid.Ka = new Vector(Convert.ToDouble(KaR.Text),
+                                          Convert.ToDouble(KaG.Text),
+                                          Convert.ToDouble(KaB.Text));
+                    solid.Kd = new Vector(Convert.ToDouble(KdR.Text),
+                                          Convert.ToDouble(KdG.Text),
+                                          Convert.ToDouble(KdB.Text));
+                    solid.Ks = new Vector(Convert.ToDouble(KsR.Text),
+                                          Convert.ToDouble(KsG.Text),
+                                          Convert.ToDouble(KsB.Text));
+                    solid.N = Convert.ToInt32(n.Text);
 
-            Parent.ka.X = Convert.ToDouble(KaR.Text);
-            Parent.ka.Y = Convert.ToDouble(KaG.Text);
-            Parent.ka.Z = Convert.ToDouble(KaB.Text);
-
-            Parent.kd.X = Convert.ToDouble(KdR.Text);
-            Parent.kd.Y = Convert.ToDouble(KdG.Text);
-            Parent.kd.Z = Convert.ToDouble(KdB.Text);
-
-            Parent.ks.X = Convert.ToDouble(KsR.Text);
-            Parent.ks.Y = Convert.ToDouble(KsG.Text);
-            Parent.ks.Z = Convert.ToDouble(KsB.Text);
-
-            Parent.n = Convert.ToInt32(n.Text);
-
+                }
+            }
+            
             Dispose(true);
             Parent.DrawSolids();
-
         }
     }
 }
