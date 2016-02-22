@@ -285,6 +285,7 @@ namespace TrabalhoCGWindowsForms {
             this.addCubeBox.Name = "addCubeBox";
             this.addCubeBox.Size = new System.Drawing.Size(40, 40);
             this.addCubeBox.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.addCubeBox, "Add Cube");
             this.addCubeBox.UseVisualStyleBackColor = false;
             this.addCubeBox.Click += new System.EventHandler(this.addCubeBox_Click);
             // 
@@ -297,6 +298,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScalePlus.Name = "btScalePlus";
             this.btScalePlus.Size = new System.Drawing.Size(40, 40);
             this.btScalePlus.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.btScalePlus, "Z Scale up");
             this.btScalePlus.UseVisualStyleBackColor = false;
             this.btScalePlus.Click += new System.EventHandler(this.ZScalePlus_Click);
             // 
@@ -310,6 +312,7 @@ namespace TrabalhoCGWindowsForms {
             this.btScaleMinus.Size = new System.Drawing.Size(40, 40);
             this.btScaleMinus.TabIndex = 28;
             this.btScaleMinus.Text = "-";
+            this.toolTip1.SetToolTip(this.btScaleMinus, "Z Scale down");
             this.btScaleMinus.UseVisualStyleBackColor = false;
             this.btScaleMinus.Click += new System.EventHandler(this.ZScaleMinus_Click);
             // 
@@ -323,6 +326,7 @@ namespace TrabalhoCGWindowsForms {
             this.hideFacesBox.Name = "hideFacesBox";
             this.hideFacesBox.Size = new System.Drawing.Size(40, 40);
             this.hideFacesBox.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.hideFacesBox, "Hide Faces");
             this.hideFacesBox.UseVisualStyleBackColor = false;
             this.hideFacesBox.Click += new System.EventHandler(this.HideFacesBox_Click);
             // 
@@ -336,6 +340,7 @@ namespace TrabalhoCGWindowsForms {
             this.groupSolidsCheckBox.Name = "groupSolidsCheckBox";
             this.groupSolidsCheckBox.Size = new System.Drawing.Size(40, 40);
             this.groupSolidsCheckBox.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.groupSolidsCheckBox, "Multiple Selection");
             this.groupSolidsCheckBox.UseVisualStyleBackColor = false;
             this.groupSolidsCheckBox.Click += new System.EventHandler(this.groupSolidsCheckBox_Click);
             // 
@@ -348,6 +353,7 @@ namespace TrabalhoCGWindowsForms {
             this.groupBt.Name = "groupBt";
             this.groupBt.Size = new System.Drawing.Size(40, 40);
             this.groupBt.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.groupBt, "Group");
             this.groupBt.UseVisualStyleBackColor = false;
             this.groupBt.Click += new System.EventHandler(this.groupBt_Click);
             // 
@@ -360,6 +366,7 @@ namespace TrabalhoCGWindowsForms {
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(40, 40);
             this.button1.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.button1, "Ungroup");
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.UngroupSolidsBt_Click);
             // 
@@ -372,6 +379,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeView.Name = "removeView";
             this.removeView.Size = new System.Drawing.Size(40, 40);
             this.removeView.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.removeView, "Remove Cube");
             this.removeView.UseVisualStyleBackColor = false;
             this.removeView.Click += new System.EventHandler(this.removeSolidBt_Click);
             // 
@@ -384,6 +392,7 @@ namespace TrabalhoCGWindowsForms {
             this.removeAllButton.Name = "removeAllButton";
             this.removeAllButton.Size = new System.Drawing.Size(40, 40);
             this.removeAllButton.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.removeAllButton, "Delete All");
             this.removeAllButton.UseVisualStyleBackColor = false;
             this.removeAllButton.Click += new System.EventHandler(this.removeAllButton_Click);
             // 
@@ -396,12 +405,9 @@ namespace TrabalhoCGWindowsForms {
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(40, 40);
             this.button2.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.button2, "Select All");
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.SelectAllSolidsBt_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.ToolTipTitle = "Adicionar Cubo";
             // 
             // rotateCubeCheckbox
             // 
@@ -414,6 +420,7 @@ namespace TrabalhoCGWindowsForms {
             this.rotateCubeCheckbox.Name = "rotateCubeCheckbox";
             this.rotateCubeCheckbox.Size = new System.Drawing.Size(40, 40);
             this.rotateCubeCheckbox.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.rotateCubeCheckbox, "Rotate Cube");
             this.rotateCubeCheckbox.UseVisualStyleBackColor = false;
             // 
             // translateCubeCheckbox
@@ -427,6 +434,7 @@ namespace TrabalhoCGWindowsForms {
             this.translateCubeCheckbox.Name = "translateCubeCheckbox";
             this.translateCubeCheckbox.Size = new System.Drawing.Size(40, 40);
             this.translateCubeCheckbox.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.translateCubeCheckbox, "Translate Cube");
             this.translateCubeCheckbox.UseVisualStyleBackColor = false;
             // 
             // isometricCheckBox
@@ -439,6 +447,7 @@ namespace TrabalhoCGWindowsForms {
             this.isometricCheckBox.Name = "isometricCheckBox";
             this.isometricCheckBox.Size = new System.Drawing.Size(40, 40);
             this.isometricCheckBox.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.isometricCheckBox, "Isometric View");
             this.isometricCheckBox.UseVisualStyleBackColor = false;
             this.isometricCheckBox.Click += new System.EventHandler(this.isometricCheckBox_Click);
             // 
@@ -452,6 +461,7 @@ namespace TrabalhoCGWindowsForms {
             this.flatBox.Name = "flatBox";
             this.flatBox.Size = new System.Drawing.Size(40, 40);
             this.flatBox.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.flatBox, "Flat Paint");
             this.flatBox.UseVisualStyleBackColor = false;
             this.flatBox.CheckedChanged += new System.EventHandler(this.flatBox_CheckedChanged);
             this.flatBox.Click += new System.EventHandler(this.flatBox_Click);
@@ -465,6 +475,7 @@ namespace TrabalhoCGWindowsForms {
             this.zBufferBt.Name = "zBufferBt";
             this.zBufferBt.Size = new System.Drawing.Size(40, 40);
             this.zBufferBt.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.zBufferBt, "ZBuffer");
             this.zBufferBt.UseVisualStyleBackColor = false;
             this.zBufferBt.Click += new System.EventHandler(this.zBufferBt_Click);
             // 
