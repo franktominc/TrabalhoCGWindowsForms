@@ -223,7 +223,7 @@ namespace TrabalhoCGWindowsForms {
                     double value2 = Math.Pow(MathOperations.DotProduct(R, S), solid.N);
                     iS.X = iL.X * solid.Ks.X * value2;
                     iS.Y = iL.Y * solid.Ks.Y * value2;
-                    iS.X = iL.Z * solid.Ks.Z * value2;
+                    iS.Z = iL.Z * solid.Ks.Z * value2;
                 }
 
                 iT = new Vector();
@@ -236,122 +236,7 @@ namespace TrabalhoCGWindowsForms {
             }
         }
 
-        /*public Color[,] ZBuffer(int view, PictureBox pc) {
-            var zBufferArray = new int[pc.Width,pc.Height];
-            var colorArray = new Color[pc.Width,pc.Height];
-
-            Console.Write("{0} {1}",pc.Height,pc.Width);
-
-            zBufferArray.Fill(int.MinValue);
-            colorArray.Fill(pc.BackColor);
-
-            var x = 0;
-            var y = 0;
-            
-            foreach (var solid in perspectiveSolidList.SelectMany(solidList => solidList)) {
-                switch (view) {
-                    case 0:        //Top View
-                        x = 0;
-                        y = 2;
-                        solid.ComputeVisibility(new Vector(solid.Points[0, 8], 1, solid.Points[2, 8]));
-                        break;
-                    case 1:       //Front View
-                        x = 0;
-                        y = 1;
-                        solid.ComputeVisibility(new Vector(solid.Points[0, 8], solid.Points[1, 8], 1));
-                        break;
-                    case 2:       //Left View
-                        x = 2;
-                        y = 1;
-                        solid.ComputeVisibility(new Vector(1, solid.Points[1, 8], solid.Points[2, 8]));
-                        break;
-                    case 3:     //Perspective
-                        x = 0;
-                        y = 1;
-                        if (isometricCheckBox.Checked) {
-                            solid.ComputeVisibility(new Vector(0, 0, 1), new Vector(0, 0, 0));
-                        }
-                        else {
-                            solid.ComputeVisibility(VRP, P);
-                        }
-                        break;
-                   }
-                for (var i = 0; i < 6; i++) {
-                    var d = 0.0;
-                    if (!solid.VisibleFaces[i]) continue;
-                    Console.WriteLine("text");
-                    d = MathOperations.DotProduct(solid.NormalFaces[i], new Vector(solid.Points[0, solid.Faces[i, 0]],
-                                                                                           solid.Points[1 ,solid.Faces[i, 0]],
-                                                                                           solid.Points[2, solid.Faces[i, 0]]));
-                    d *= -1;
-          
-                    int yMenor = DecideMid(solid.Points[1,solid.Faces[i, 0]], 
-                                          solid.Points[1,solid.Faces[i, 1]], 
-                                          solid.Points[1,solid.Faces[i, 2]], 
-                                          solid.Points[1,solid.Faces[i, 3]]);
-
-                    Vector mid = new Vector((int)solid.Points[0, solid.Faces[i, yMenor]], 
-                                            (int)solid.Points[1, solid.Faces[i, yMenor]], 
-                                            (int)solid.Points[2, solid.Faces[i, yMenor]]);
-
-                    Vector prev = new Vector((int)solid.Points[0, solid.Faces[i, (yMenor + 1) % 4]], 
-                                             (int)solid.Points[1, solid.Faces[i, (yMenor + 1) % 4]], 
-                                             (int)solid.Points[2, solid.Faces[i,  (yMenor + 1) % 4]]);
-
-                    Vector next = new Vector((int)solid.Points[0, solid.Faces[i, (yMenor - 1 < 0 ? 3 : yMenor - 1)]], 
-                                             (int)solid.Points[1, solid.Faces[i,  (yMenor - 1 < 0 ? 3 : yMenor - 1)]], 
-                                             (int)solid.Points[2, solid.Faces[i, (yMenor - 1 < 0 ? 3 : yMenor - 1)]]);
-
-                    Vector end = new Vector( (int)solid.Points[0, solid.Faces[i, (yMenor + 2) % 4]], 
-                                             (int)solid.Points[1, solid.Faces[i, (yMenor + 2) % 4]], 
-                                             (int)solid.Points[2, solid.Faces[i, (yMenor + 2) % 4]]);
-
-                    double deltaX1 = -GetDelta(mid.X, prev.X, prev.Y, mid.Y);
-                    double deltaX2 = GetDelta(next.X, mid.X, next.Y, mid.Y);
-
-                    switch (view) {
-                        case 0: //Top View
-                            
-                            break;
-                        case 3: //Perspective
-                        case 1: //Front View
-                            int k1 = 0;
-                            int k2 = 0;
-                            while (mid.Y < end.Y) {
-                                if (mid.Y >= prev.Y) {
-                                    deltaX1 = GetDelta(prev.X, end.X, prev.Y, end.Y);
-                                    k1 = 0;
-                                }
-                                if (mid.Y >= next.Y) {
-                                    deltaX2 = GetDelta(next.X, end.X, next.Y, end.Y);
-                                    k2 = 0;
-                                }
-                                for (int j = (int)(mid.X+k1*deltaX1); j < mid.X+k2*deltaX2; j++) {
-                                    int z = (int) ((-d - solid.NormalFaces[i].X*j -
-                                            solid.NormalFaces[i].Y*mid.Y)/solid.NormalFaces[i].Z);
-                                    Console.WriteLine(z);
-                                    if (!(z > zBufferArray[(int) mid.Y, j])) {
-                                        continue;
-                                    }
-                                    zBufferArray[(int) mid.Y, j] = z;
-                                    //calcula cor
-                                    colorArray[(int) mid.Y, j] = Color.Chocolate;
-                                }
-                                k1++;
-                                k2++;
-                                mid.Y++;
-                            }
-                            
-
-                            break;
-                        case 2: //Left View
-                            
-                            break;
-                    }
-                }
-            }
-            return colorArray;
-        }*/
+      
 
         public void ZBuffer(int view, PictureBox pc) {
             switch (view) {
